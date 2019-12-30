@@ -12,8 +12,12 @@
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "last-name" }%>
-    <%= f.input :photo_url,
+    <%= f.input :phone_number,
                 required: true,
+                autofocus: true,
+                input_html: { autocomplete: "phone-number" }%>
+    <%= f.input :photo_url,
+                required: false,
                 autofocus: true,
                 input_html: { autocomplete: "photo-url" }%>
     <%= f.input :subjects,
