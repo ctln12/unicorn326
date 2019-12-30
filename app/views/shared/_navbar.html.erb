@@ -28,7 +28,10 @@
         </li>
       <% else %>
         <li class="nav-item">
-          <%= link_to "Login", new_student_session_path || new_tutor_session_path, class: "nav-link" %>
+          <%= link_to "Login as Student", new_student_session_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Login as Tutor", new_tutor_session_path, class: "nav-link" %>
         </li>
       <% end %>
     </ul>
