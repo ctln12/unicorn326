@@ -16,6 +16,9 @@
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "date-of-birth" }%>
+    <%= form_for Tutor.new, url: root_url do |f| %>
+    <%= f.country_select :country, required: true %>
+    <% end %>
     <%= f.input :phone_number,
                 required: true,
                 autofocus: true,
