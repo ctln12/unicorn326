@@ -7,7 +7,7 @@ class Tutor < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :date_of_birth, presence: true
-  validates :country
+  validates :country, presence: true
   validates :phone_number, presence: true
   # validates :photo_url, presence: true
   validates :subjects, presence: true
