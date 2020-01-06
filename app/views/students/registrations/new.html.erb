@@ -21,6 +21,9 @@
     <%= f.input :last_name,
                 required: true,
                 input_html: { autocomplete: "Last Name" } %>
+    <%= form_for Student.new, url: root_url do |f| %>
+    <%= f.country_select :country, required: true %>
+    <% end %>
     <%= f.input :photo_url,
                 required: false,
                 input_html: { autocomplete: "Photo url" } %>
