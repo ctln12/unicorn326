@@ -6,8 +6,7 @@ class Student < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  #validates :phone_number, presence: true
-  #validates :country, presence: true
-  validates :date_of_birth, presence: true
+  validates :country, presence: true
   #validates :photo_url, presence: true
+  validates :date_of_birth, presence: true
 end
