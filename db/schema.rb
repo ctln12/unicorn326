@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_03_164339) do
+ActiveRecord::Schema.define(version: 2020_01_06_103556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,8 +35,10 @@ ActiveRecord::Schema.define(version: 2020_01_03_164339) do
     t.string "photo_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "wallets_id"
     t.index ["email"], name: "index_students_on_email", unique: true
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
+    t.index ["wallets_id"], name: "index_students_on_wallets_id"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -54,8 +56,6 @@ ActiveRecord::Schema.define(version: 2020_01_03_164339) do
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
-    t.string "subjects"
-    t.string "spoken_languages"
     t.string "currency"
     t.float "price"
     t.string "country"
@@ -65,8 +65,14 @@ ActiveRecord::Schema.define(version: 2020_01_03_164339) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date_of_birth"
+    t.bigint "subjects_id"
+    t.bigint "spoken_languages_id"
+    t.bigint "wallets_id"
     t.index ["email"], name: "index_tutors_on_email", unique: true
     t.index ["reset_password_token"], name: "index_tutors_on_reset_password_token", unique: true
+    t.index ["spoken_languages_id"], name: "index_tutors_on_spoken_languages_id"
+    t.index ["subjects_id"], name: "index_tutors_on_subjects_id"
+    t.index ["wallets_id"], name: "index_tutors_on_wallets_id"
   end
 
   create_table "wallets", force: :cascade do |t|
@@ -76,4 +82,8 @@ ActiveRecord::Schema.define(version: 2020_01_03_164339) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "students", "wallets", column: "wallets_id"
+  add_foreign_key "tutors", "spoken_languages", column: "spoken_languages_id"
+  add_foreign_key "tutors", "subjects", column: "subjects_id"
+  add_foreign_key "tutors", "wallets", column: "wallets_id"
 end
