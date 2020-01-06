@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_30_125336) do
+ActiveRecord::Schema.define(version: 2020_01_03_164339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "spoken_languages", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "students", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -31,6 +37,12 @@ ActiveRecord::Schema.define(version: 2019_12_30_125336) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_students_on_email", unique: true
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tutors", force: :cascade do |t|
@@ -55,6 +67,13 @@ ActiveRecord::Schema.define(version: 2019_12_30_125336) do
     t.date "date_of_birth"
     t.index ["email"], name: "index_tutors_on_email", unique: true
     t.index ["reset_password_token"], name: "index_tutors_on_reset_password_token", unique: true
+  end
+
+  create_table "wallets", force: :cascade do |t|
+    t.float "amount"
+    t.string "currency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
