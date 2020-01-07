@@ -49,3 +49,4 @@ danish = Language.new(name: "Danish")
 danish.save!
 
 puts 'Finished!'
+
