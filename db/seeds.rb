@@ -5,6 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts 'Destroying subjects...'
+Subject.destroy_all
+puts 'Destroying languages...'
+Language.destroy_all
 
 puts 'Creating subjects...'
 
