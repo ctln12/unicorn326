@@ -1,6 +1,8 @@
 class Tutor < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_many :taught_lessons
+  has_many :spoken_languages
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -10,8 +12,8 @@ class Tutor < ApplicationRecord
   validates :country, presence: true
   validates :phone_number, presence: true
   # validates :photo_url, presence: true
-  validates :subjects, presence: true
-  validates :spoken_languages, presence: true
+  # validates :subjects, presence: true
+  # validates :spoken_languages, presence: true
   validates :currency, presence: true
   validates :price, presence: true
 end
