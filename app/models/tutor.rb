@@ -1,7 +1,7 @@
 class Tutor < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  has_many :subjects
+  has_many :taught_lessons
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
