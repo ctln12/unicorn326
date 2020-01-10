@@ -2,7 +2,7 @@ class TaughtLessonsController < ApplicationController
   skip_before_action :authenticate_student!
 
   def index
-    @taught_lesson = TaughtLesson.all
+    @taught_lessons = TaughtLesson.all
   end
 
   def new
@@ -11,13 +11,16 @@ class TaughtLessonsController < ApplicationController
   end
 
   def create
-    @taught_lesson = TaughtLesson.new(taught_lesson_params)
-    @tutor = Tutor.find(params[current_user])
-    @taught_lesson.save
+    @tutor = Tutor.find(current_tutor.id)
+    params[:subject_id].each do |subject|
+      @taught_lesson = TaughtLesson.new(subject_id: subject, tutor_id: @tutor.id)
+      @taught_lesson.save
+    end
+    redirect_to root_path
   end
 
   def edit
-    @taught_lesson = TaughtLesson.find(params[current_user])
+    @taught_lesson = TaughtLesson.find(current_tutor.id)
   end
 
   def update
@@ -28,6 +31,6 @@ class TaughtLessonsController < ApplicationController
   private
 
   def taught_lesson_params
-    params.require(:taught_lesson).permit(:subject_id)
+    params.require(:taught_lesson).permit(:subject, :tutor)
   end
 end
