@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   def after_sign_up_path_for(resource)
     if resource.is_a?(Tutor)
       tutor_path(current_tutor)
+    elsif resource.is_a?(Student)
+      student_path(current_student)
     else
       super
     end
@@ -15,6 +17,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if resource.is_a?(Tutor)
       tutor_path(current_tutor)
+    elsif resource.is_a?(Student)
+      student_path(current_student)
     else
       super
     end
