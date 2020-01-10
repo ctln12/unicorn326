@@ -23,6 +23,37 @@
                 input_html: { autocomplete: "current-password" } %>
   </div>
 
+  <div>
+    <%= f.input :first_name,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "first-name" }%>
+    <%= f.input :last_name,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "last-name" }%>
+    <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year - 12, order: [:day, :month, :year],
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "date-of-birth" }%>
+    <%= f.label "Country" %><br>
+    <%= f.country_select :country,
+                required: true %>
+    <%= f.input :phone_number,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "phone-number" }%>
+    <%= f.input :photo_url,
+                required: false,
+                autofocus: true,
+                input_html: { autocomplete: "photo-url" }%>
+  </div>
+        <!-- This is a test -->
+    <%= collection_select(@subjects) %>
+  <div>
+
+  </div>
+
   <div class="form-actions">
     <%= f.button :submit, "Update" %>
   </div>

@@ -1,0 +1,5 @@
+<h2>Taught Lesson</h2>
+<%= simple_form_for [@taught_lesson] do |f| %>
+  <%= f.select :collection_select %>
+  <%= f.submit "Add a Lesson", class: "btn btn-primary" %>
+<% end %>
