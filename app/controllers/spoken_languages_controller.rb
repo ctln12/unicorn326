@@ -4,11 +4,12 @@ class SpokenLanguagesController < ApplicationController
   end
 
   def create
-    @spoken_language = SpokenLanguage.new(language_id: params[:spoken_language][:language_id].to_i, tutor_id: params[:spoken_language][:tutor_id].to_i)
-    @spoken_language.save
-
-    if @spoken_language.save
-      redirect_to tutor_path(current_tutor.id)
+    @tutor = Tutor.find(current_tutor.id)
+    params[:language_id].each do |language|
+      @spoken_language = SpokenLanguage.new(language_id: language, tutor_id: @tutor.id)
+      @spoken_language.save
     end
+
+    redirect_to tutor_path(current_tutor.id) if @spoken_language.save
   end
 end
