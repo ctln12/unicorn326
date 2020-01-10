@@ -4,5 +4,6 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
   get 'subjects/index', to: 'subjects#index'
+  get 'languages/index', to: 'languages#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
