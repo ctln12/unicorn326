@@ -1,8 +1,7 @@
 <h1>SpokenLanguages#new</h1>
 <p>Find me in app/views/spoken_languages/new.html.erb</p>
 
-<%= simple_form_for @spoken_language do |f| %>
-  <%= f.input :language_id, collection: Language.all %>
-  <%= f.input :tutor_id, :as => :hidden, :input_html => { :value => current_tutor.id } %>
-  <%= f.button :submit, class: "btn btn-primary" %>
+<%= simple_form_for [@spoken_language] do |f| %>
+  <%= select_tag(:language_id, options_for_select(Language.pluck(:name, :id)),  class: "selectpicker", multiple: true)  %>
+  <%= f.submit "Add Languages", class: "btn btn-primary" %>
 <% end %>
