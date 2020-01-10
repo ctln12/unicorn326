@@ -1,2 +1,12 @@
 <h1>Tutors#show for <%= @tutor.first_name %> <%= @tutor.last_name %></h1>
 <p>Find me in app/views/tutors/show.html.erb</p>
+
+<h3>Spoken Languages</h3>
+
+<% if @tutor.spoken_languages == [] %>
+  <%= link_to 'Add Languages', new_spoken_language_path, class: 'btn btn-primary' %>
+<% else %>
+  <% @tutor.spoken_languages.each do |spoken_language| %>
+    <p><%= spoken_language.language.name %></p>
+  <% end %>
+<% end %>
