@@ -1,6 +1,4 @@
 class TaughtLessonsController < ApplicationController
-  skip_before_action :authenticate_student!
-
   def index
     @taught_lessons = TaughtLesson.all
   end
@@ -11,9 +9,8 @@ class TaughtLessonsController < ApplicationController
   end
 
   def create
-    @tutor = Tutor.find(current_tutor.id)
     params[:subject_id].each do |subject|
-      @taught_lesson = TaughtLesson.new(subject_id: subject, tutor_id: @tutor.id)
+      @taught_lesson = TaughtLesson.new(subject_id: subject, tutor_id: current_tutor.id)
       @taught_lesson.save
     end
     redirect_to root_path
