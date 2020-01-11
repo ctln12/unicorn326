@@ -1,0 +1,5 @@
+<h2>Taught Lesson</h2>
+<%= simple_form_for [@taught_lesson] do |f| %>
+  <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id)),  class: "selectpicker", multiple: true)  %>
+  <%= f.submit "Add a Lesson", class: "btn btn-primary" %>
+<% end %>
