@@ -1,5 +1,7 @@
 <h1>Tutors#show for <%= @tutor.first_name %> <%= @tutor.last_name %></h1>
-<p>Find me in app/views/tutors/show.html.erb</p>
+
+<%= link_to "My profile", edit_tutor_registration_path %>
+
 
 <h3>Spoken Languages</h3>
 
@@ -10,3 +12,17 @@
     <p><%= spoken_language.language.name %></p>
   <% end %>
 <% end %>
+
+<h3>Subjects</h3>
+
+<% if @tutor.taught_lessons == [] %>
+  <%= puts "Please choose your subject(s)" %>
+<% else %>
+  <% @tutor.taught_lessons.each do |taught_lesson| %>
+    <p><%= taught_lesson.subject.name %> <%= link_to 'Edit', edit_taught_lesson_path(taught_lesson) %> <%= link_to "Delete", taught_lesson_path(taught_lesson),
+      method: :delete, data: { confirm: "Are you sure?" } %></p>
+  <% end %>
+<% end %>
+
+<%= link_to 'Add Subjects', new_taught_lesson_path, class: 'btn btn-primary' %>
+

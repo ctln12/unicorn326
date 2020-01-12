@@ -1,36 +1,39 @@
 class TaughtLessonsController < ApplicationController
-  skip_before_action :authenticate_student!
-
   def index
     @taught_lessons = TaughtLesson.all
   end
 
   def new
-    @tutor = Tutor.find(current_tutor.id)
     @taught_lesson = TaughtLesson.new
   end
 
   def create
-    @tutor = Tutor.find(current_tutor.id)
     params[:subject_id].each do |subject|
-      @taught_lesson = TaughtLesson.new(subject_id: subject, tutor_id: @tutor.id)
+      @taught_lesson = TaughtLesson.new(subject_id: subject, tutor_id: current_tutor.id)
       @taught_lesson.save
     end
-    redirect_to root_path
+    redirect_to tutor_path(current_tutor)
   end
 
   def edit
-    @taught_lesson = TaughtLesson.find(current_tutor.id)
+    @taught_lesson = TaughtLesson.find(params[:id])
   end
 
   def update
     @taught_lesson = TaughtLesson.find(params[:id])
-    @taught_lesson.update(params[:taught_lesson])
+    @taught_lesson.update(taught_lesson_params)
+    redirect_to tutor_path(current_tutor)
+  end
+
+  def destroy
+    @taught_lesson = TaughtLesson.find(params[:id])
+    @taught_lesson.destroy
+    redirect_to tutor_path(current_tutor)
   end
 
   private
 
   def taught_lesson_params
-    params.require(:taught_lesson).permit(:subject, :tutor)
+    params.require(:taught_lesson).permit(:subject_id)
   end
 end
