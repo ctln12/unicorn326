@@ -1,25 +1,27 @@
-<h1>Tutors#show for <%= @tutor.first_name %> <%= @tutor.last_name %></h1>
+<h1><%= @tutor.first_name %> <%= @tutor.last_name %>'s dashboard</h1>
 
-<%= link_to "My profile", edit_tutor_registration_path %>
-
-
-<h3>Spoken Languages</h3>
+<h3>Languages</h3>
 
 <% if @tutor.spoken_languages == [] %>
-  <%= link_to 'Add Languages', new_spoken_language_path, class: 'btn btn-primary' %>
+  <p>Please choose your language(s)</p>
 <% else %>
   <% @tutor.spoken_languages.each do |spoken_language| %>
-    <p><%= spoken_language.language.name %></p>
+    <p><%= spoken_language.language.name %> | <%= link_to "Delete", spoken_language_path(spoken_language),
+      method: :delete, data: { confirm: "Are you sure?" } %></p>
   <% end %>
 <% end %>
+
+<%= link_to 'Add Languages', new_spoken_language_path, class: 'btn btn-primary' %>
+
+<hr>
 
 <h3>Subjects</h3>
 
 <% if @tutor.taught_lessons == [] %>
-  <%= puts "Please choose your subject(s)" %>
+  <p>Please choose your subject(s)</p>
 <% else %>
   <% @tutor.taught_lessons.each do |taught_lesson| %>
-    <p><%= taught_lesson.subject.name %> <%= link_to "Delete", taught_lesson_path(taught_lesson),
+    <p><%= taught_lesson.subject.name %> | <%= link_to "Delete", taught_lesson_path(taught_lesson),
       method: :delete, data: { confirm: "Are you sure?" } %></p>
   <% end %>
 <% end %>
