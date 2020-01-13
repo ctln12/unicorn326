@@ -1,23 +1,42 @@
 <h1>Choose your tutor</h1>
 
-<% @tutors.each do |tutor| %>
-  <h4><%= tutor.first_name %> <%= tutor.last_name %></h4>
-  <p><%= ISO3166::Country.find_country_by_alpha2("#{tutor.country}").unofficial_names.first %></p>
-  <p><%= tutor.price.to_i %> <%= tutor.currency %> / h</p>
-  <p>Teaches:
-    <% tutor.taught_lessons.each do |taught_lesson| %>
-      <% separator = taught_lesson == tutor.taught_lessons.last ? '' : ',' %>
-      <span><%= taught_lesson.subject.name %><%= separator %></span>
+<div class="row">
+  <div class="col-3 sticky-top">
+    <div>
+      <%= form_tag tutors_path, method: :get do %>
+        <p>Subject</p>
+          <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id)), {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, multiple: true}) %>
+        <p>Language</p>
+        <%= select_tag(:language_id, options_for_select(Language.pluck(:name, :id)),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, multiple: true}) %>
+        <p>Country</p>
+        <%= select_tag(:country, options_for_select(ISO3166::Country.all.sort),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, multiple: true}) %>
+        <p>Currency</p>
+        <input type="text">
+        <%= submit_tag "Search", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col">
+    <% @tutors.each do |tutor| %>
+      <div id="<%= tutor.id %>" class="tutor">
+        <h4 class="name"><%= tutor.first_name %> <%= tutor.last_name %></h4>
+        <p class="country"><%= ISO3166::Country.find_country_by_alpha2("#{tutor.country}").unofficial_names.first %></p>
+        <p class="price"><%= tutor.price.to_i %> <%= tutor.currency %> / h</p>
+        <p class="subject">Teaches:
+          <% tutor.taught_lessons.each do |taught_lesson| %>
+            <% separator = taught_lesson == tutor.taught_lessons.last ? '' : ',' %>
+            <span><%= taught_lesson.subject.name %><%= separator %></span>
+          <% end %>
+        </p>
+        <p class="language">Speaks:
+          <% tutor.spoken_languages.each do |spoken_language| %>
+            <% separator = spoken_language == tutor.spoken_languages.last ? '' : ',' %>
+            <span><%= spoken_language.language.name %><%= separator %></span>
+          <% end %>
+        </p>
+        <%= link_to "View profile", tutor_path(tutor), class: "btn btn-primary" %>
+        <hr>
+      </div>
     <% end %>
-  </p>
-
-  <p>Speaks:
-    <% tutor.spoken_languages.each do |spoken_language| %>
-      <% separator = spoken_language == tutor.spoken_languages.last ? '' : ',' %>
-      <span><%= spoken_language.language.name %><%= separator %></span>
-    <% end %>
-  </p>
-
-  <%= link_to "View profile", tutor_path(tutor), class: "btn btn-primary" %>
-  <hr>
-<% end %>
+  </div>
+</div>
