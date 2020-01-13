@@ -4,26 +4,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def after_sign_up_path_for(resource)
-    if resource.is_a?(Tutor)
-      tutor_path(current_tutor)
-    elsif resource.is_a?(Student)
-      student_path(current_student)
-    else
-      super
-    end
-  end
-
-  def after_sign_in_path_for(resource)
-    if resource.is_a?(Tutor)
-      tutor_path(current_tutor)
-    elsif resource.is_a?(Student)
-      student_path(current_student)
-    else
-      super
-    end
-  end
-
   def configure_permitted_parameters_student
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :country, :date_of_birth, :phone_number, :photo_url])
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :country, :date_of_birth, :phone_number, :photo_url])
