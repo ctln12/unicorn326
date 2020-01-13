@@ -1,0 +1,23 @@
+<h1>Choose your tutor</h1>
+
+<% @tutors.each do |tutor| %>
+  <h4><%= tutor.first_name %> <%= tutor.last_name %></h4>
+  <p><%= tutor.country %></p>
+  <p><%= tutor.price.to_i %> <%= tutor.currency %> / h</p>
+  <p>Teaches:
+    <% tutor.taught_lessons.each do |taught_lesson| %>
+      <% separator = taught_lesson == tutor.taught_lessons.last ? '' : ',' %>
+      <span><%= taught_lesson.subject.name %><%= separator %></span>
+    <% end %>
+  </p>
+
+  <p>Speaks:
+    <% tutor.spoken_languages.each do |spoken_language| %>
+      <% separator = spoken_language == tutor.spoken_languages.last ? '' : ',' %>
+      <span><%= spoken_language.language.name %><%= separator %></span>
+    <% end %>
+  </p>
+
+  <%= link_to "View profile", tutor_path(tutor), class: "btn btn-primary" %>
+  <hr>
+<% end %>
