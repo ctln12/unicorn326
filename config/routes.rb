@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
   resources :students, :only => [:show]
-  resources :tutors, :only => [:show]
+  resources :tutors, :only => [:index, :show]
   resources :subjects, :only => [:index]
   resources :languages, :only => [:index]
   resources :taught_lessons, :only => [:index, :new, :create, :destroy]
