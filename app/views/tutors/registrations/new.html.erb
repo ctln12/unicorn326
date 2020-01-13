@@ -26,42 +26,6 @@
                 required: false,
                 autofocus: true,
                 input_html: { autocomplete: "photo-url" }%>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 mx-auto">
-          <label class="text-black mb-3 lead mt-5">Subjects</label>
-          <!-- Multiselect dropdown -->
-          <select multiple data-style="bg-white rounded-pill px-4 py-3 shadow-sm" class="selectpicker w-100" data-live-search="true">
-            <option>Mathematics</option>
-            <option>English</option>
-            <option>Italian</option>
-            <option>German</option>
-            <option>Physics</option>
-            <option>Biology</option>
-            <option>Law</option>
-            <option>Management</option>
-            <option>Economics</option>
-            <option>Fiance</option>
-          </select><!-- End -->
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 mx-auto">
-          <label class="text-black mb-3 lead">Languages Spoken</label>
-          <!-- Multiselect dropdown -->
-          <select multiple data-style="bg-white rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100" data-live-search="true">
-            <option>French</option>
-            <option>English</option>
-            <option>Italian</option>
-            <option>German</option>
-            <option>Spanish</option>
-            <option>Portugese</option>
-          </select><!-- End -->
-        </div>
-      </div>
-    </div>
     <%= f.input :currency,
                 collection: ['CHF', 'EUR', 'USD'],
                 required: true,
