@@ -43,7 +43,7 @@ chemistry.save
 french = Subject.new(name: "French")
 french.save
 
-philosophy = Subject.new(name: "Phylosophy")
+philosophy = Subject.new(name: "Philosophy")
 philosophy.save
 
 statistics = Subject.new(name: "Statistics")
