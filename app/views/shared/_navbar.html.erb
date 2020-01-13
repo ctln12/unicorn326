@@ -15,6 +15,9 @@
         <li class="nav-item active">
           <%= link_to "Home", root_path, class: "nav-link" %>
         </li>
+        <li class="nav-item active">
+          <%= link_to "My profile", edit_tutor_registration_path, class: "nav-link" %>
+        </li>
         <li class="nav-item">
           <%= link_to "Dashboard", tutor_path(current_tutor.id), class: "nav-link" if current_tutor %>
         </li>
