@@ -1,30 +1,64 @@
-<h1><%= @tutor.first_name %> <%= @tutor.last_name %>'s dashboard</h1>
-
-<h3>Languages</h3>
-
-<% if @tutor.spoken_languages == [] %>
-  <p>Please choose your language(s)</p>
-<% else %>
-  <% @tutor.spoken_languages.each do |spoken_language| %>
-    <p><%= spoken_language.language.name %> | <%= link_to "Delete", spoken_language_path(spoken_language),
-      method: :delete, data: { confirm: "Are you sure?" } %></p>
-  <% end %>
-<% end %>
-
-<%= link_to 'Add Languages', new_spoken_language_path, class: 'btn btn-primary' %>
+<h1><%= @tutor.first_name %> <%= @tutor.last_name %></h1>
+<h5><%= @tutor.country %></h5>
+<h5><%= @tutor.price.to_i %> <%= @tutor.currency %> / h</h5>
 
 <hr>
-
-<h3>Subjects</h3>
-
-<% if @tutor.taught_lessons == [] %>
-  <p>Please choose your subject(s)</p>
-<% else %>
+<h2>Teaches:</h2>
+<p>
   <% @tutor.taught_lessons.each do |taught_lesson| %>
-    <p><%= taught_lesson.subject.name %> | <%= link_to "Delete", taught_lesson_path(taught_lesson),
-      method: :delete, data: { confirm: "Are you sure?" } %></p>
+    <% separator = taught_lesson == @tutor.taught_lessons.last ? '' : ',' %>
+    <span><%= taught_lesson.subject.name %><%= separator %></span>
   <% end %>
-<% end %>
+</p>
 
-<%= link_to 'Add Subjects', new_taught_lesson_path, class: 'btn btn-primary' %>
+<h2>Speaks:</h2>
+<p>
+  <% @tutor.spoken_languages.each do |spoken_language| %>
+    <% separator = spoken_language == @tutor.spoken_languages.last ? '' : ',' %>
+    <span><%= spoken_language.language.name %><%= separator %></span>
+  <% end %>
+</p>
 
+<hr>
+<h2>About me</h2>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus pellentesque eu tincidunt tortor aliquam nulla. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Orci nulla pellentesque dignissim enim. Volutpat blandit aliquam etiam erat velit scelerisque in dictum non. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Ac ut consequat semper viverra nam libero. Eget nunc lobortis mattis aliquam faucibus purus in massa. Mauris a diam maecenas sed enim ut sem viverra. Eget nullam non nisi est sit amet facilisis magna etiam.</p>
+
+<hr>
+<h2>Education</h2>
+
+<p><strong>Université Paris Descartes</strong></p>
+<p>Master in Mathematics</p>
+<p>September 2018 - present</p>
+<p>Paris, France</p>
+
+<p><strong>Université Paris Descartes</strong></p>
+<p>Bachelor in Mathematics</p>
+<p>September 2015 - June 2018</p>
+<p>Paris, France</p>
+
+<hr>
+<h2>Work experience</h2>
+
+<p><strong>G-Research</strong></p>
+<p>Internship in Quantitative Research</p>
+<p>July 2018 - August 2018</p>
+<p>Paris, France</p>
+
+<hr>
+<h2>Reviews</h2>
+
+<p><strong>PK</strong> <em>10 jan 2020</em></p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut.</p>
+
+<p><strong>DL</strong> <em>4 jan 2020</em></p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut.</p>
+
+<p><strong>CR</strong> <em>30 dec 2019</em></p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut.</p>
+
+<p><strong>AS</strong> <em>21 dec 2019</em></p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut.</p>
+
+<p><strong>TD</strong> <em>16 dec 2019</em></p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut.</p>
