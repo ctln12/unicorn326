@@ -98,51 +98,51 @@ puts 'Finished!'
 puts '-----------------------------'
 
 puts 'Creating Taught Lessons...'
-taughtlesson1 = TaughtLesson.new(subject_id: 2, tutor_id: 1)
+taughtlesson1 = TaughtLesson.new(subject_id: mathematics.id, tutor_id: pierre.id)
 taughtlesson1.save
-taughtlesson2 = TaughtLesson.new(subject_id: 3, tutor_id: 1)
+taughtlesson2 = TaughtLesson.new(subject_id: physics.id, tutor_id: pierre.id)
 taughtlesson2.save
-taughtlesson3 = TaughtLesson.new(subject_id: 7, tutor_id: 1)
+taughtlesson3 = TaughtLesson.new(subject_id: chemistry.id, tutor_id: pierre.id)
 taughtlesson3.save
-taughtlesson4 = TaughtLesson.new(subject_id: 2, tutor_id: 2)
+taughtlesson4 = TaughtLesson.new(subject_id: mathematics.id, tutor_id: david.id)
 taughtlesson4.save
-taughtlesson5 = TaughtLesson.new(subject_id: 4, tutor_id: 2)
+taughtlesson5 = TaughtLesson.new(subject_id: biology.id, tutor_id: david.id)
 taughtlesson5.save
-taughtlesson6 = TaughtLesson.new(subject_id: 2, tutor_id: 3)
+taughtlesson6 = TaughtLesson.new(subject_id: mathematics.id, tutor_id: charles.id)
 taughtlesson6.save
-taughtlesson7 = TaughtLesson.new(subject_id: 8, tutor_id: 3)
+taughtlesson7 = TaughtLesson.new(subject_id: philosophy.id, tutor_id: charles.id)
 taughtlesson7.save
-taughtlesson8 = TaughtLesson.new(subject_id: 9, tutor_id: 3)
+taughtlesson8 = TaughtLesson.new(subject_id: french.id, tutor_id: charles.id)
 taughtlesson8.save
-taughtlesson9 = TaughtLesson.new(subject_id: 2, tutor_id: 4)
+taughtlesson9 = TaughtLesson.new(subject_id: mathematics.id, tutor_id: john.id)
 taughtlesson9.save
-taughtlesson10 = TaughtLesson.new(subject_id: 10, tutor_id: 4)
+taughtlesson10 = TaughtLesson.new(subject_id: statistics.id, tutor_id: john.id)
 taughtlesson10.save
-taughtlesson11 = TaughtLesson.new(subject_id: 2, tutor_id: 5)
+taughtlesson11 = TaughtLesson.new(subject_id: mathematics.id, tutor_id: georges.id)
 taughtlesson11.save
 puts 'Finished!'
 puts '-----------------------------'
 
 puts 'Creating Spoken Languages...'
-spoken1 = SpokenLanguages.new(language_id: 1, tutor_id: 1)
+spoken1 = SpokenLanguage.new(language_id: english.id, tutor_id: pierre.id)
 spoken1.save
-spoken2 = SpokenLanguages.new(language_id: 3, tutor_id: 1)
+spoken2 = SpokenLanguage.new(language_id: french.id, tutor_id: pierre.id)
 spoken2.save
-spoken3 = SpokenLanguages.new(language_id: 1, tutor_id: 2)
+spoken3 = SpokenLanguage.new(language_id: english.id, tutor_id: david.id)
 spoken3.save
-spoken4 = SpokenLanguages.new(language_id: 3, tutor_id: 2)
+spoken4 = SpokenLanguage.new(language_id: french.id, tutor_id: david.id)
 spoken4.save
-spoken5 = SpokenLanguages.new(language_id: 1, tutor_id: 3)
+spoken5 = SpokenLanguage.new(language_id: english.id, tutor_id: charles.id)
 spoken5.save
-spoken6 = SpokenLanguages.new(language_id: 3, tutor_id: 3)
+spoken6 = SpokenLanguage.new(language_id: french.id, tutor_id: charles.id)
 spoken6.save
-spoken7 = SpokenLanguages.new(language_id: 1, tutor_id: 4)
+spoken7 = SpokenLanguage.new(language_id: english.id, tutor_id: john.id)
 spoken7.save
-spoken8 = SpokenLanguages.new(language_id: 3, tutor_id: 4)
+spoken8 = SpokenLanguage.new(language_id: french.id, tutor_id: john.id)
 spoken8.save
-spoken9 = SpokenLanguages.new(language_id: 1, tutor_id: 5)
+spoken9 = SpokenLanguage.new(language_id: english.id, tutor_id: georges.id)
 spoken9.save
-spoken10 = SpokenLanguages.new(language_id: 4, tutor_id: 5)
+spoken10 = SpokenLanguage.new(language_id: german.id, tutor_id: georges.id)
 spoken10.save
 puts 'Finished!'
 puts '-----------------------------'
