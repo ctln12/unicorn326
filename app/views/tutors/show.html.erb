@@ -19,7 +19,7 @@
   <%= puts "Please choose your subject(s)" %>
 <% else %>
   <% @tutor.taught_lessons.each do |taught_lesson| %>
-    <p><%= taught_lesson.subject.name %> <%= link_to 'Edit', edit_taught_lesson_path(taught_lesson) %> <%= link_to "Delete", taught_lesson_path(taught_lesson),
+    <p><%= taught_lesson.subject.name %> <%= link_to "Delete", taught_lesson_path(taught_lesson),
       method: :delete, data: { confirm: "Are you sure?" } %></p>
   <% end %>
 <% end %>

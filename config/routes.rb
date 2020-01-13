@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :tutors, paths: 'tutors', controllers: { sessions: 'tutors/sessions' }
 
   root to: 'pages#home'
-  resources :taught_lessons
+  resources :taught_lessons, :only => [:index, :new, :create, :destroy]
   resources :subjects, :only => [:index]
   resources :languages, :only => [:index]
   resources :tutors, :only => [:show]
