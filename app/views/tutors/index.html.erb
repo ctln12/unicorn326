@@ -18,7 +18,7 @@
     <% @tutors.each do |tutor| %>
       <div id="<%= tutor.id %>" class="tutor">
         <h4 class="name"><%= tutor.first_name %> <%= tutor.last_name %></h4>
-        <p class="country"><%= tutor.country %></p>
+        <p class="country"><%= ISO3166::Country.find_country_by_alpha2("#{tutor.country}").unofficial_names.first %></p>
         <p class="price"><%= tutor.price.to_i %> <%= tutor.currency %> / h</p>
         <p class="subject">Teaches:
           <% tutor.taught_lessons.each do |taught_lesson| %>
@@ -32,7 +32,6 @@
             <span><%= spoken_language.language.name %><%= separator %></span>
           <% end %>
         </p>
-
         <%= link_to "View profile", tutor_path(tutor), class: "btn btn-primary" %>
         <hr>
       </div>
