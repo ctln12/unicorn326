@@ -1,5 +1,5 @@
 class TutorsController < ApplicationController
-  before_action :authenticate_tutor!, only: [:show]
+  before_action :authenticate_student!, only: [:show]
 
   def index
     @tutors = Tutor.all
