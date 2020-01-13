@@ -1,17 +1,19 @@
 <h1>Choose your tutor</h1>
 
 <div class="row">
-  <div class="col-3">
+  <div class="col-3 sticky-top">
     <div>
-      <%= form_tag movies_path, method: :get do %>
-      <p>Subject</p>
-        <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id)),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, multiple: true}) %>
-      <p>Language</p>
-      <%= select_tag(:language_id, options_for_select(Language.pluck(:name, :id)),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, multiple: true}) %>
-      <p>Country</p>
-      <input type="text">
-      <p>Price</p>
-      <input type="text">
+      <%= form_tag tutors_path, method: :get do %>
+        <p>Subject</p>
+          <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id)), {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, multiple: true}) %>
+        <p>Language</p>
+        <%= select_tag(:language_id, options_for_select(Language.pluck(:name, :id)),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, multiple: true}) %>
+        <p>Country</p>
+        <%= select_tag(:country, options_for_select(ISO3166::Country.all.sort),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, multiple: true}) %>
+        <p>Currency</p>
+        <input type="text">
+        <%= submit_tag "Search", class: "btn btn-primary" %>
+      <% end %>
     </div>
   </div>
   <div class="col">
