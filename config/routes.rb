@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   devise_for :tutors, paths: 'tutors', controllers: { sessions: 'tutors/sessions' }
 
   root to: 'pages#home'
-  resources :taught_lessons, :only => [:index, :new, :create, :destroy]
+  resources :students, :only => [:show]
+  resources :tutors, :only => [:show]
   resources :subjects, :only => [:index]
   resources :languages, :only => [:index]
-  resources :tutors, :only => [:show]
-  resources :students, :only => [:show]
-  resources :spoken_languages, :only => [:new, :create, :edit]
+  resources :taught_lessons, :only => [:index, :new, :create, :destroy]
+  resources :spoken_languages, :only => [:index, :new, :create, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
