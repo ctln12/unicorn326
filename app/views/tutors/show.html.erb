@@ -1,5 +1,5 @@
 <h1><%= @tutor.first_name %> <%= @tutor.last_name %></h1>
-<h5><%= @tutor.country %></h5>
+<h5><%= ISO3166::Country.find_country_by_alpha2("#{@tutor.country}").unofficial_names.first %></h5>
 <h5><%= @tutor.price.to_i %> <%= @tutor.currency %> / h</h5>
 
 <hr>

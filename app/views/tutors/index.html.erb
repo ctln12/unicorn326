@@ -2,7 +2,7 @@
 
 <% @tutors.each do |tutor| %>
   <h4><%= tutor.first_name %> <%= tutor.last_name %></h4>
-  <p><%= tutor.country %></p>
+  <p><%= ISO3166::Country.find_country_by_alpha2("#{tutor.country}").unofficial_names.first %></p>
   <p><%= tutor.price.to_i %> <%= tutor.currency %> / h</p>
   <p>Teaches:
     <% tutor.taught_lessons.each do |taught_lesson| %>
