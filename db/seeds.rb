@@ -365,6 +365,8 @@ spoken9 = SpokenLanguage.new(language_id: english.id, tutor_id: georges.id)
 spoken9.save
 spoken10 = SpokenLanguage.new(language_id: german.id, tutor_id: georges.id)
 spoken10.save
+spoken11 = SpokenLanguage.new(language_id: Language.all.sample.id, tutor_id: Tutor.all.sample.id)
+spoken11.save
 spoken12 = SpokenLanguage.new(language_id: Language.all.sample.id, tutor_id: Tutor.all.sample.id)
 spoken12.save
 spoken13 = SpokenLanguage.new(language_id: Language.all.sample.id, tutor_id: Tutor.all.sample.id)
@@ -475,4 +477,5 @@ spoken64.save
 
 puts 'Finished!'
 puts '-----------------------------'
+
 
