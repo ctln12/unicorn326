@@ -1,0 +1,46 @@
+<h1>Your Profile <%= link_to 'edit', edit_tutor_registration_path %></h1>
+
+<hr>
+<h2>Personal Informations</h2>
+<p>First Name: <%= @tutor.first_name %></p>
+<p>Last Name:<%= @tutor.last_name %></p>
+<p>Country: <%= @tutor.country %></p>
+<p>Phone Number: +<%= @tutor.phone_number %></p>
+<p>Email: <%= @tutor.email %></p>
+
+<hr>
+<h2>Teaching Options</h2>
+<p>Price: <%= @tutor.price.to_i %> <%= @tutor.currency %> / h</p>
+<p>Subjects taught:</p>
+<% @tutor.taught_lessons.each do |taught_lesson| %>
+  <p>- <%= taught_lesson.subject.name %></p>
+<% end %>
+<p>Speaking languages</p>
+<% @tutor.spoken_languages.each do |spoken_language| %>
+  <p>- <%= spoken_language.language.name %></p>
+<% end %>
+
+<hr>
+<h2>Biography</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus pellentesque eu tincidunt tortor aliquam nulla. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Orci nulla pellentesque dignissim enim. Volutpat blandit aliquam etiam erat velit scelerisque in dictum non. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Ac ut consequat semper viverra nam libero. Eget nunc lobortis mattis aliquam faucibus purus in massa. Mauris a diam maecenas sed enim ut sem viverra. Eget nullam non nisi est sit amet facilisis magna etiam.</p>
+
+<hr>
+<h2>Education</h2>
+
+<p><strong>Université Paris Descartes</strong></p>
+<p>Master in Mathematics</p>
+<p>September 2018 - present</p>
+<p>Paris, France</p>
+
+<p><strong>Université Paris Descartes</strong></p>
+<p>Bachelor in Mathematics</p>
+<p>September 2015 - June 2018</p>
+<p>Paris, France</p>
+
+<hr>
+<h2>Work experience</h2>
+
+<p><strong>G-Research</strong></p>
+<p>Internship in Quantitative Research</p>
+<p>July 2018 - August 2018</p>
+<p>Paris, France</p>
