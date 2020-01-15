@@ -140,9 +140,6 @@ indonesian.save
 chinese = Language.new(name: "Chinese")
 chinese.save
 
-ruby = Language.new(name: "Ruby")
-ruby.save
-
 puts 'Finished!'
 puts '-----------------------------'
 
