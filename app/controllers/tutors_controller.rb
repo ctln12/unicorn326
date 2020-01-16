@@ -3,26 +3,44 @@ class TutorsController < ApplicationController
   before_action :authenticate_tutor!, only: [:profile]
 
   def index
-    if params[:subject_id].present?
-      @tutors = []
-      taught_lessons = TaughtLesson.where(subject_id: params[:subject_id])
-      taught_lessons.each do |taught_lesson|
-        @tutors << taught_lesson.tutor
-      end
-      @tutors
-    elsif params[:language_id].present?
-      @tutors = []
-      spoken_languages = SpokenLanguage.where(language_id: params[:language_id])
-      spoken_languages.each do |spoken_language|
-        @tutors << spoken_language.tutor
-      end
-      @tutors
-    elsif params[:country].present?
-      country_code = ISO3166::Country.find_country_by_name(params[:country].first).alpha2
-      @tutors = Tutor.where(country: country_code)
-    else
+    if params[:subject_id].nil? && params[:language_id].nil? && params[:country].nil?
       @tutors = Tutor.all
+    else
+      subject = Subject.find(params[:subject_id].to_i).name unless params[:subject_id] == ''
+      language = Language.find(params[:language_id].to_i).name unless params[:language_id] == ''
+      country_code = ISO3166::Country.find_country_by_name(params[:country]).alpha2 unless params[:country] == ''
+      if params[:subject_id] == '' && params[:language_id] == '' && params[:country] == ''
+        @tutors = Tutor.all
+      elsif params[:language_id] == '' && params[:country] == ''
+        @tutors = Tutor
+                  .joins(:subjects)
+                  .where(['subjects.name = ?', subject])
+      elsif params[:subject_id] == '' && params[:country] == ''
+        @tutors = Tutor
+                  .joins(:languages)
+                  .where(['languages.name = ?', language])
+      elsif params[:subject_id] == '' && params[:language_id] == ''
+        @tutors = Tutor
+                  .where(['country = ?', country_code])
+      elsif params[:country] == ''
+        @tutors = Tutor
+                  .joins(:subjects, :languages)
+                  .where(['subjects.name = ? and languages.name = ?', subject, language])
+      elsif params[:language_id] == ''
+        @tutors = Tutor
+                  .joins(:subjects)
+                  .where(['subjects.name = ? and country = ?', subject, country_code])
+      elsif params[:subject_id] == ''
+        @tutors = Tutor
+                  .joins(:languages)
+                  .where(['languages.name = ? and country = ?', language, country_code])
+      else
+        @tutors = Tutor
+                  .joins(:subjects, :languages)
+                  .where(['subjects.name = ? and languages.name = ? and country = ?', subject, language, country_code])
+      end
     end
+    @tutors_nb = @tutors.count
   end
 
   def show
