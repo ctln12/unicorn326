@@ -12,7 +12,7 @@ class TaughtLessonsController < ApplicationController
       @taught_lesson = TaughtLesson.new(subject_id: subject, tutor_id: current_tutor.id)
       @taught_lesson.save
     end
-    redirect_to tutor_path(current_tutor)
+    redirect_to edit_tutor_registration_path
   end
 
   def edit
@@ -28,7 +28,7 @@ class TaughtLessonsController < ApplicationController
   def destroy
     @taught_lesson = TaughtLesson.find(params[:id])
     @taught_lesson.destroy
-    redirect_to tutor_path(current_tutor)
+    redirect_to edit_tutor_registration_path
   end
 
   private

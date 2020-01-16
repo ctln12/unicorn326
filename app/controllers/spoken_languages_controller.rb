@@ -12,7 +12,7 @@ class SpokenLanguagesController < ApplicationController
       @spoken_language = SpokenLanguage.new(language_id: language, tutor_id: current_tutor.id)
       @spoken_language.save
     end
-    redirect_to tutor_path(current_tutor)
+    redirect_to edit_tutor_registration_path
   end
 
   def edit
@@ -28,7 +28,7 @@ class SpokenLanguagesController < ApplicationController
   def destroy
     @spoken_language = SpokenLanguage.find(params[:id])
     @spoken_language.destroy
-    redirect_to tutor_path(current_tutor)
+    redirect_to edit_tutor_registration_path
   end
 
   private

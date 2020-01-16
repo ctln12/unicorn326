@@ -1,5 +1,6 @@
 class TutorsController < ApplicationController
   before_action :authenticate_student!, only: [:show]
+  before_action :authenticate_tutor!, only: [:profile]
 
   def index
     if params[:subject_id].nil? && params[:language_id].nil? && params[:country].nil?
@@ -44,5 +45,9 @@ class TutorsController < ApplicationController
 
   def show
     @tutor = Tutor.find(params[:id])
+  end
+
+  def profile
+    @tutor = current_tutor
   end
 end

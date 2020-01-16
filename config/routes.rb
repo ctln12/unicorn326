@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
   devise_for :students, path: 'students', controllers: { sessions: 'students/sessions'}
-  devise_for :tutors, paths: 'tutors', controllers: { sessions: 'tutors/sessions' }
+  devise_for :tutors, paths: 'tutors', controllers: { registrations: 'tutors/registrations', sessions: 'tutors/sessions' }
 
   root to: 'pages#home'
   resources :students, :only => [:show]
-  resources :tutors, :only => [:index, :show]
+  resources :tutors, :only => [:index, :show] do
+    collection do
+      get 'profile'
+    end
+  end
   resources :subjects, :only => [:index]
   resources :languages, :only => [:index]
   resources :taught_lessons, :only => [:index, :new, :create, :destroy]

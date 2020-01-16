@@ -28,6 +28,28 @@
                 autofocus: true,
                 input_html: { autocomplete: "photo-url" }%>
 
+    <p>Subjects*</p>
+    <% if @tutor.taught_lessons == [] %>
+      <p>Please choose your subject(s)</p>
+    <% else %>
+      <% @tutor.taught_lessons.each do |taught_lesson| %>
+        <span><%= taught_lesson.subject.name %> (<%= link_to "delete", taught_lesson_path(taught_lesson),
+          method: :delete, data: { confirm: "Are you sure?" } %>)</span>
+      <% end %>
+    <% end %>
+    <%= link_to '+', new_taught_lesson_path, class: 'btn btn-outline-primary p-1 rounded-pill' %>
+
+    <p>Languages*</p>
+    <% if @tutor.spoken_languages == [] %>
+      <p>Please choose your language(s)</p>
+    <% else %>
+      <% @tutor.spoken_languages.each do |spoken_language| %>
+        <span><%= spoken_language.language.name %> (<%= link_to "delete", spoken_language_path(spoken_language),
+          method: :delete, data: { confirm: "Are you sure?" } %>)</span>
+      <% end %>
+    <% end %>
+    <%= link_to '+', new_spoken_language_path, class: 'btn btn-outline-primary p-1 rounded-pill' %>
+
     <%= f.input :email, required: true, autofocus: true %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
