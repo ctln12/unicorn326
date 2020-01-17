@@ -1,5 +1,8 @@
 require 'faker'
 
+puts 'Destroying job_post'
+JobPost.destroy_all
+
 puts 'Destroying taught lessons...'
 TaughtLesson.destroy_all
 
@@ -17,6 +20,7 @@ Student.destroy_all
 
 puts 'Destroying tutors'
 Tutor.destroy_all
+
 puts '-----------------------------'
 
 puts 'Creating subjects...'
@@ -148,6 +152,21 @@ alice = Student.new(first_name: 'Alice', last_name: 'Needham', country: 'SE', da
 alice.save
 bob = Student.new(first_name: 'Bob', last_name: 'Hutchings', country: 'GB', date_of_birth: '1995-10-08', email: 'bob.hutchingsg@student.com', password: '123456')
 bob.save
+
+20.times do
+  fn = Faker::Name.first_name
+  ln = Faker::Name.last_name
+  student = Student.new(
+    first_name: fn,
+    last_name: ln,
+    date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 65),
+    country: [:AF, :SE, :CA, :US, :GB, :FR, :CH].sample,
+    email: "#{fn}.#{ln}@student.com",
+    password: '123456'
+  )
+  student.save
+end
+
 puts 'Finished'
 puts '-----------------------------'
 
@@ -166,15 +185,17 @@ georges.save
 
 
 100.times do
+  fn = Faker::Name.first_name
+  ln = Faker::Name.last_name
   tutor = Tutor.new(
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
+    first_name: fn,
+    last_name: ln,
     date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 65),
     country: [:AF, :SE, :CA, :US, :GB, :FR, :CH].sample,
     phone_number: Faker::PhoneNumber.phone_number,
     currency: [:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP].sample,
     price: rand(10...30),
-    email: Faker::Internet.email,
+    email: "#{fn}.#{ln}@tutor.com",
     password: '123456'
   )
   tutor.save
@@ -247,4 +268,22 @@ spoken10 = SpokenLanguage.new(language_id: german.id, tutor_id: georges.id)
 spoken10.save
 
 puts 'Finished!'
+puts '-----------------------------'
+
+puts 'Creating Post Jobs...'
+
+  15.times do
+    post = JobPost.new(
+      student_id: Student.ids.sample,
+      title: Faker::Coffee.blend_name,
+      description: Faker::ChuckNorris.fact,
+      currency: [:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP].sample,
+      amount: rand(10...30),
+      subjects: Subject.all.sample.name,
+      spoken_languages: Language.all.sample.name
+    )
+    post.save
+  end
+
+puts 'Finished'
 puts '-----------------------------'
