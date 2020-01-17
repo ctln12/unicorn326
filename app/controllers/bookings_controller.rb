@@ -1,6 +1,9 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_student!, only: :index
   def index
-    @bookings = Booking.where('student_id = ?', current_student.id)
+    if current_tutor
+      @bookings = Booking.where('tutor_id = ?', current_tutor.id)
+    elsif current_student
+      @bookings = Booking.where('student_id = ?', current_student.id)
+    end
   end
 end
