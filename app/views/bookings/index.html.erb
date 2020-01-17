@@ -10,7 +10,7 @@
         <p><%= booking.student.first_name %> <%= booking.student.last_name.first %>.</p>
       </div>
       <div class="col-2">
-        <p>Mathematics</p>
+        <p><%= booking.subject.name %></p>
       </div>
       <div class="col-4">
         <p><%= booking.date.strftime("%A, %d %B %Y") %> at <%= booking.date.strftime("%Hh%M") %></p>
