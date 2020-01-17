@@ -9,6 +9,10 @@ class BookingsController < ApplicationController
     end
   end
 
+  def new
+    @booking = Booking.new
+  end
+
   private
 
   def redirect_if_user_not_signed_in!
