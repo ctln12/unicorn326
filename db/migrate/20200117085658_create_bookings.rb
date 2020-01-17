@@ -5,7 +5,7 @@ class CreateBookings < ActiveRecord::Migration[5.2]
       t.references :tutor, foreign_key: true
       t.date :canceled_at
       t.date :date
-      t.date :duration
+      t.float :duration
       t.float :booking_price
       t.date :accepted_at
 
