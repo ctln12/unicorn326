@@ -1,6 +1,7 @@
-Job Posts
+<h2>Student's requests</h2>
 
-<% simple_form_for @job_post do |f| %>
-  <%=  f.input :title, hint: "I'm looking for a math teacher" %>
-  <%= f.input :description, hint: "I need to learn first degree equation"  %>
+<%= simple_form_for @job_post do |f| %>
+  <%= f.input :title,  placeholder: "I'm looking for a math teacher" %>
+  <%= f.input :description, placeholder: "I need to learn first degree equation"  %>
+  <%= f.input :amount, placeholder: "Max amount you want to invest per lesson"  %>
 <% end %>
