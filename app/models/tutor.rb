@@ -3,6 +3,7 @@ class Tutor < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :taught_lessons
   has_many :spoken_languages
+  has_many :bookings
 
   has_many :subjects, through: :taught_lessons
   has_many :languages, through: :spoken_languages
