@@ -1,7 +1,7 @@
 <h1>Your Bookings</h1>
 
 <div id="bookings" class="mt-5">
-  <% @bookings.each_with_index do |booking, index| %>
+  <% @bookings.sort_by{|booking| booking.date}.reverse.each_with_index do |booking, index| %>
     <div class="row">
       <div class="col-1">
         <p><%= index + 1 %></p>
