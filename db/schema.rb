@@ -10,38 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_085658) do
+ActiveRecord::Schema.define(version: 2020_01_09_140726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "bookings", force: :cascade do |t|
-    t.bigint "student_id"
-    t.bigint "tutor_id"
-    t.date "canceled_at"
-    t.date "date"
-    t.float "duration"
-    t.float "booking_price"
-    t.date "accepted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_bookings_on_student_id"
-    t.index ["tutor_id"], name: "index_bookings_on_tutor_id"
-  end
 
   create_table "languages", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "pg_search_documents", force: :cascade do |t|
-    t.text "content"
-    t.string "searchable_type"
-    t.bigint "searchable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end
 
   create_table "spoken_languages", force: :cascade do |t|
@@ -115,8 +92,6 @@ ActiveRecord::Schema.define(version: 2020_01_17_085658) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "bookings", "students"
-  add_foreign_key "bookings", "tutors"
   add_foreign_key "spoken_languages", "languages"
   add_foreign_key "spoken_languages", "tutors"
   add_foreign_key "taught_lessons", "subjects"
