@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_141101) do
+ActiveRecord::Schema.define(version: 2020_01_17_145048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_141101) do
     t.bigint "student_id"
     t.bigint "tutor_id"
     t.date "canceled_at"
-    t.date "date"
+    t.datetime "date"
     t.integer "duration"
     t.float "booking_price"
     t.date "accepted_at"
