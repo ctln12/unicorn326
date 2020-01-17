@@ -7,7 +7,11 @@
         <p><%= index + 1 %></p>
       </div>
       <div class="col-2">
-        <p><%= booking.tutor.first_name %> <%= booking.tutor.last_name %></p>
+        <% if current_tutor %>
+          <p><%= booking.tutor.first_name %> <%= booking.tutor.last_name %></p>
+        <% elsif current_student %>
+          <p><%= booking.student.first_name %> <%= booking.student.last_name.first %>.</p>
+        <% end %>
       </div>
       <div class="col-2">
         <p><%= booking.subject.name %></p>
@@ -32,4 +36,3 @@
     <hr>
   <% end %>
 </div>
-

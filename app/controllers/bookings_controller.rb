@@ -5,5 +5,4 @@ class BookingsController < ApplicationController
     elsif current_student
       @bookings = Booking.where('student_id = ?', current_student.id)
     end
-  end
 end
