@@ -1,7 +1,14 @@
 <h2>Student's requests</h2>
 
-<%= simple_form_for @job_post do |f| %>
-  <%= f.input :title,  placeholder: "I'm looking for a math teacher" %>
-  <%= f.input :description, placeholder: "I need to learn first degree equation"  %>
-  <%= f.input :amount, placeholder: "Max amount you want to invest per lesson"  %>
+<%= simple_form_for [@job_post] do |f| %>
+  <%= f.input :title, required: true,  placeholder: "Ex: I'm looking for a math teacher..." %>
+  <%= f.input :description, placeholder: "Ex: I need to learn first degree equation..." %>
+  <%= label_tag 'Languages' %><br>
+  <%= f.select(:spoken_languages, options_for_select(Language.pluck(:name, :name)), class: "selectpicker", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}) %><br>
+  <%= label_tag 'Subjects' %><br>
+  <%= f.select(:subjects, options_for_select(Subject.pluck(:name, :name)), class: "selectpicker", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}) %><br>
+  <%= label_tag 'Currency' %><br>
+  <%= f.select(:currency, options_for_select([:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP]), class: "selectpicker", data: {"style": "bg-white rounded-pill px-4 py-3 shadow-sm"}) %><br>
+  <%= f.input :amount, placeholder: "Max amount you want to invest per lesson" %>
+  <%= f.button :submit, 'Submit', class: "btn btn-primary"%>
 <% end %>

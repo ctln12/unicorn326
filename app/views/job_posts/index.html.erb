@@ -23,10 +23,9 @@
 
 <%= "See the latest student's requests" %>
 
-<% @job_posts.each do |job_post| %>
-<h3> job_post.title </h3>
-<p>job_post.subjects </p> <p>job_post.spoken_languages</p>
-<p> job_post.description %></p>
-<p> Max price  #{job_post.amount}</p>
-<% end %>
-
+<p>
+  <% @job_posts.each do |job_post| %>
+    <%= job_post.title %><br>
+    <%= job_post.description %><br>
+  <% end %>
+</p>
