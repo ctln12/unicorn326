@@ -248,3 +248,22 @@ spoken10.save
 
 puts 'Finished!'
 puts '-----------------------------'
+
+puts 'Creating Bookings...'
+# Accepted / Paid
+booking1 = Booking.new(student_id: alice.id, tutor_id: pierre.id, subject_id: 2, date: DateTime.new(2020, 01, 21, 14, 0, 0, '+01:00'), duration: 60, booking_price: pierre.price, accepted_at: '2020-01-14', paid_at: '2020-01-17')
+booking1.save
+# Accepted / Not paid
+booking2 = Booking.new(student_id: bob.id, tutor_id: pierre.id, subject_id: 7, date: DateTime.new(2020, 01, 20, 9, 30, 0, '+00:00'), duration: 90, booking_price: pierre.price*1.5, accepted_at: '2020-01-17')
+booking2.save
+# Canceled
+booking3 = Booking.new(student_id: alice.id, tutor_id: pierre.id, subject_id: 3, date: DateTime.new(2020, 01, 06, 11, 00, 0, '+01:00'), duration: 60, booking_price: pierre.price, accepted_at: '2020-01-02', canceled_at: '2020-01-04')
+booking3.save
+# Not accepted yet
+booking4 = Booking.new(student_id: bob.id, tutor_id: pierre.id, subject_id: 7, date: DateTime.new(2020, 01, 24, 18, 00, 0, '+00:00'), duration: 60, booking_price: pierre.price)
+booking4.save
+# Accepted / Paid / Given
+booking5 = Booking.new(student_id: alice.id, tutor_id: pierre.id, subject_id: 2, date: DateTime.new(2020, 01, 16, 22, 00, 0, '+01:00'), duration: 90, booking_price: pierre.price*1.5, accepted_at: '2020-01-13', paid_at: '2020-01-15')
+booking5.save
+puts 'Finished!'
+puts '-----------------------------'
