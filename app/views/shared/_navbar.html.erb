@@ -26,11 +26,7 @@
           <% end %>
         </li>
         <li class="nav-item">
-          <% if current_tutor %>
-            <%= link_to "Lessons", bookings_path, class: "nav-link" %>
-          <% else %>
-            <%= link_to "Lessons", student_path(current_student.id), class: "nav-link" %>
-          <% end %>
+          <%= link_to "Lessons", bookings_path, class: "nav-link" %>
         </li>
         <li class="nav-item dropdown">
           <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
