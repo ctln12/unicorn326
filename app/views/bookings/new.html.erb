@@ -1,17 +1,25 @@
-<h1>Book a lesson with Pierre Martin</h1>
+<h1>Request a lesson with <%= @tutor.first_name %> <%= @tutor.last_name %></h1>
 
-<p>Choose a subject: Mathematics</p>
+<%= simple_form_for [@booking], method: :post do |f| %>
 
-<p>Choose a language: English</p>
+  <%= f.input :student_id, input_html: { value: @student.id } %>
+  <%= f.input :tutor_id, input_html: { value: @tutor.id } %>
+  <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
+  <%= f.input :date, label: 'Date & Time' %>
+  <%= f.label 'Duration' %><br>
+  <%= d = f.time_select :duration,
+    {ignore_date: true,
+    include_minutes: true,
+    minute_step: 15,
+    time_separator: 'h',
+    default: { hour: 1, minute: 0 },
+    } %>
+  <p class="mt-3">Price: <%= @tutor.price.to_i %> <%= @tutor.currency %>/h</p>
+  <%= f.input :booking_price, input_html: { value: @tutor.price } %>
 
-<p>Choose a date and time: 24/02/2020 at 115h00</p>
+  <%= f.submit "Send request", class: "btn btn-primary" %>
+<% end %>
 
-<p>Choose a duration: 1h30</p>
+<%= link_to "< Back to Tutor's Profile", tutor_path(@tutor) %>
 
-<p>Price per hour: 20 EUR</p>
-
-<p>Total: 30 EUR</p>
-
-<p>Send request</p>
-
-<p>< Back to Tutor's Profile</p>
+<p>Language: English</p>
