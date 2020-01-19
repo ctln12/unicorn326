@@ -1,24 +1,29 @@
 <h1>Request a lesson with <%= @tutor.first_name %> <%= @tutor.last_name %></h1>
 
-<%= simple_form_for [@booking], method: :post do |f| %>
+<div class="my-4">
+  <%= simple_form_for [@booking], method: :post do |f| %>
 
-  <%= f.input :student_id, input_html: { value: @student.id } %>
-  <%= f.input :tutor_id, input_html: { value: @tutor.id } %>
-  <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
-  <%= f.input :date, label: 'Date & Time' %>
-  <%= f.label 'Duration' %><br>
-  <%= d = f.time_select :duration,
-    {ignore_date: true,
-    include_minutes: true,
-    minute_step: 15,
-    time_separator: 'h',
-    default: { hour: 1, minute: 0 },
-    } %>
-  <p class="mt-3">Price: <%= @tutor.price.to_i %> <%= @tutor.currency %>/h</p>
-  <%= f.input :booking_price, input_html: { value: @tutor.price } %>
+    <%= f.input :student_id, input_html: { value: @student.id } %>
+    <%= f.input :tutor_id, input_html: { value: @tutor.id } %>
+    <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
+    <%= f.input :date, label: 'Date & Time' %>
+    <%= f.label 'Duration' %><br>
+    <%= f.time_select :duration,
+      {ignore_date: true,
+      include_minutes: true,
+      minute_step: 15,
+      time_separator: 'h',
+      default: { hour: 1, minute: 0 },
+      } %>
+    <div class="my-3">
+      <label>Price per hour</label><br>
+      <input id="price_per_hour" type="text" readonly value="<%= @tutor.price.to_i %>">
+    </div>
+    <%= f.input :booking_price, label: 'Total price',readonly: true, input_html: { value: @tutor.price.to_i } %><br>
 
-  <%= f.submit "Send request", class: "btn btn-primary" %>
-<% end %>
+    <%= f.submit "Send request", class: "btn btn-primary" %>
+  <% end %>
+</div>
 
 <%= link_to "< Back to Tutor's Profile", tutor_path(@tutor) %>
 
