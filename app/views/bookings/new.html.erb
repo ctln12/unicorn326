@@ -3,8 +3,8 @@
 <div class="my-4">
   <%= simple_form_for [@booking], method: :post do |f| %>
 
-    <%= f.input :student_id, input_html: { value: @student.id } %>
-    <%= f.input :tutor_id, input_html: { value: @tutor.id } %>
+    <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } %>
+    <%= f.input :tutor_id, as: :hidden,input_html: { value: @tutor.id } %>
     <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
     <%= f.input :language_id, collection: @tutor.languages, include_blank: false %>
     <%= f.input :date, label: 'Date & Time' %>
@@ -17,10 +17,10 @@
       default: { hour: 1, minute: 0 },
       } %>
     <div class="my-3">
-      <label>Price per hour</label><br>
-      <input id="price_per_hour" type="text" readonly value="<%= @tutor.price.to_i %>">
+      <label>Price per hour (<%= @tutor.currency %>)</label><br>
+      <input id="price_per_hour" type="text" readonly value="<%= @tutor.price.to_i %>" class="form-control">
     </div>
-    <%= f.input :booking_price, label: 'Total price',readonly: true, input_html: { value: @tutor.price.to_i } %><br>
+    <%= f.input :booking_price, label: "Total price (#{@tutor.currency})" ,readonly: true, input_html: { value: @tutor.price.to_i } %><br>
 
     <%= f.submit "Send request", class: "btn btn-primary" %>
   <% end %>
