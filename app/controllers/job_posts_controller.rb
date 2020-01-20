@@ -1,4 +1,5 @@
 class JobPostsController < ApplicationController
+  before_action :authenticate_student!, only: :new
   def index
     @job_posts = JobPost.all
   end
@@ -17,6 +18,6 @@ class JobPostsController < ApplicationController
   private
 
   def job_post_params
-    params.require(:job_post).permit(:title, :description, :currency, :amount, :subjects, :spoken_languages)
+    params.require(:job_post).permit(:title, :description, :amount, currency: [], subjects: [], spoken_languages: [])
   end
 end

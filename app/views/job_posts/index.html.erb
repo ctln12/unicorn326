@@ -1,31 +1,63 @@
+<h1>Job Posts</h1><br>
+<p><%= pluralize(@tutors_nb, 'result') %></p>
+
 <div class="row">
   <div class="col-4">
     <div style="position: sticky; top: 30px;">
-      <%= form_tag tutors_path, method: :get do %>
+      <%= form_tag job_posts_path, method: :get do %>
         <p>Subject</p>
-          <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id), selected: params[:subject_id]), {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
-        <p>Language</p>
-        <%= select_tag(:language_id, options_for_select(Language.pluck(:name, :id), selected: params[:language_id]),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
-        <p>Country</p>
-        <%= select_tag(:country, options_for_select(ISO3166::Country.all.sort, selected: params[:country]),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
+        <%= select_tag(:subjects, options_for_select(Subject.pluck(:name, :name)), class: "selectpicker", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}) %>
         <div class="mt-3">
           <%= submit_tag "Search", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>
   </div>
-  <div class="col">
+<div class="col">
 
-<h2>Job Posts</h2><br>
-
-<%= link_to "new request", new_job_post_path, class: "btn btn-primary" %> <br>
+  <%= link_to "new request", new_job_post_path, class: "btn btn-primary" %> <br>
 
 
-<%= "See the latest student's requests" %>
+  <%= "See the latest student's requests" %>
 
-<p>
-  <% @job_posts.each do |job_post| %>
-    <%= job_post.title %><br>
-    <%= job_post.description %><br>
-  <% end %>
-</p>
+  <p>
+    <% @job_posts.each do |job_post| %>
+      <h3><p><%= "Title: #{job_post.title}" %></h3></p>
+      <%= "Subjects :"%>
+      <% cleaned_subjects = job_post.subjects.delete("["+"]"+"\"") %>
+      <% if cleaned_subjects.include? "," %>
+          <% splited_subjects = cleaned_subjects.split(", ") %>
+          <% splited_subjects.each do |subject| %>
+            <%= subject %>
+          <% end %>
+      <% else %>
+          <%= cleaned_subjects %>
+      <% end %>
+      <br>
+      <%= "Languages: " %>
+      <% cleaned_spoken_languages = job_post.spoken_languages.delete("["+"]"+"\"") %>
+      <% if cleaned_spoken_languages.include? "," %>
+          <% splited_spoken_languages = cleaned_spoken_languages.split(", ") %>
+          <% splited_spoken_languages.each do |spoken_language| %>
+            <%= spoken_language %>
+          <% end %>
+      <% else %>
+          <%= cleaned_spoken_languages %>
+      <% end %>
+      <br>
+      <%= "Amount: #{job_post.amount}" %> <br>
+      <%= "Currency: " %>
+      <% cleaned_currencies = job_post.currency.delete("["+"]"+"\"") %>
+      <% if cleaned_currencies.include? "," %>
+          <% splited_currencies = cleaned_currencies.split(", ") %>
+          <% splited_currencies.each do |currency| %>
+            <%= currency %>
+          <% end %>
+      <% else %>
+          <%= cleaned_currencies %>
+      <% end %>
+      <p><%= "Description: #{job_post.description}" %></p><br>
+      <%= "-----------------------------------------------------" %>
+    <% end %>
+  </p>
+</div>
