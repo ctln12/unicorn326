@@ -14,49 +14,45 @@
     </div>
   </div>
 <div class="col">
-
   <%= link_to "new request", new_job_post_path, class: "btn btn-primary" %> <br>
-
-
+  <br>
   <%= "See the latest student's requests" %>
 
   <p>
     <% @job_posts.each do |job_post| %>
-      <h3><p><%= "Title: #{job_post.title}" %></h3></p>
+      <h4><p><%= "Title: #{job_post.title}" %></h4></p>
       <%= "Subjects :"%>
-      <% cleaned_subjects = job_post.subjects.delete("["+"]"+"\"") %>
-      <% if cleaned_subjects.include? "," %>
-          <% splited_subjects = cleaned_subjects.split(", ") %>
-          <% splited_subjects.each do |subject| %>
+      <% if job_post.subjects.include? "," %>
+          <% subjects = job_post.subjects.delete("["+"]"+"\"").split(", ") %>
+          <% subjects.each do |subject| %>
             <%= subject %>
           <% end %>
       <% else %>
-          <%= cleaned_subjects %>
+          <%= job_post.subjects.delete("["+"]"+"\"") %>
       <% end %>
       <br>
       <%= "Languages: " %>
-      <% cleaned_spoken_languages = job_post.spoken_languages.delete("["+"]"+"\"") %>
-      <% if cleaned_spoken_languages.include? "," %>
-          <% splited_spoken_languages = cleaned_spoken_languages.split(", ") %>
-          <% splited_spoken_languages.each do |spoken_language| %>
+      <% if job_post.spoken_languages.include? "," %>
+          <% spoken_languages = job_post.spoken_languages.delete("["+"]"+"\"").split(", ") %>
+          <% spoken_languages.each do |spoken_language| %>
             <%= spoken_language %>
           <% end %>
       <% else %>
-          <%= cleaned_spoken_languages %>
+          <%= job_post.spoken_languages.delete("["+"]"+"\"") %>
       <% end %>
       <br>
       <%= "Amount: #{job_post.amount}" %> <br>
       <%= "Currency: " %>
-      <% cleaned_currencies = job_post.currency.delete("["+"]"+"\"") %>
-      <% if cleaned_currencies.include? "," %>
-          <% splited_currencies = cleaned_currencies.split(", ") %>
-          <% splited_currencies.each do |currency| %>
+      <% if job_post.currency.include? "," %>
+          <% currency = job_post.currency.delete("["+"]"+"\"").split(", ") %>
+          <% currency.each do |currency| %>
             <%= currency %>
           <% end %>
       <% else %>
-          <%= cleaned_currencies %>
+          <%= job_post.currency.delete("["+"]"+"\"") %>
       <% end %>
-      <p><%= "Description: #{job_post.description}" %></p><br>
+      <br>
+     <%= "Posted " + distance_of_time_in_words(Time.now, job_post.created_at) + " ago by " + "#{Student.find(job_post.student_id).first_name}" + " " +"#{Student.find(job_post.student_id).last_name[0]}" + "."%> <br>
       <%= "-----------------------------------------------------" %>
     <% end %>
   </p>
