@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_145048) do
+ActiveRecord::Schema.define(version: 2020_01_20_134223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 2020_01_17_145048) do
     t.datetime "updated_at", null: false
     t.date "paid_at"
     t.bigint "subject_id"
+    t.bigint "language_id"
+    t.index ["language_id"], name: "index_bookings_on_language_id"
     t.index ["student_id"], name: "index_bookings_on_student_id"
     t.index ["subject_id"], name: "index_bookings_on_subject_id"
     t.index ["tutor_id"], name: "index_bookings_on_tutor_id"
@@ -109,6 +111,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_145048) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bookings", "languages"
   add_foreign_key "bookings", "students"
   add_foreign_key "bookings", "subjects"
   add_foreign_key "bookings", "tutors"
