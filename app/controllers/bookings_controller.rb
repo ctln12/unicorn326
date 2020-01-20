@@ -31,7 +31,7 @@ class BookingsController < ApplicationController
   end
 
   def booking_without_duration_params
-    params.require(:booking).permit(:student_id, :tutor_id, :subject_id, :date, :booking_price)
+    params.require(:booking).permit(:student_id, :tutor_id, :subject_id, :language_id, :date, :booking_price)
   end
 
   def redirect_if_user_not_signed_in!
