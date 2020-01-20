@@ -276,7 +276,7 @@ puts 'Creating Post Jobs...'
     post = JobPost.new(
       student_id: Student.ids.sample,
       title: Faker::Coffee.blend_name,
-      description: Faker::ChuckNorris.fact,
+      description: Faker::Lorem.paragraph(sentence_count: 10),
       currency: [:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP].sample,
       amount: rand(10...30),
       subjects: Subject.all.sample.name,

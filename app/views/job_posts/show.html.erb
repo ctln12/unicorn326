@@ -1,0 +1,44 @@
+<%= "Title: " + @job_post.title  %> <br>
+<%= "Subjects: "%>
+  <% if @job_post.subjects.include? "," %>
+    <% subjects = @job_post.subjects.delete("["+"]"+"\"").split(", ") %>
+    <% subjects.each do |subject| %>
+      <%= subject %>
+    <% end %>
+  <% else %>
+    <%= @job_post.subjects.delete("["+"]"+"\"") %>
+  <% end %>
+  <br>
+  <%= "Languages: " %>
+  <% if @job_post.spoken_languages.include? "," %>
+    <% spoken_languages = @job_post.spoken_languages.delete("["+"]"+"\"").split(", ") %>
+    <% spoken_languages.each do |spoken_language| %>
+    <%= spoken_language %>
+    <% end %>
+  <% else %>
+    <%= @job_post.spoken_languages.delete("["+"]"+"\"") %>
+  <% end %>
+  <br>
+  <%= "Amount: #{@job_post.amount}" %> <br>
+  <%= "Currency: " %>
+  <% if @job_post.currency.include? "," %>
+    <% currency = @job_post.currency.delete("["+"]"+"\"").split(", ") %>
+    <% currency.each do |currency| %>
+    <%= currency %>
+    <% end %>
+  <% else %>
+    <%= @job_post.currency.delete("["+"]"+"\"") %>
+  <% end %>
+  <br>
+  <%= "Description: " + @job_post.description %> <br>
+  <%= "Date:  #{@job_post.created_at}" %> <br>
+  <%= "-----------------------------------------------------" %> <br>
+  <% if current_tutor %>
+  <%= link_to "Reply", job_post_path(job_post), class: "btn btn-primary"%> <br>
+  <% elsif current_student %>
+  <%= link_to "Edit", edit_job_post_path, class: "btn btn-primary"%> <br>
+  <% else %>
+  <%= link_to "Reply", new_tutor_registration_path, class: "btn btn-primary"%> <br>
+  <% end %>
+  <%= "-----------------------------------------------------" %>
+

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get 'profile'
     end
   end
-  resources :job_posts, :only => [:index, :new, :create]
+  resources :job_posts
   resources :subjects, :only => [:index]
   resources :languages, :only => [:index]
   resources :taught_lessons, :only => [:index, :new, :create, :destroy]
