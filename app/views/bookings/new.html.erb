@@ -6,6 +6,7 @@
     <%= f.input :student_id, input_html: { value: @student.id } %>
     <%= f.input :tutor_id, input_html: { value: @tutor.id } %>
     <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
+    <%= f.input :language_id, collection: @tutor.languages, include_blank: false %>
     <%= f.input :date, label: 'Date & Time' %>
     <%= f.label 'Duration' %><br>
     <%= f.time_select :duration,
