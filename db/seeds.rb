@@ -1,5 +1,8 @@
 require 'faker'
 
+puts 'Destroying currencies'
+Currency.destroy_all
+
 puts 'Destroying job_post'
 JobPost.destroy_all
 
@@ -147,6 +150,35 @@ chinese.save
 puts 'Finished!'
 puts '-----------------------------'
 
+puts 'Creating Currencies'
+
+eur = Currency.new(name: "EUR")
+eur.save
+
+chf = Currency.new(name: "CHF")
+chf.save
+
+usd = Currency.new(name: "USD")
+usd.save
+
+cad = Currency.new(name: "cad")
+cad.save
+
+jpy = Currency.new(name: "JPY")
+jpy.save
+
+sek = Currency.new(name: "SEK")
+sek.save
+
+dkk = Currency.new(name: "DKK")
+dkk.save
+
+gbp = Currency.new(name: "GBP")
+gbp.save
+
+puts 'Finished!'
+puts '-----------------------------'
+
 puts 'Creating Students...'
 alice = Student.new(first_name: 'Alice', last_name: 'Needham', country: 'SE', date_of_birth: '2000-05-10', email: 'alice.needham@student.com', password: '123456')
 alice.save
@@ -193,7 +225,7 @@ georges.save
     date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 65),
     country: [:AF, :SE, :CA, :US, :GB, :FR, :CH].sample,
     phone_number: Faker::PhoneNumber.phone_number,
-    currency: [:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP].sample,
+    currency: Currency.all.sample,
     price: rand(10...30),
     email: "#{fn}.#{ln}@tutor.com",
     password: '123456'
@@ -277,7 +309,7 @@ puts 'Creating Post Jobs...'
       student_id: Student.ids.sample,
       title: Faker::Coffee.blend_name,
       description: Faker::Lorem.paragraph(sentence_count: 10),
-      currency: [:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP].sample,
+      currency: Currency.all.sample,
       amount: rand(10...30),
       subject_id: Subject.all.sample.id,
       language_id: Language.all.sample.id
