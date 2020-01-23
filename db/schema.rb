@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_141129) do
+ActiveRecord::Schema.define(version: 2020_01_23_174502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,13 +33,15 @@ ActiveRecord::Schema.define(version: 2020_01_17_141129) do
     t.bigint "student_id"
     t.string "description"
     t.float "amount"
-    t.string "subjects"
-    t.string "spoken_languages"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
     t.string "currency"
+    t.bigint "subject_id"
+    t.bigint "language_id"
+    t.index ["language_id"], name: "index_job_posts_on_language_id"
     t.index ["student_id"], name: "index_job_posts_on_student_id"
+    t.index ["subject_id"], name: "index_job_posts_on_subject_id"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -121,7 +123,9 @@ ActiveRecord::Schema.define(version: 2020_01_17_141129) do
 
   add_foreign_key "bookings", "students"
   add_foreign_key "bookings", "tutors"
+  add_foreign_key "job_posts", "languages"
   add_foreign_key "job_posts", "students"
+  add_foreign_key "job_posts", "subjects"
   add_foreign_key "spoken_languages", "languages"
   add_foreign_key "spoken_languages", "tutors"
   add_foreign_key "taught_lessons", "subjects"

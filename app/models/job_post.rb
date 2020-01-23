@@ -5,6 +5,6 @@ class JobPost < ApplicationRecord
   validates :description, presence: true
   validates :currency, presence: true
   validates :amount, presence: true
-  validates :subjects, presence: true
-  validates :spoken_languages, presence: true
+  validates :subject_id, presence: true
+  validates :language_id, presence: true
 end

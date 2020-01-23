@@ -7,7 +7,7 @@
     <div style="position: sticky; top: 30px;">
       <%= form_tag tutors_path, method: :get do %>
         <p>Subject</p>
-          <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id), selected: params[:subject_id]), {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
+        <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id), selected: params[:subject_id]), {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
         <p>Language</p>
         <%= select_tag(:language_id, options_for_select(Language.pluck(:name, :id), selected: params[:language_id]),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
         <p>Country</p>
