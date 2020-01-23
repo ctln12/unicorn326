@@ -1,7 +1,45 @@
 class JobPostsController < ApplicationController
   before_action :authenticate_student!, only: :new
+
   def index
-    @job_posts = JobPost.all
+    if params[:subject_id].nil? && params[:language_id].nil? && params[:currency].nil?
+      @job_posts = JobPost.all
+    else
+      subject = Subject.find(params[:subject_id].to_i).name unless params[:subject_id] == ''
+      language = Language.find(params[:language_id].to_i).name unless params[:language_id] == ''
+      currency = [:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP].find(params[:currency]) unless params[:currency] == ''
+      if params[:subject_id] == '' && params[:language_id] == '' && params[:currency] == ''
+        @job_posts = JobPost.all
+      elsif params[:language_id] == '' && params[:currency] == ''
+        @job_posts = JobPost
+                  .joins(:subjects)
+                  .where(['subjects.name = ?', subject])
+      elsif params[:subject_id] == '' && params[:currency] == ''
+        @job_posts = JobPost
+                  .joins(:languages)
+                  .where(['languages.name = ?', language])
+      elsif params[:subject_id] == '' && params[:language_id] == ''
+        @job_posts = JobPost
+                  .where(['currency = ?', currency])
+      elsif params[:currency] == ''
+        @job_posts = JobPost
+                  .joins(:subjects, :languages)
+                  .where(['subjects.name = ? and languages.name = ?', subject, language])
+      elsif params[:language_id] == ''
+        @job_posts = JobPost
+                  .joins(:subjects)
+                  .where(['subjects.name = ? and currency = ?', subject, currency])
+      elsif params[:subject_id] == ''
+        @job_posts = JobPost
+                  .joins(:languages)
+                  .where(['languages.name = ? and currency = ?', language, currency])
+      else
+        @job_posts = JobPost
+                  .joins(:subjects, :languages)
+                  .where(['subjects.name = ? and languages.name = ? and currency = ?', subject, language, currency])
+      end
+    end
+    @job_posts_nb = @job_posts.count
   end
 
   def show
@@ -38,6 +76,6 @@ class JobPostsController < ApplicationController
   private
 
   def job_post_params
-    params.require(:job_post).permit(:title, :description, :amount, currency: [], subjects: [], spoken_languages: [])
+    params.require(:job_post).permit(:title, :description, :amount, :currency, :subject_id, :language_id)
   end
 end

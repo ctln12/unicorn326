@@ -1,12 +1,12 @@
 <h2>Student's requests</h2>
 
 <%= simple_form_for [@job_post] do |f| %>
-  <%= f.input :title, required: true,  placeholder: "Ex: I'm looking for a math teacher..." %>
+  <%= f.input :title,  placeholder: "Ex: I'm looking for a math teacher..." %>
   <%= f.input :description, placeholder: "Ex: I need to learn first degree equation..." %>
   <%= label_tag 'Languages' %><br>
-  <%= select_tag('job_post[spoken_languages]', options_for_select(Language.pluck(:name, :id)), class: "selectpicker", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}) %><br>
+  <%= select_tag('job_post[language_id]', options_for_select(Language.pluck(:name, :id)), class: "selectpicker", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}) %><br>
   <%= label_tag 'Subjects' %><br>
-  <%= select_tag('job_post[subjects]', options_for_select(Subject.pluck(:name, :id)), class: "selectpicker", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}) %><br>
+  <%= select_tag('job_post[subject_id]', options_for_select(Subject.pluck(:name, :id)), class: "selectpicker", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}) %><br>
   <%= label_tag 'Currency' %><br>
   <%= select_tag('job_post[currency]', options_for_select([:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP]), class: "selectpicker", data: {"style": "bg-white rounded-pill px-4 py-3 shadow-sm"}) %><br>
   <%= f.input :amount, placeholder: "Max amount you want to invest per lesson" %>

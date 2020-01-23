@@ -6,11 +6,11 @@
     <div style="position: sticky; top: 30px;">
       <%= form_tag job_posts_path, method: :get do %>
         <p>Language</p>
-        <%= select_tag('job_post[spoken_languages]', options_for_select(Language.pluck(:name, :name)), class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All') %>
+        <%= select_tag(:language_id, options_for_select(Language.pluck(:name, :id)), class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All') %>
         <p>Subject</p>
-        <%= select_tag('job_post[subjects]', options_for_select(Subject.pluck(:name, :name)),  class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All') %>
-        <p>Country</p>
-        <%= select_tag('job_post[currency]', options_for_select([:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP]),  class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All') %>
+        <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id)),  class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All') %>
+        <p>Currency</p>
+        <%= select_tag(:currency, options_for_select([:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP]),  class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All') %>
         <div class="mt-3">
           <%= submit_tag "Search", class: "btn btn-primary" %>
         </div>
@@ -21,45 +21,19 @@
   <%= link_to "New Request", new_job_post_path, class: "btn btn-primary" %> <br>
   <br>
   <%= "See the latest student's requests" %>
-
   <p>
     <% @job_posts.each do |job_post| %>
-      <h4><p><%= "Title: #{job_post.title}" %></h4></p>
-      <%= "Subjects :"%>
-      <% if job_post.subjects.include? "," %>
-          <% subjects = job_post.subjects.delete("["+"]"+"\"").split(", ") %>
-          <% subjects.each do |subject| %>
-            <%= subject %>
-          <% end %>
-      <% else %>
-          <%= job_post.subjects.delete("["+"]"+"\"") %>
-      <% end %>
-      <br>
-      <%= "Languages: " %>
-      <% if job_post.spoken_languages.include? "," %>
-          <% spoken_languages = job_post.spoken_languages.delete("["+"]"+"\"").split(", ") %>
-          <% spoken_languages.each do |spoken_language| %>
-            <%= spoken_language %>
-          <% end %>
-      <% else %>
-          <%= job_post.spoken_languages.delete("["+"]"+"\"") %>
-      <% end %>
-      <br>
-      <%= "Amount: #{job_post.amount}" %> <br>
-      <%= "Currency: " %>
-      <% if job_post.currency.include? "," %>
-          <% currency = job_post.currency.delete("["+"]"+"\"").split(", ") %>
-          <% currency.each do |currency| %>
-            <%= currency %>
-          <% end %>
-      <% else %>
-          <%= job_post.currency.delete("["+"]"+"\"") %>
-      <% end %>
-      <br>
-    <%= "Posted " + distance_of_time_in_words(Time.now, job_post.created_at) + " ago by " + "#{Student.find(job_post.student_id).first_name}" + " " +"#{Student.find(job_post.student_id).last_name[0]}" + "."%> <br>
-    <%= "-----------------------------------------------------" %> <br>
-    <%= link_to "See Request", job_post_path(job_post), class: "btn btn-primary"%> <br>
-    <%= "-----------------------------------------------------" %>
+      <h4><p><%= "Title: " + job_post.title %></h4></p>
+      <%= "Subject:" %> <%= Subject.find(job_post.subject_id).name %><br>
+      <%= "Language:" %> <%= Language.find(job_post.language_id).name %><br>
+      <%= "Currency:" %> <%= job_post.currency %><br>
+      <%= "Amount:" %> <%= job_post.amount %><br>
+      <%= "Posted " + distance_of_time_in_words(Time.now, job_post.created_at) + " ago by " + "#{Student.find(job_post.student_id).first_name}" + " " +"#{Student.find(job_post.student_id).last_name[0]}" + "."%> <br>
+      <%= "-----------------------------------------------------" %> <br>
+      <%= link_to "See Request", job_post_path(job_post), class: "btn btn-primary"%> <br>
+      <%= "-----------------------------------------------------" %>
     <% end %>
   </p>
 </div>
+
+
