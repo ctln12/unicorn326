@@ -7,8 +7,7 @@ class JobPostsController < ApplicationController
     else
       subject = Subject.find(params[:subject_id].to_i).name unless params[:subject_id] == ''
       language = Language.find(params[:language_id].to_i).name unless params[:language_id] == ''
-      all_currencies = ["EUR", "CHF", "USD", "CAD", "JPY", "SEK", "DKK", "GBP"]
-      currency = all_currencies.find(params[:currency]) unless params[:currency] == ''
+      currency = Currency.find(params[:currency_id]) unless params[:currency_id] == ''
       if params[:subject_id] == '' && params[:language_id] == '' && params[:currency] == ''
         @job_posts = JobPost.all
       elsif params[:language_id] == '' && params[:currency] == ''
