@@ -7,35 +7,36 @@ class JobPostsController < ApplicationController
     else
       subject = Subject.find(params[:subject_id].to_i).name unless params[:subject_id] == ''
       language = Language.find(params[:language_id].to_i).name unless params[:language_id] == ''
-      currency = [:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP].find(params[:currency]) unless params[:currency] == ''
+      all_currencies = ["EUR", "CHF", "USD", "CAD", "JPY", "SEK", "DKK", "GBP"]
+      currency = all_currencies.find(params[:currency]) unless params[:currency] == ''
       if params[:subject_id] == '' && params[:language_id] == '' && params[:currency] == ''
         @job_posts = JobPost.all
       elsif params[:language_id] == '' && params[:currency] == ''
         @job_posts = JobPost
-                  .joins(:subjects)
+                  .joins(:subject)
                   .where(['subjects.name = ?', subject])
       elsif params[:subject_id] == '' && params[:currency] == ''
         @job_posts = JobPost
-                  .joins(:languages)
+                  .joins(:language)
                   .where(['languages.name = ?', language])
       elsif params[:subject_id] == '' && params[:language_id] == ''
         @job_posts = JobPost
                   .where(['currency = ?', currency])
       elsif params[:currency] == ''
         @job_posts = JobPost
-                  .joins(:subjects, :languages)
+                  .joins(:subject, :language)
                   .where(['subjects.name = ? and languages.name = ?', subject, language])
       elsif params[:language_id] == ''
         @job_posts = JobPost
-                  .joins(:subjects)
+                  .joins(:subject)
                   .where(['subjects.name = ? and currency = ?', subject, currency])
       elsif params[:subject_id] == ''
         @job_posts = JobPost
-                  .joins(:languages)
+                  .joins(:language)
                   .where(['languages.name = ? and currency = ?', language, currency])
       else
         @job_posts = JobPost
-                  .joins(:subjects, :languages)
+                  .joins(:subject, :language)
                   .where(['subjects.name = ? and languages.name = ? and currency = ?', subject, language, currency])
       end
     end

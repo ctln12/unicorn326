@@ -1,5 +1,7 @@
 class JobPost < ApplicationRecord
   belongs_to :student
+  belongs_to :language
+  belongs_to :subject
 
   validates :title, presence: true
   validates :description, presence: true
