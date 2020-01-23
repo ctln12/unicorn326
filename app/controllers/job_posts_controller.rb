@@ -22,22 +22,22 @@ class JobPostsController < ApplicationController
         @job_posts = JobPost
                   .joins(:currency)
                   .where(['currency.name = ?', currency])
-      elsif params[:currency] == ''
+      elsif params[:currency_id] == ''
         @job_posts = JobPost
                   .joins(:subject, :language)
                   .where(['subjects.name = ? and languages.name = ?', subject, language])
       elsif params[:language_id] == ''
         @job_posts = JobPost
                   .joins(:subject, :currency)
-                  .where(['subjects.name = ? and currency.name = ?', subject, currency])
+                  .where(['subjects.name = ? and currencies.name = ?', subject, currency])
       elsif params[:subject_id] == ''
         @job_posts = JobPost
                   .joins(:language, :currency)
-                  .where(['languages.name = ? and currency.name = ?', language, currency])
+                  .where(['languages.name = ? and currencies.name = ?', language, currency])
       else
         @job_posts = JobPost
                   .joins(:subject, :language, :currency)
-                  .where(['subjects.name = ? and languages.name = ? and currency.name = ?', subject, language, currency])
+                  .where(['subjects.name = ? and languages.name = ? and currencies.name = ?', subject, language, currency])
       end
     end
     @job_posts_nb = @job_posts.count

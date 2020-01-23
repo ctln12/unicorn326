@@ -10,7 +10,7 @@
         <p>Subject</p>
         <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id)),  class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All') %>
         <p>Currency</p>
-        <%= select_tag(:currency, options_for_select([:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP]),  class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All') %>
+        <%= select_tag(:currency_id, options_for_select(Currency.pluck(:name, :id)),  class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All') %>
         <div class="mt-3">
           <%= submit_tag "Search", class: "btn btn-primary" %>
         </div>

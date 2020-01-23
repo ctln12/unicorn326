@@ -24,7 +24,7 @@
       <div id="<%= tutor.id %>" class="tutor">
         <h4 class="name"><%= tutor.first_name %> <%= tutor.last_name %></h4>
         <p class="country"><%= ISO3166::Country.find_country_by_alpha2("#{tutor.country}").unofficial_names.first %></p>
-        <p class="price"><%= tutor.price.to_i %> <%= tutor.currency %> / h</p>
+        <p class="price"><%= tutor.price.to_i %> <%= Currency.find(tutor.currency_id).name %> / h</p>
         <p class="subject">Teaches:
           <% tutor.taught_lessons.each do |taught_lesson| %>
             <% separator = taught_lesson == tutor.taught_lessons.last ? '' : ',' %>
