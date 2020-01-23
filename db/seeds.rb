@@ -279,8 +279,8 @@ puts 'Creating Post Jobs...'
       description: Faker::Lorem.paragraph(sentence_count: 10),
       currency: [:EUR, :CHF, :USD, :CAD, :JPY, :SEK, :DKK, :GBP].sample,
       amount: rand(10...30),
-      subjects: Subject.all.sample.name,
-      spoken_languages: Language.all.sample.name
+      subject_id: Subject.all.sample.id,
+      language_id: Language.all.sample.id
     )
     post.save
   end
