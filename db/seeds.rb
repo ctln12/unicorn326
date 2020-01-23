@@ -161,7 +161,7 @@ chf.save
 usd = Currency.new(name: "USD")
 usd.save
 
-cad = Currency.new(name: "cad")
+cad = Currency.new(name: "CAD")
 cad.save
 
 jpy = Currency.new(name: "JPY")

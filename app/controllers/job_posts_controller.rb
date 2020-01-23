@@ -2,41 +2,42 @@ class JobPostsController < ApplicationController
   before_action :authenticate_student!, only: :new
 
   def index
-    if params[:subject_id].nil? && params[:language_id].nil? && params[:currency].nil?
+    if params[:subject_id].nil? && params[:language_id].nil? && params[:currency_id].nil?
       @job_posts = JobPost.all
     else
       subject = Subject.find(params[:subject_id].to_i).name unless params[:subject_id] == ''
       language = Language.find(params[:language_id].to_i).name unless params[:language_id] == ''
-      currency = Currency.find(params[:currency_id]) unless params[:currency_id] == ''
-      if params[:subject_id] == '' && params[:language_id] == '' && params[:currency] == ''
+      currency = Currency.find(params[:currency_id].to_i).name unless params[:currency_id] == ''
+      if params[:subject_id] == '' && params[:language_id] == '' && params[:currency_id] == ''
         @job_posts = JobPost.all
-      elsif params[:language_id] == '' && params[:currency] == ''
+      elsif params[:language_id] == '' && params[:currency_id] == ''
         @job_posts = JobPost
                   .joins(:subject)
                   .where(['subjects.name = ?', subject])
-      elsif params[:subject_id] == '' && params[:currency] == ''
+      elsif params[:subject_id] == '' && params[:currency_id] == ''
         @job_posts = JobPost
                   .joins(:language)
                   .where(['languages.name = ?', language])
       elsif params[:subject_id] == '' && params[:language_id] == ''
         @job_posts = JobPost
-                  .where(['currency = ?', currency])
+                  .joins(:currency)
+                  .where(['currency.name = ?', currency])
       elsif params[:currency] == ''
         @job_posts = JobPost
                   .joins(:subject, :language)
                   .where(['subjects.name = ? and languages.name = ?', subject, language])
       elsif params[:language_id] == ''
         @job_posts = JobPost
-                  .joins(:subject)
-                  .where(['subjects.name = ? and currency = ?', subject, currency])
+                  .joins(:subject, :currency)
+                  .where(['subjects.name = ? and currency.name = ?', subject, currency])
       elsif params[:subject_id] == ''
         @job_posts = JobPost
-                  .joins(:language)
-                  .where(['languages.name = ? and currency = ?', language, currency])
+                  .joins(:language, :currency)
+                  .where(['languages.name = ? and currency.name = ?', language, currency])
       else
         @job_posts = JobPost
-                  .joins(:subject, :language)
-                  .where(['subjects.name = ? and languages.name = ? and currency = ?', subject, language, currency])
+                  .joins(:subject, :language, :currency)
+                  .where(['subjects.name = ? and languages.name = ? and currency.name = ?', subject, language, currency])
       end
     end
     @job_posts_nb = @job_posts.count
@@ -76,6 +77,6 @@ class JobPostsController < ApplicationController
   private
 
   def job_post_params
-    params.require(:job_post).permit(:title, :description, :amount, :currency, :subject_id, :language_id)
+    params.require(:job_post).permit(:title, :description, :amount, :currency_id, :subject_id, :language_id)
   end
 end

@@ -26,7 +26,7 @@
       <h4><p><%= "Title: " + job_post.title %></h4></p>
       <%= "Subject:" %> <%= Subject.find(job_post.subject_id).name %><br>
       <%= "Language:" %> <%= Language.find(job_post.language_id).name %><br>
-      <%= "Currency:" %> <%= job_post.currency %><br>
+      <%= "Currency:" %> <%= Currency.find(job_post.currency_id).name %><br>
       <%= "Amount:" %> <%= job_post.amount %><br>
       <%= "Posted " + distance_of_time_in_words(Time.now, job_post.created_at) + " ago by " + "#{Student.find(job_post.student_id).first_name}" + " " +"#{Student.find(job_post.student_id).last_name[0]}" + "."%> <br>
       <%= "-----------------------------------------------------" %> <br>
