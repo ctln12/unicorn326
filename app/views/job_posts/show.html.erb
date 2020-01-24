@@ -7,7 +7,7 @@
   <%= "Date:  #{@job_post.created_at}" %> <br>
   <%= "-----------------------------------------------------" %> <br>
   <% if current_tutor %>
-  <%= link_to "Reply", job_post_path(job_post), class: "btn btn-primary"%> <br>
+  <%= link_to "Reply", job_post_path(@job_post), class: "btn btn-primary"%> <br>
   <% elsif current_student.id == @job_post.student_id %>
   <%= link_to "Edit", edit_job_post_path, class: "btn btn-primary"%> <span>
   <%= link_to "Delete", job_post_path, method: :delete, class: "btn btn-primary"%> <br>

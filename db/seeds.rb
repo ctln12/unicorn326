@@ -3,9 +3,6 @@ require 'faker'
 puts 'Destroying job_post...'
 JobPost.destroy_all
 
-puts 'Destroying currencies...'
-Currency.destroy_all
-
 puts 'Destroying bookings...'
 Booking.destroy_all
 
@@ -26,6 +23,9 @@ Tutor.destroy_all
 
 puts 'Destroying students'
 Student.destroy_all
+
+puts 'Destroying currencies...'
+Currency.destroy_all
 
 puts '-----------------------------'
 
@@ -305,7 +305,6 @@ spoken10.save
 puts 'Finished!'
 puts '-----------------------------'
 
-<<<<<<< HEAD
 puts 'Creating Post Jobs...'
 
   15.times do
@@ -322,7 +321,8 @@ puts 'Creating Post Jobs...'
   end
 
 puts 'Finished'
-=======
+puts '-----------------------------'
+
 puts 'Creating Bookings...'
 # Accepted / Paid
 booking1 = Booking.new(student_id: alice.id, tutor_id: pierre.id, subject_id: mathematics.id, language_id: english.id, date: DateTime.new(2020, 01, 21, 14, 0, 0, '+01:00'), duration: 60, booking_price: pierre.price, accepted_at: '2020-01-14', paid_at: '2020-01-17')
@@ -340,5 +340,4 @@ booking4.save
 booking5 = Booking.new(student_id: alice.id, tutor_id: pierre.id, subject_id: mathematics.id, language_id: english.id, date: DateTime.new(2020, 01, 16, 22, 00, 0, '+01:00'), duration: 90, booking_price: pierre.price*1.5, accepted_at: '2020-01-13', paid_at: '2020-01-15')
 booking5.save
 puts 'Finished!'
->>>>>>> master
 puts '-----------------------------'
