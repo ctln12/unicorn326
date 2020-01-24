@@ -5,6 +5,7 @@ class Student < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :bookings
+  has_many :job_posts
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :country, presence: true

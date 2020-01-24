@@ -17,10 +17,10 @@
       default: { hour: 1, minute: 0 },
       } %>
     <div class="my-3">
-      <label>Price per hour (<%= @tutor.currency %>)</label><br>
+      <label>Price per hour (<%= Currency.find(@tutor.currency_id).name %>)</label><br>
       <input id="price_per_hour" type="text" readonly value="<%= @tutor.price.to_i %>" class="form-control">
     </div>
-    <%= f.input :booking_price, label: "Total price (#{@tutor.currency})" ,readonly: true, input_html: { value: @tutor.price.to_i } %><br>
+    <%= f.input :booking_price, label: "Total price (#{Currency.find(@tutor.currency_id).name})" ,readonly: true, input_html: { value: @tutor.price.to_i } %><br>
 
     <%= f.submit "Send request", class: "btn btn-primary" %>
   <% end %>
