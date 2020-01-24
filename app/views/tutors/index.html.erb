@@ -16,8 +16,8 @@
           <%= submit_tag "Search", class: "btn btn-primary" %>
         </div>
       <% end %>
+      <%= link_to "Can't find your tutor ?", job_posts_path %>
     </div>
-    <%= link_to "Can't find your tutor ?", job_posts_path %>
   </div>
   <div class="col">
     <% @tutors.each do |tutor| %>

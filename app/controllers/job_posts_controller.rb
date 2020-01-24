@@ -55,7 +55,7 @@ class JobPostsController < ApplicationController
     @job_post = JobPost.new(job_post_params)
     @job_post.student_id = current_student.id
     @job_post.save
-    redirect_to job_posts_path
+    redirect_to job_post_path(@job_post)
   end
 
   def edit
@@ -65,13 +65,13 @@ class JobPostsController < ApplicationController
   def update
     @job_post = JobPost.find(params[:id])
     @job_post.update(job_post_params)
-    redirect_to job_posts_path
+    redirect_to job_post_path(@job_post)
   end
 
   def destroy
     @job_post = JobPost.find(params[:id])
     @job_post.destroy
-    redirect_to edit_job_post_path
+    redirect_to job_posts_path
   end
 
   private

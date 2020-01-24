@@ -4,7 +4,7 @@ class Tutor < ApplicationRecord
   has_many :taught_lessons
   has_many :spoken_languages
   has_many :bookings
-
+  has_many :currencies
   has_many :subjects, through: :taught_lessons
   has_many :languages, through: :spoken_languages
 
