@@ -1,0 +1,31 @@
+<h1>Request a lesson with <%= @tutor.first_name %> <%= @tutor.last_name %></h1>
+
+<div class="my-4">
+  <%= simple_form_for [@booking], method: :post do |f| %>
+
+    <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } %>
+    <%= f.input :tutor_id, as: :hidden,input_html: { value: @tutor.id } %>
+    <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
+    <%= f.input :language_id, collection: @tutor.languages, include_blank: false %>
+    <%= f.input :date, label: 'Date & Time' %>
+    <%= f.label 'Duration' %><br>
+    <%= f.time_select :duration,
+      {ignore_date: true,
+      include_minutes: true,
+      minute_step: 15,
+      time_separator: 'h',
+      default: { hour: 1, minute: 0 },
+      } %>
+    <div class="my-3">
+      <label>Price per hour (<%= Currency.find(@tutor.currency_id).name %>)</label><br>
+      <input id="price_per_hour" type="text" readonly value="<%= @tutor.price.to_i %>" class="form-control">
+    </div>
+    <%= f.input :booking_price, label: "Total price (#{Currency.find(@tutor.currency_id).name})" ,readonly: true, input_html: { value: @tutor.price.to_i } %><br>
+
+    <%= f.submit "Send request", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<%= link_to "< Back to Tutor's Profile", tutor_path(@tutor) %>
+
+<p>Language: English</p>

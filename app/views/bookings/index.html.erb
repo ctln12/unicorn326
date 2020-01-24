@@ -1,0 +1,38 @@
+<h1>Your Bookings</h1>
+
+<div id="bookings" class="mt-5">
+  <% @bookings.sort_by{|booking| booking.date}.reverse.each_with_index do |booking, index| %>
+    <div class="row">
+      <div class="col-1">
+        <p><%= index + 1 %></p>
+      </div>
+      <div class="col-2">
+        <% if current_tutor %>
+          <p><%= booking.student.first_name %> <%= booking.student.last_name %></p>
+        <% elsif current_student %>
+          <p><%= booking.tutor.first_name %> <%= booking.tutor.last_name.first %>.</p>
+        <% end %>
+      </div>
+      <div class="col-2">
+        <p><%= booking.subject.name %></p>
+      </div>
+      <div class="col-4">
+        <p><%= booking.date.strftime("%A, %d %B %Y") %> at <%= booking.date.strftime("%Hh%M") %></p>
+      </div>
+      <div class="col-3">
+        <% if !booking.paid_at.nil? && booking.date < Time.now %>
+          <%= link_to 'View resources', '#', class: 'btn btn-primary w-75'  %>
+        <% elsif !booking.paid_at.nil? && booking.date > Time.now %>
+          <%= link_to 'Go to lesson', '#', class: 'btn btn-success w-75' %>
+        <% elsif !booking.canceled_at.nil? %>
+          <%= link_to 'Lesson canceled', '#', class: 'btn btn-secondary w-75' %>
+        <% elsif !booking.accepted_at.nil? %>
+          <%= link_to 'Payment pending', '#', class: 'btn btn-warning w-75'  %>
+        <% else %>
+          <%= link_to 'Lesson requested', '#', class: 'btn btn-danger w-75'  %>
+        <% end %>
+      </div>
+    </div>
+    <hr>
+  <% end %>
+</div>

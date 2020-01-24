@@ -19,13 +19,18 @@ ActiveRecord::Schema.define(version: 2020_01_23_223952) do
     t.bigint "student_id"
     t.bigint "tutor_id"
     t.date "canceled_at"
-    t.date "date"
+    t.datetime "date"
     t.integer "duration"
     t.float "booking_price"
     t.date "accepted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "paid_at"
+    t.bigint "subject_id"
+    t.bigint "language_id"
+    t.index ["language_id"], name: "index_bookings_on_language_id"
     t.index ["student_id"], name: "index_bookings_on_student_id"
+    t.index ["subject_id"], name: "index_bookings_on_subject_id"
     t.index ["tutor_id"], name: "index_bookings_on_tutor_id"
   end
 
@@ -129,7 +134,9 @@ ActiveRecord::Schema.define(version: 2020_01_23_223952) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bookings", "languages"
   add_foreign_key "bookings", "students"
+  add_foreign_key "bookings", "subjects"
   add_foreign_key "bookings", "tutors"
   add_foreign_key "job_posts", "currencies"
   add_foreign_key "job_posts", "languages"
