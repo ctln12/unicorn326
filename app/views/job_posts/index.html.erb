@@ -18,7 +18,9 @@
     </div>
   </div>
 <div class="col">
+  <% if current_student %>
   <%= link_to "New Request", new_job_post_path, class: "btn btn-primary" %> <br>
+  <% end %>
   <br>
   <%= "See the latest student's requests" %>
   <p>
