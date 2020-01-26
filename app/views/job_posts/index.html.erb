@@ -30,7 +30,8 @@
       <%= "Amount:" %> <%= job_post.amount %><br>
       <%= "Posted " + distance_of_time_in_words(Time.now, job_post.created_at) + " ago by " + "#{Student.find(job_post.student_id).first_name}" + " " +"#{Student.find(job_post.student_id).last_name[0]}" + "."%> <br>
       <%= "-----------------------------------------------------" %> <br>
-      <%= link_to "See Request", job_post_path(job_post), class: "btn btn-primary"%> <br>
+      <%= link_to "See Request", job_post_path(job_post), class: "btn btn-primary"%> <span>
+      <%= pluralize(job_post.comments.count, 'Reply') %><br></span>
       <%= "-----------------------------------------------------" %>
     <% end %>
   </p>
