@@ -3,13 +3,13 @@
 <br>
 <% if current_student %>
   <%= link_to "Tutor Profile", tutor_path(comment.tutor_id), class: "btn btn-primary"%><span>
-  <%= link_to " Private Chat", class: "btn btn-primary"%><br>
+  <%= link_to "Private Chat", class: "btn btn-primary"%><br>
   <br>
 <% elsif current_tutor && current_tutor.id == comment.tutor_id %>
   <%= link_to "Edit", edit_job_post_comment_path(@job_post, comment), class: "btn btn-primary"%><span>
   <%= link_to "Delete", job_post_comment_path(@job_post, comment), method: :delete, class: "btn btn-primary"%> <br>
   <br>
-<% else %>
-  <%= link_to "Reply", new_tutor_registration_path, class: "btn btn-primary"%> <br>
+<% elsif !current_tutor %>
+  <%= link_to "Login as Tutor", new_tutor_registration_path, class: "btn btn-primary"%> <br>
   <br>
 <% end %>
