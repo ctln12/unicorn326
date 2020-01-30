@@ -21,15 +21,15 @@
       </div>
       <div class="col-3">
         <% if !booking.paid_at.nil? && booking.date < Time.now %>
-          <%= link_to 'View resources', '#', class: 'btn btn-primary w-75'  %>
+          <%= link_to 'View resources', booking_path(booking), class: 'btn btn-primary w-75'  %>
         <% elsif !booking.paid_at.nil? && booking.date > Time.now %>
-          <%= link_to 'Go to lesson', '#', class: 'btn btn-success w-75' %>
+          <%= link_to 'Go to lesson', booking_path(booking), class: 'btn btn-success w-75' %>
         <% elsif !booking.canceled_at.nil? %>
-          <%= link_to 'Lesson canceled', '#', class: 'btn btn-secondary w-75' %>
+          <%= link_to 'Lesson canceled', booking_path(booking), class: 'btn btn-secondary w-75' %>
         <% elsif !booking.accepted_at.nil? %>
-          <%= link_to 'Payment pending', '#', class: 'btn btn-warning w-75'  %>
+          <%= link_to 'Payment pending', booking_path(booking), class: 'btn btn-warning w-75'  %>
         <% else %>
-          <%= link_to 'Lesson requested', '#', class: 'btn btn-danger w-75'  %>
+          <%= link_to 'Lesson requested', booking_path(booking), class: 'btn btn-danger w-75'  %>
         <% end %>
       </div>
     </div>
