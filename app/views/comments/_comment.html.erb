@@ -1,15 +1,18 @@
-<%= comment.content %> <br>
-<%= "Posted " + distance_of_time_in_words(Time.now, comment.created_at) + " ago by " + "#{Tutor.find(comment.tutor_id).first_name}" + " " +"#{Tutor.find(comment.tutor_id).last_name[0]}" + "."%> <br>
-<br>
+<p><%= comment.content %></p>
 <% if current_student %>
-  <%= link_to "Tutor Profile", tutor_path(comment.tutor_id), class: "btn btn-primary"%><span>
-  <%= link_to "Private Chat", class: "btn btn-primary"%><br>
+  <%= "Posted " + distance_of_time_in_words(Time.now, comment.created_at) + " ago by " %><a href="<%=tutor_path(comment.tutor_id)%>"><%= "#{Tutor.find(comment.tutor_id).first_name}" + " " +"#{Tutor.find(comment.tutor_id).last_name[0]}" + "."%></a>
   <br>
+  <br>
+  <%= link_to "Private Chat", job_posts_path, class: "btn btn-primary"%>
+  <hr>
 <% elsif current_tutor && current_tutor.id == comment.tutor_id %>
-  <%= link_to "Edit", edit_job_post_comment_path(@job_post, comment), class: "btn btn-primary"%><span>
-  <%= link_to "Delete", job_post_comment_path(@job_post, comment), method: :delete, class: "btn btn-primary"%> <br>
+  <%= "Posted " + distance_of_time_in_words(Time.now, comment.created_at) + " ago by " + "#{Tutor.find(comment.tutor_id).first_name}" + " " +"#{Tutor.find(comment.tutor_id).last_name[0]}" + "."%>
   <br>
-<% elsif !current_tutor %>
-  <%= link_to "Login as Tutor", new_tutor_registration_path, class: "btn btn-primary"%> <br>
   <br>
+  <%= link_to "Edit", edit_job_post_comment_path(@job_post, comment), class: "btn btn-primary"%>
+  <%= link_to "Delete", job_post_comment_path(@job_post, comment), method: :delete, class: "btn btn-primary"%>
+  <hr>
+<% else %>
+  <%= "Posted " + distance_of_time_in_words(Time.now, comment.created_at) + " ago by " + "#{Tutor.find(comment.tutor_id).first_name}" + " " +"#{Tutor.find(comment.tutor_id).last_name[0]}" + "."%>
+  <hr>
 <% end %>
