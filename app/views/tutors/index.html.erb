@@ -7,7 +7,7 @@
     <div style="position: sticky; top: 30px;">
       <%= form_tag tutors_path, method: :get do %>
         <p>Subject</p>
-          <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id), selected: params[:subject_id]), {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
+        <%= select_tag(:subject_id, options_for_select(Subject.pluck(:name, :id), selected: params[:subject_id]), {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
         <p>Language</p>
         <%= select_tag(:language_id, options_for_select(Language.pluck(:name, :id), selected: params[:language_id]),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
         <p>Country</p>
@@ -16,6 +16,7 @@
           <%= submit_tag "Search", class: "btn btn-primary" %>
         </div>
       <% end %>
+      <%= link_to "Can't find your tutor ?", job_posts_path %>
     </div>
   </div>
   <div class="col">
@@ -23,7 +24,7 @@
       <div id="<%= tutor.id %>" class="tutor">
         <h4 class="name"><%= tutor.first_name %> <%= tutor.last_name %></h4>
         <p class="country"><%= ISO3166::Country.find_country_by_alpha2("#{tutor.country}").unofficial_names.first %></p>
-        <p class="price"><%= tutor.price.to_i %> <%= tutor.currency %> / h</p>
+        <p class="price"><%= tutor.price.to_i %> <%= Currency.find(tutor.currency_id).name %> / h</p>
         <p class="subject">Teaches:
           <% tutor.taught_lessons.each do |taught_lesson| %>
             <% separator = taught_lesson == tutor.taught_lessons.last ? '' : ',' %>

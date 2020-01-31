@@ -11,7 +11,7 @@
 
 <hr>
 <h2>Teaching Options</h2>
-<p>Price: <%= @tutor.price.to_i %> <%= @tutor.currency %> / h</p>
+<p>Price: <%= @tutor.price.to_i %> <%= Currency.find(@tutor.currency_id).name %> / h</p>
 <p>Subjects taught:</p>
 <% @tutor.taught_lessons.each do |taught_lesson| %>
   <p>- <%= taught_lesson.subject.name %></p>

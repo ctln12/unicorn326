@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_20_134223) do
+ActiveRecord::Schema.define(version: 2020_01_23_223952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,28 @@ ActiveRecord::Schema.define(version: 2020_01_20_134223) do
     t.index ["student_id"], name: "index_bookings_on_student_id"
     t.index ["subject_id"], name: "index_bookings_on_subject_id"
     t.index ["tutor_id"], name: "index_bookings_on_tutor_id"
+  end
+
+  create_table "currencies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "job_posts", force: :cascade do |t|
+    t.bigint "student_id"
+    t.string "description"
+    t.float "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.bigint "subject_id"
+    t.bigint "language_id"
+    t.bigint "currency_id"
+    t.index ["currency_id"], name: "index_job_posts_on_currency_id"
+    t.index ["language_id"], name: "index_job_posts_on_language_id"
+    t.index ["student_id"], name: "index_job_posts_on_student_id"
+    t.index ["subject_id"], name: "index_job_posts_on_subject_id"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -91,7 +113,6 @@ ActiveRecord::Schema.define(version: 2020_01_20_134223) do
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
-    t.string "currency"
     t.float "price"
     t.string "country"
     t.string "photo_url"
@@ -100,6 +121,8 @@ ActiveRecord::Schema.define(version: 2020_01_20_134223) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date_of_birth"
+    t.bigint "currency_id"
+    t.index ["currency_id"], name: "index_tutors_on_currency_id"
     t.index ["email"], name: "index_tutors_on_email", unique: true
     t.index ["reset_password_token"], name: "index_tutors_on_reset_password_token", unique: true
   end
@@ -115,8 +138,13 @@ ActiveRecord::Schema.define(version: 2020_01_20_134223) do
   add_foreign_key "bookings", "students"
   add_foreign_key "bookings", "subjects"
   add_foreign_key "bookings", "tutors"
+  add_foreign_key "job_posts", "currencies"
+  add_foreign_key "job_posts", "languages"
+  add_foreign_key "job_posts", "students"
+  add_foreign_key "job_posts", "subjects"
   add_foreign_key "spoken_languages", "languages"
   add_foreign_key "spoken_languages", "tutors"
   add_foreign_key "taught_lessons", "subjects"
   add_foreign_key "taught_lessons", "tutors"
+  add_foreign_key "tutors", "currencies"
 end
