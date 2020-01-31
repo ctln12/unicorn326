@@ -1,18 +1,29 @@
-<h1><%= @booking.subject.name %></h1>
-<p><%= @booking.tutor.first_name %> <%= @booking.tutor.last_name %>, <%= @booking.language.name %> | <%= link_to 'Send a message', '#' %></p>
+<h1><%= @booking.subject.name %> (<%= @booking.language.name %>)</h1>
+<p><%= @booking.tutor.first_name %> <%= @booking.tutor.last_name %> (<%= link_to 'send a message', '#' %>)</p>
+<hr>
 
+<h4><%= @booking.date.strftime("%A, %d %B %Y") %> at <%= @booking.date.strftime("%Hh%M") %> (<%= @booking.duration / 60 %> hour) (<%= link_to 'edit', '#' %>)</h4>
+<hr>
 
-<p><%= @booking.date.strftime("%A, %d %B %Y") %> at <%= @booking.date.strftime("%Hh%M") %> (<%= @booking.duration / 60 %> hour) | <%= link_to 'Modify', '#' %></p>
-<p>Total Price: <%= @booking.booking_price %> <%= @booking.tutor.currency %></p>
+<p>Sent: <%= @booking.created_at.strftime("%A, %d %B %Y") %></p>
+<p><%= "Accepted: " + @booking.accepted_at.strftime("%A, %d %B %Y") if @booking.accepted_at %></p>
+  <p><%= "Paid: " + @booking.paid_at.strftime("%A, %d %B %Y") if @booking.paid_at %></p>
+  <p><%= "Canceled: " + @booking.canceled_at.strftime("%A, %d %B %Y") if @booking.canceled_at %></p>
+<p><strong>Total Price: <%= @booking.booking_price %> <%= @booking.tutor.currency %></strong></p>
 
-<% if !@booking.paid_at.nil? && @booking.date < Time.now %>
-  <%= link_to 'View resources', '#', class: 'btn btn-primary'  %>
-<% elsif !@booking.paid_at.nil? && @booking.date > Time.now %>
-  <%= link_to 'Go to lesson', '#', class: 'btn btn-success' %>
-<% elsif !@booking.canceled_at.nil? %>
-  <%= link_to 'Lesson canceled', '#', class: 'btn btn-secondary' %>
-<% elsif !@booking.accepted_at.nil? %>
-  <%= link_to 'Proceed to payment', '#', class: 'btn btn-warning'  %>
+<% if @booking.accepted_at && @booking.paid_at && @booking.canceled_at.nil? && @booking.date < Time.now %>
+  <%= link_to 'View resources', '#', class: 'btn btn-primary mb-2'  %>
+<% elsif @booking.paid_at && @booking.date > Time.now %>
+  <%= link_to 'Go to lesson', '#', class: 'btn btn-success mb-2' %>
+<% elsif @booking.canceled_at %>
+  <%= link_to 'Lesson canceled', '#', class: 'btn btn-secondary mb-2' %>
+<% elsif @booking.accepted_at %>
+  <%= link_to 'Proceed to payment', '#', class: 'btn btn-warning mb-2' if current_student %>
+  <%= link_to 'Waiting for payment', '#', class: 'btn btn-warning mb-2' if current_tutor %>
 <% else %>
-  <%= link_to 'Waiting for reply', '#', class: 'btn btn-danger'  %>
+  <%= link_to 'Waiting for reply', '#', class: 'btn btn-danger mb-2' if current_student %>
+  <%= link_to 'Reply to request', '#', class: 'btn btn-danger mb-2' if current_tutor %>
 <% end %>
+
+<br>
+<%= link_to "< back to bookings", bookings_path %>
