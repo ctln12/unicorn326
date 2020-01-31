@@ -9,7 +9,7 @@
 <p><%= "Accepted: " + @booking.accepted_at.strftime("%A, %d %B %Y") if @booking.accepted_at %></p>
   <p><%= "Paid: " + @booking.paid_at.strftime("%A, %d %B %Y") if @booking.paid_at %></p>
   <p><%= "Canceled: " + @booking.canceled_at.strftime("%A, %d %B %Y") if @booking.canceled_at %></p>
-<p><strong>Total Price: <%= @booking.booking_price %> <%= @booking.tutor.currency %></strong></p>
+<p><strong>Total Price: <%= @booking.booking_price %> <%= Currency.find(@booking.tutor.currency_id).name %></strong></p>
 
 <% if @booking.accepted_at && @booking.paid_at && @booking.canceled_at.nil? && @booking.date < Time.now %>
   <%= link_to 'View resources', '#', class: 'btn btn-primary mb-2'  %>
