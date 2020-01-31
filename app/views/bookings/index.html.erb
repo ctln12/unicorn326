@@ -20,16 +20,18 @@
         <p><%= booking.date.strftime("%A, %d %B %Y") %> at <%= booking.date.strftime("%Hh%M") %></p>
       </div>
       <div class="col-3">
-        <% if !booking.paid_at.nil? && booking.date < Time.now %>
-          <%= link_to 'View resources', booking_path(booking), class: 'btn btn-primary w-75'  %>
-        <% elsif !booking.paid_at.nil? && booking.date > Time.now %>
-          <%= link_to 'Go to lesson', booking_path(booking), class: 'btn btn-success w-75' %>
-        <% elsif !booking.canceled_at.nil? %>
-          <%= link_to 'Lesson canceled', booking_path(booking), class: 'btn btn-secondary w-75' %>
-        <% elsif !booking.accepted_at.nil? %>
-          <%= link_to 'Payment pending', booking_path(booking), class: 'btn btn-warning w-75'  %>
+        <% if booking.accepted_at && booking.paid_at && booking.canceled_at.nil? && booking.date < Time.now %>
+          <%= link_to 'View resources', booking_path(booking), class: 'btn btn-primary mb-2 w-75'  %>
+        <% elsif booking.paid_at && booking.date > Time.now %>
+          <%= link_to 'Go to lesson', booking_path(booking), class: 'btn btn-success mb-2 w-75' %>
+        <% elsif booking.canceled_at %>
+          <%= link_to 'Lesson canceled', booking_path(booking), class: 'btn btn-secondary mb-2 w-75' %>
+        <% elsif booking.accepted_at %>
+          <%= link_to 'Proceed to payment', booking_path(booking), class: 'btn btn-warning mb-2 w-75' if current_student %>
+          <%= link_to 'Waiting for payment', booking_path(booking), class: 'btn btn-warning mb-2 w-75' if current_tutor %>
         <% else %>
-          <%= link_to 'Lesson requested', booking_path(booking), class: 'btn btn-danger w-75'  %>
+          <%= link_to 'Waiting for reply', booking_path(booking), class: 'btn btn-danger mb-2 w-75' if current_student %>
+          <%= link_to 'Reply to request', booking_path(booking), class: 'btn btn-danger mb-2 w-75' if current_tutor %>
         <% end %>
       </div>
     </div>
