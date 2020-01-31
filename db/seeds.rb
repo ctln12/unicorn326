@@ -219,7 +219,7 @@ georges = Tutor.new(first_name: 'Georges', last_name: 'Till', date_of_birth: '19
 georges.save
 
 
-100.times do
+50.times do
   fn = Faker::Name.first_name
   ln = Faker::Name.last_name
   tutor = Tutor.new(
@@ -318,9 +318,9 @@ puts 'Creating Post Jobs and Comments ...'
       language_id: Language.all.sample.id
     )
     post.save
-    comment1 = Comment.new(content: "#{post.id} Comment 1", job_post_id: post.id, tutor_id: Tutor.ids.sample)
+    comment1 = Comment.new(content: Faker::Lorem.paragraph(sentence_count: 15), job_post_id: post.id, tutor_id: Tutor.ids.sample)
     comment1.save
-    comment2 = Comment.new(content: "#{post.id} Comment 2", job_post_id: post.id, tutor_id: Tutor.ids.sample)
+    comment2 = Comment.new(content: Faker::Lorem.paragraph(sentence_count: 15), job_post_id: post.id, tutor_id: Tutor.ids.sample)
     comment2.save
   end
 
