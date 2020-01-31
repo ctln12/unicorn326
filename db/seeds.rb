@@ -1,6 +1,6 @@
 require 'faker'
 
-puts 'Destroying job_post...'
+puts 'Destroying job_posts...'
 JobPost.destroy_all
 
 puts 'Destroying bookings...'
@@ -188,7 +188,7 @@ alice.save
 bob = Student.new(first_name: 'Bob', last_name: 'Hutchings', country: 'GB', date_of_birth: '1995-10-08', email: 'bob.hutchingsg@student.com', password: '123456')
 bob.save
 
-20.times do
+25.times do
   fn = Faker::Name.first_name
   ln = Faker::Name.last_name
   student = Student.new(
@@ -219,7 +219,7 @@ georges = Tutor.new(first_name: 'Georges', last_name: 'Till', date_of_birth: '19
 georges.save
 
 
-100.times do
+50.times do
   fn = Faker::Name.first_name
   ln = Faker::Name.last_name
   tutor = Tutor.new(
@@ -305,19 +305,23 @@ spoken10.save
 puts 'Finished!'
 puts '-----------------------------'
 
-puts 'Creating Post Jobs...'
+puts 'Creating Post Jobs and Comments ...'
 
-  15.times do
+  25.times do
     post = JobPost.new(
       student_id: Student.ids.sample,
       title: Faker::Coffee.blend_name,
-      description: Faker::Lorem.paragraph(sentence_count: 10),
+      description: Faker::Lorem.paragraph(sentence_count: 15),
       currency_id: Currency.all.sample.id,
       amount: rand(10...30),
       subject_id: Subject.all.sample.id,
       language_id: Language.all.sample.id
     )
     post.save
+    comment1 = Comment.new(content: Faker::Lorem.paragraph(sentence_count: 15), job_post_id: post.id, tutor_id: Tutor.ids.sample)
+    comment1.save
+    comment2 = Comment.new(content: Faker::Lorem.paragraph(sentence_count: 15), job_post_id: post.id, tutor_id: Tutor.ids.sample)
+    comment2.save
   end
 
 puts 'Finished'

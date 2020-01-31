@@ -1,0 +1,4 @@
+<%= simple_form_for([@job_post, @job_post.comments.build]) do |f| %>
+  <%= f.input :content, label: 'Reply', placeholder: "Please detail how you can fulfill student demand" %>
+  <%= f.submit %>
+<% end %>
