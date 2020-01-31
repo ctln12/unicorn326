@@ -168,7 +168,7 @@ georges = Tutor.new(first_name: 'Georges', last_name: 'Till', date_of_birth: '19
 georges.save
 
 
-100.times do
+10.times do
   tutor = Tutor.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -253,20 +253,93 @@ puts 'Finished!'
 puts '-----------------------------'
 
 puts 'Creating Bookings...'
-# Accepted / Paid
-booking1 = Booking.new(student_id: alice.id, tutor_id: pierre.id, subject_id: mathematics.id, language_id: english.id, date: DateTime.new(2020, 01, 21, 14, 0, 0, '+01:00'), duration: 60, booking_price: pierre.price, accepted_at: '2020-01-14', paid_at: '2020-01-17')
+# Accepted / Paid / Given
+booking1 = Booking.new(
+  student_id: alice.id,
+  tutor_id: pierre.id,
+  subject_id: mathematics.id,
+  language_id: english.id,
+  date: DateTime.now - 10,
+  duration: 90,
+  booking_price: pierre.price*1.5,
+  accepted_at: DateTime.now - 12,
+  paid_at: DateTime.now - 11
+)
 booking1.save
-# Accepted / Not paid
-booking2 = Booking.new(student_id: bob.id, tutor_id: pierre.id, subject_id: chemistry.id, language_id: french.id, date: DateTime.new(2020, 01, 20, 9, 30, 0, '+00:00'), duration: 90, booking_price: pierre.price*1.5, accepted_at: '2020-01-17')
+# Accepted / Paid / Not given yet
+booking2 = Booking.new(
+  student_id: alice.id,
+  tutor_id: pierre.id,
+  subject_id: mathematics.id,
+  language_id: english.id,
+  date: DateTime.now + 1,
+  duration: 60,
+  booking_price: pierre.price,
+  accepted_at: DateTime.now - 1,
+  paid_at: DateTime.now
+)
 booking2.save
-# Canceled
-booking3 = Booking.new(student_id: alice.id, tutor_id: pierre.id, subject_id: physics.id, language_id: english.id, date: DateTime.new(2020, 01, 06, 11, 00, 0, '+01:00'), duration: 60, booking_price: pierre.price, accepted_at: '2020-01-02', canceled_at: '2020-01-04')
+# Accepted / Not paid
+booking3 = Booking.new(
+  student_id: alice.id,
+  tutor_id: pierre.id,
+  subject_id: chemistry.id,
+  language_id: french.id,
+  date: DateTime.now + 2,
+  duration: 90,
+  booking_price: pierre.price*1.5,
+  accepted_at: DateTime.now - 1
+)
 booking3.save
 # Not accepted yet
-booking4 = Booking.new(student_id: bob.id, tutor_id: pierre.id, subject_id: chemistry.id, language_id: french.id, date: DateTime.new(2020, 01, 24, 18, 00, 0, '+00:00'), duration: 60, booking_price: pierre.price)
+booking4 = Booking.new(
+  student_id: alice.id,
+  tutor_id: pierre.id,
+  subject_id: chemistry.id,
+  language_id: french.id,
+  date: DateTime.now + 3,
+  duration: 60,
+  booking_price: pierre.price
+)
 booking4.save
-# Accepted / Paid / Given
-booking5 = Booking.new(student_id: alice.id, tutor_id: pierre.id, subject_id: mathematics.id, language_id: english.id, date: DateTime.new(2020, 01, 16, 22, 00, 0, '+01:00'), duration: 90, booking_price: pierre.price*1.5, accepted_at: '2020-01-13', paid_at: '2020-01-15')
+# Canceled by tutor
+booking5 = Booking.new(
+  student_id: alice.id,
+  tutor_id: pierre.id,
+  subject_id: physics.id,
+  language_id: english.id,
+  date: DateTime.now - 1,
+  duration: 60,
+  booking_price: pierre.price,
+  canceled_at: DateTime.now - 3
+)
 booking5.save
+# Accepted / Canceled by student
+booking6 = Booking.new(
+  student_id: alice.id,
+  tutor_id: pierre.id,
+  subject_id: physics.id,
+  language_id: english.id,
+  date: DateTime.now - 2,
+  duration: 60,
+  booking_price: pierre.price,
+  accepted_at: DateTime.now - 4,
+  canceled_at: DateTime.now - 3
+)
+booking6.save
+# Accepted / Paid / Canceled
+booking7 = Booking.new(
+  student_id: alice.id,
+  tutor_id: pierre.id,
+  subject_id: chemistry.id,
+  language_id: french.id,
+  date: DateTime.now - 3,
+  duration: 90,
+  booking_price: pierre.price*1.5,
+  accepted_at: DateTime.now - 6,
+  paid_at: DateTime.now - 5,
+  canceled_at: DateTime.now - 4
+)
+booking7.save
 puts 'Finished!'
 puts '-----------------------------'
