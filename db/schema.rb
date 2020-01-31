@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_23_223952) do
+ActiveRecord::Schema.define(version: 2020_01_24_211450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 2020_01_23_223952) do
     t.index ["student_id"], name: "index_bookings_on_student_id"
     t.index ["subject_id"], name: "index_bookings_on_subject_id"
     t.index ["tutor_id"], name: "index_bookings_on_tutor_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "job_post_id"
+    t.bigint "tutor_id"
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_post_id"], name: "index_comments_on_job_post_id"
+    t.index ["tutor_id"], name: "index_comments_on_tutor_id"
   end
 
   create_table "currencies", force: :cascade do |t|
@@ -138,6 +148,8 @@ ActiveRecord::Schema.define(version: 2020_01_23_223952) do
   add_foreign_key "bookings", "students"
   add_foreign_key "bookings", "subjects"
   add_foreign_key "bookings", "tutors"
+  add_foreign_key "comments", "job_posts"
+  add_foreign_key "comments", "tutors"
   add_foreign_key "job_posts", "currencies"
   add_foreign_key "job_posts", "languages"
   add_foreign_key "job_posts", "students"

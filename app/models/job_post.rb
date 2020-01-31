@@ -4,6 +4,8 @@ class JobPost < ApplicationRecord
   belongs_to :subject
   belongs_to :currency
 
+  has_many :comments, dependent: :destroy
+
   validates :title, presence: true
   validates :description, presence: true
   validates :currency_id, presence: true

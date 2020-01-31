@@ -21,7 +21,7 @@ class JobPostsController < ApplicationController
       elsif params[:subject_id] == '' && params[:language_id] == ''
         @job_posts = JobPost
                   .joins(:currency)
-                  .where(['currency.name = ?', currency])
+                  .where(['currencies.name = ?', currency])
       elsif params[:currency_id] == ''
         @job_posts = JobPost
                   .joins(:subject, :language)
