@@ -333,11 +333,11 @@ booking1 = Booking.new(
   tutor_id: pierre.id,
   subject_id: mathematics.id,
   language_id: english.id,
-  date: DateTime.now - 10,
+  date: DateTime.now - 10.1,
   duration: 90,
   booking_price: pierre.price*1.5,
-  accepted_at: DateTime.now - 12,
-  paid_at: DateTime.now - 11
+  accepted_at: DateTime.now - 12.3,
+  paid_at: DateTime.now - 11.2
 )
 booking1.save
 # Accepted / Paid / Not given yet
@@ -346,10 +346,10 @@ booking2 = Booking.new(
   tutor_id: pierre.id,
   subject_id: mathematics.id,
   language_id: english.id,
-  date: DateTime.now + 1,
+  date: DateTime.now + 1.2,
   duration: 60,
   booking_price: pierre.price,
-  accepted_at: DateTime.now - 1,
+  accepted_at: DateTime.now - 1.1,
   paid_at: DateTime.now
 )
 booking2.save
@@ -359,10 +359,10 @@ booking3 = Booking.new(
   tutor_id: pierre.id,
   subject_id: chemistry.id,
   language_id: french.id,
-  date: DateTime.now + 2,
+  date: DateTime.now + 2.3,
   duration: 90,
   booking_price: pierre.price*1.5,
-  accepted_at: DateTime.now - 1
+  accepted_at: DateTime.now - 1.2
 )
 booking3.save
 # Not accepted yet
@@ -382,10 +382,10 @@ booking5 = Booking.new(
   tutor_id: pierre.id,
   subject_id: physics.id,
   language_id: english.id,
-  date: DateTime.now - 1,
+  date: DateTime.now - 1.4,
   duration: 60,
   booking_price: pierre.price,
-  canceled_at: DateTime.now - 3
+  canceled_at: DateTime.now - 3.1
 )
 booking5.save
 # Accepted / Canceled by student
@@ -394,11 +394,11 @@ booking6 = Booking.new(
   tutor_id: pierre.id,
   subject_id: physics.id,
   language_id: english.id,
-  date: DateTime.now - 2,
+  date: DateTime.now - 2.5,
   duration: 60,
   booking_price: pierre.price,
-  accepted_at: DateTime.now - 4,
-  canceled_at: DateTime.now - 3
+  accepted_at: DateTime.now - 4.2,
+  canceled_at: DateTime.now - 3.1
 )
 booking6.save
 # Accepted / Paid / Canceled
@@ -407,12 +407,12 @@ booking7 = Booking.new(
   tutor_id: pierre.id,
   subject_id: chemistry.id,
   language_id: french.id,
-  date: DateTime.now - 3,
+  date: DateTime.now - 3.6,
   duration: 90,
   booking_price: pierre.price*1.5,
-  accepted_at: DateTime.now - 6,
-  paid_at: DateTime.now - 5,
-  canceled_at: DateTime.now - 4
+  accepted_at: DateTime.now - 6.3,
+  paid_at: DateTime.now - 5.2,
+  canceled_at: DateTime.now - 4.1
 )
 booking7.save
 puts 'Finished!'
