@@ -1,8 +1,13 @@
-<h1><%= @booking.subject.name %> (<%= @booking.language.name %>)</h1>
-<p><%= @booking.tutor.first_name %> <%= @booking.tutor.last_name %> (<%= link_to 'send a message', '#' %>)</p>
+<h1>
+  <%= @booking.subject.name %> (<%= @booking.language.name %>)
+  [<%= link_to 'edit', edit_booking_path(@booking) %>]
+</h1>
+
+<p><%= @booking.tutor.first_name %> <%= @booking.tutor.last_name %> [<%= link_to 'send a message', '#' %>]</p>
 <hr>
 
-<h4><%= @booking.date.strftime("%A, %d %B %Y") %> at <%= @booking.date.strftime("%Hh%M") %> (<%= @booking.duration / 60 %> hour) (<%= link_to 'edit', edit_booking_path(@booking) %>)</h4>
+<h4><%= @booking.start_date.strftime("%A, %d %B %Y") %></h4>
+<h5><%= @booking.start_date.strftime("%H:%M") %> - <%= @booking.start_date.strftime("%H:%M") %></h5>
 <hr>
 
 <p><%= "Accepted: " + @booking.accepted_at.strftime("%A, %d %B %Y") if @booking.accepted_at %></p>
@@ -10,9 +15,9 @@
   <p><%= "Canceled: " + @booking.canceled_at.strftime("%A, %d %B %Y") if @booking.canceled_at %></p>
 <p><strong>Total Price: <%= @booking.booking_price %> <%= Currency.find(@booking.tutor.currency_id).name %></strong></p>
 
-<% if @booking.accepted_at && @booking.paid_at && @booking.canceled_at.nil? && @booking.date < Time.now %>
+<% if @booking.accepted_at && @booking.paid_at && @booking.canceled_at.nil? && @booking.start_date < Time.now %>
   <%= link_to 'View resources', '#', class: 'btn btn-primary mb-2'  %>
-<% elsif @booking.paid_at && @booking.date > Time.now %>
+<% elsif @booking.paid_at && @booking.start_date > Time.now %>
   <%= link_to 'Go to lesson', '#', class: 'btn btn-success mb-2' %>
 <% elsif @booking.canceled_at %>
   <%= link_to 'Lesson canceled', '#', class: 'btn btn-secondary mb-2' %>
