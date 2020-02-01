@@ -2,7 +2,7 @@
 <p><%= @booking.tutor.first_name %> <%= @booking.tutor.last_name %> (<%= link_to 'send a message', '#' %>)</p>
 <hr>
 
-<h4><%= @booking.date.strftime("%A, %d %B %Y") %> at <%= @booking.date.strftime("%Hh%M") %> (<%= @booking.duration / 60 %> hour) (<%= link_to 'edit', '#' %>)</h4>
+<h4><%= @booking.date.strftime("%A, %d %B %Y") %> at <%= @booking.date.strftime("%Hh%M") %> (<%= @booking.duration / 60 %> hour) (<%= link_to 'edit', edit_booking_path(@booking) %>)</h4>
 <hr>
 
 <p><%= "Accepted: " + @booking.accepted_at.strftime("%A, %d %B %Y") if @booking.accepted_at %></p>
