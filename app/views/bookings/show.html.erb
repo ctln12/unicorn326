@@ -1,6 +1,6 @@
 <h1>
   <%= @booking.subject.name %> (<%= @booking.language.name %>)
-  [<%= link_to 'edit', edit_booking_path(@booking) %>]
+  <%= link_to '[edit]', edit_booking_path(@booking) unless @booking.canceled_at || @booking.start_date < DateTime.now %>
 </h1>
 
 <p><%= @booking.tutor.first_name %> <%= @booking.tutor.last_name %> [<%= link_to 'send a message', '#' %>]</p>
