@@ -24,6 +24,10 @@ class BookingsController < ApplicationController
     redirect_to bookings_path
   end
 
+  def show
+    @booking = Booking.find(params[:id])
+  end
+
   def edit
     @booking = Booking.find(params[:id])
     @tutor = @booking.tutor
@@ -34,7 +38,6 @@ class BookingsController < ApplicationController
     @booking.update(booking_without_duration_params)
 
     redirect_to bookings_path
-  end
 
   private
 
