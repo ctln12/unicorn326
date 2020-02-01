@@ -25,7 +25,15 @@ class BookingsController < ApplicationController
   end
 
   def edit
+    @booking = Booking.find(params[:id])
+    @tutor = @booking.tutor
+  end
 
+  def update
+    @booking = Booking.find(params[:id])
+    @booking.update(booking_without_duration_params)
+
+    redirect_to bookings_path
   end
 
   private
