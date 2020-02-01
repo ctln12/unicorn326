@@ -7,7 +7,7 @@
     <%= f.input :tutor_id, as: :hidden,input_html: { value: @tutor.id } %>
     <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
     <%= f.input :language_id, collection: @tutor.languages, include_blank: false %>
-    <%= f.input :date, label: 'Date & Time' %>
+    <%= f.input :date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, label: 'Date & Time' } %>
     <%= f.label 'Duration' %><br>
     <%= f.time_select :duration,
       {ignore_date: true,
