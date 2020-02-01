@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_01_121528) do
+ActiveRecord::Schema.define(version: 2020_02_01_123726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_121528) do
     t.date "paid_at"
     t.bigint "subject_id"
     t.bigint "language_id"
+    t.datetime "end_date"
     t.index ["language_id"], name: "index_bookings_on_language_id"
     t.index ["student_id"], name: "index_bookings_on_student_id"
     t.index ["subject_id"], name: "index_bookings_on_subject_id"
