@@ -38,6 +38,7 @@ class BookingsController < ApplicationController
     @booking.update(booking_without_duration_params)
 
     redirect_to bookings_path
+  end
 
   private
 
