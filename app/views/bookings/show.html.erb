@@ -3,7 +3,16 @@
   <%= link_to '[edit]', edit_booking_path(@booking) unless @booking.canceled_at || @booking.start_date < DateTime.now %>
 </h1>
 
-<p><%= @booking.tutor.first_name %> <%= @booking.tutor.last_name %> [<%= link_to 'send a message', '#' %>]</p>
+<p>
+  <% if current_student %>
+    <%= @booking.tutor.first_name %>
+    <%= @booking.tutor.last_name.first %>.
+  <% elsif current_tutor %>
+    <%= @booking.student.first_name %>
+    <%= @booking.student.last_name.first %>.
+  <% end %>
+  [<%= link_to 'send a message', '#' %>]
+</p>
 <hr>
 
 <h4><%= @booking.start_date.strftime("%A, %d %B %Y") %></h4>
