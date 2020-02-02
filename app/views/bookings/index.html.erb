@@ -1,7 +1,7 @@
 <h1>Your Bookings</h1>
 
 <div id="bookings" class="mt-5">
-  <% @bookings.sort_by{|booking| booking.date}.reverse.each_with_index do |booking, index| %>
+  <% @bookings.sort_by{|booking| booking.start_date}.reverse.each_with_index do |booking, index| %>
     <div class="row">
       <div class="col-1">
         <p><%= index + 1 %></p>
@@ -17,12 +17,12 @@
         <p><%= booking.subject.name %></p>
       </div>
       <div class="col-4">
-        <p><%= booking.date.strftime("%A, %d %B %Y") %> at <%= booking.date.strftime("%Hh%M") %></p>
+        <p><%= booking.start_date.strftime("%A, %d %B %Y") %> at <%= booking.start_date.strftime("%Hh%M") %></p>
       </div>
       <div class="col-3">
-        <% if booking.accepted_at && booking.paid_at && booking.canceled_at.nil? && booking.date < Time.now %>
+        <% if booking.accepted_at && booking.paid_at && booking.canceled_at.nil? && booking.start_date < Time.now %>
           <%= link_to 'View resources', booking_path(booking), class: 'btn btn-primary mb-2 w-75'  %>
-        <% elsif booking.paid_at && booking.date > Time.now %>
+        <% elsif booking.paid_at && booking.start_date > Time.now %>
           <%= link_to 'Go to lesson', booking_path(booking), class: 'btn btn-success mb-2 w-75' %>
         <% elsif booking.canceled_at %>
           <%= link_to 'Lesson canceled', booking_path(booking), class: 'btn btn-secondary mb-2 w-75' %>

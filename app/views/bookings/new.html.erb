@@ -7,15 +7,8 @@
     <%= f.input :tutor_id, as: :hidden,input_html: { value: @tutor.id } %>
     <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
     <%= f.input :language_id, collection: @tutor.languages, include_blank: false %>
-    <%= f.input :date, label: 'Date & Time' %>
-    <%= f.label 'Duration' %><br>
-    <%= f.time_select :duration,
-      {ignore_date: true,
-      include_minutes: true,
-      minute_step: 15,
-      time_separator: 'h',
-      default: { hour: 1, minute: 0 },
-      } %>
+    <%= f.input :start_date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, default: @tomorrow, label: 'Start date & time' } %>
+    <%= f.input :end_date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, default: @plus_one_hour, label: 'End date & time' } %>
     <div class="my-3">
       <label>Price per hour (<%= Currency.find(@tutor.currency_id).name %>)</label><br>
       <input id="price_per_hour" type="text" readonly value="<%= @tutor.price.to_i %>" class="form-control">

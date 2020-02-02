@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_24_211450) do
+ActiveRecord::Schema.define(version: 2020_02_01_123726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,7 @@ ActiveRecord::Schema.define(version: 2020_01_24_211450) do
     t.bigint "student_id"
     t.bigint "tutor_id"
     t.date "canceled_at"
-    t.datetime "date"
-    t.integer "duration"
+    t.datetime "start_date"
     t.float "booking_price"
     t.date "accepted_at"
     t.datetime "created_at", null: false
@@ -28,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_01_24_211450) do
     t.date "paid_at"
     t.bigint "subject_id"
     t.bigint "language_id"
+    t.datetime "end_date"
     t.index ["language_id"], name: "index_bookings_on_language_id"
     t.index ["student_id"], name: "index_bookings_on_student_id"
     t.index ["subject_id"], name: "index_bookings_on_subject_id"

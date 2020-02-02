@@ -1,0 +1,20 @@
+<h1>Edit Your Booking</h1>
+
+<%= simple_form_for [@booking], method: :patch do |f| %>
+
+    <%= f.input :student_id, as: :hidden %>
+    <%= f.input :tutor_id, as: :hidden %>
+    <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
+    <%= f.input :language_id, collection: @tutor.languages, include_blank: false %>
+    <%= f.input :start_date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, label: 'Start Date & Time' } %>
+    <%= f.input :end_date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, label: 'End Date & Time' } %>
+    <div class="my-3">
+      <label>Price per hour (<%= Currency.find(@booking.tutor.currency_id).name %>)</label><br>
+      <input id="price_per_hour" type="text" readonly value="<%= @booking.tutor.price.to_i %>" class="form-control">
+    </div>
+    <%= f.input :booking_price, readonly: true %><br>
+
+    <%= f.submit "Update", class: "btn btn-primary mb-3" %>
+  <% end %>
+
+<%= link_to '< back to booking', booking_path(@booking), class: 'pb-3' %>

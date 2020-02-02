@@ -12,13 +12,13 @@ class BookingsController < ApplicationController
   def new
     @student = current_student
     @tutor = Tutor.find(params[:tutor_id])
+    @tomorrow = DateTime.now + 1.day
+    @plus_one_hour = @tomorrow + 1.hour
     @booking = Booking.new
   end
 
   def create
-    @booking = Booking.new(booking_without_duration_params)
-    duration = booking_duration_params[:'duration(4i)'].to_i * 60 + booking_duration_params[:'duration(5i)'].to_i
-    @booking.duration = duration
+    @booking = Booking.new(booking_params)
     @booking.save
 
     redirect_to bookings_path
@@ -28,14 +28,22 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
   end
 
-  private
-
-  def booking_duration_params
-    params.require(:booking).permit(:duration)
+  def edit
+    @booking = Booking.find(params[:id])
+    @tutor = @booking.tutor
   end
 
-  def booking_without_duration_params
-    params.require(:booking).permit(:student_id, :tutor_id, :subject_id, :language_id, :date, :booking_price)
+  def update
+    @booking = Booking.find(params[:id])
+    @booking.update(booking_params)
+
+    redirect_to bookings_path
+  end
+
+  private
+
+  def booking_params
+    params.require(:booking).permit(:student_id, :tutor_id, :subject_id, :language_id, :start_date, :end_date, :booking_price)
   end
 
   def redirect_if_user_not_signed_in!

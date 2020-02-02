@@ -333,8 +333,8 @@ booking1 = Booking.new(
   tutor_id: pierre.id,
   subject_id: mathematics.id,
   language_id: english.id,
-  date: DateTime.now - 10.1,
-  duration: 90,
+  start_date: DateTime.now - 10.1,
+  end_date: DateTime.now - 10.1 + 1.hour,
   booking_price: pierre.price*1.5,
   accepted_at: DateTime.now - 12.3,
   paid_at: DateTime.now - 11.2
@@ -346,8 +346,8 @@ booking2 = Booking.new(
   tutor_id: pierre.id,
   subject_id: mathematics.id,
   language_id: english.id,
-  date: DateTime.now + 1.2,
-  duration: 60,
+  start_date: DateTime.now + 1.2,
+  end_date: DateTime.now + 1.2 + 1.hour,
   booking_price: pierre.price,
   accepted_at: DateTime.now - 1.1,
   paid_at: DateTime.now
@@ -359,8 +359,8 @@ booking3 = Booking.new(
   tutor_id: pierre.id,
   subject_id: chemistry.id,
   language_id: french.id,
-  date: DateTime.now + 2.3,
-  duration: 90,
+  start_date: DateTime.now + 2.3,
+  end_date: DateTime.now + 2.3 + 1.hour,
   booking_price: pierre.price*1.5,
   accepted_at: DateTime.now - 1.2
 )
@@ -371,8 +371,8 @@ booking4 = Booking.new(
   tutor_id: pierre.id,
   subject_id: chemistry.id,
   language_id: french.id,
-  date: DateTime.now + 3,
-  duration: 60,
+  start_date: DateTime.now + 3,
+  end_date: DateTime.now + 3 + 1.hour,
   booking_price: pierre.price
 )
 booking4.save
@@ -382,8 +382,8 @@ booking5 = Booking.new(
   tutor_id: pierre.id,
   subject_id: physics.id,
   language_id: english.id,
-  date: DateTime.now - 1.4,
-  duration: 60,
+  start_date: DateTime.now - 1.4,
+  end_date: DateTime.now - 1.4 + 1.hour,
   booking_price: pierre.price,
   canceled_at: DateTime.now - 3.1
 )
@@ -394,8 +394,8 @@ booking6 = Booking.new(
   tutor_id: pierre.id,
   subject_id: physics.id,
   language_id: english.id,
-  date: DateTime.now - 2.5,
-  duration: 60,
+  start_date: DateTime.now - 2.5,
+  end_date: DateTime.now - 2.5 + 1.hour,
   booking_price: pierre.price,
   accepted_at: DateTime.now - 4.2,
   canceled_at: DateTime.now - 3.1
@@ -407,8 +407,8 @@ booking7 = Booking.new(
   tutor_id: pierre.id,
   subject_id: chemistry.id,
   language_id: french.id,
-  date: DateTime.now - 3.6,
-  duration: 90,
+  start_date: DateTime.now - 3.6,
+  end_date: DateTime.now - 3.6 + 1.hour,
   booking_price: pierre.price*1.5,
   accepted_at: DateTime.now - 6.3,
   paid_at: DateTime.now - 5.2,
