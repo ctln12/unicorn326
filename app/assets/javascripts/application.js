@@ -1,20 +1,16 @@
 //= require rails-ujs
 //= require_tree .
 
-const hoursTag = document.querySelector('#booking_duration_4i');
-const minutesTag = document.querySelector('#booking_duration_5i');
-
-const pricePerHour = document.querySelector('#price_per_hour').value;
-
-let bookingPrice = document.querySelector('#booking_booking_price');
-
-const addChangeEvent = (htmlTag) => {
-  htmlTag.addEventListener('change', (event) => {
-    const hours = hoursTag.value;
-    const minutes = minutesTag.value;
-    bookingPrice.value = parseFloat(pricePerHour) * (parseFloat(hours) + parseFloat(minutes) / 60);
-  });
-};
-
-addChangeEvent(hoursTag);
-addChangeEvent(minutesTag);
+// Add change event on start date
+if (startDay || startMonth || startYear || startHour || startMinute) {
+  startDay.addEventListener('change', (event) => update(endDay));
+  startMonth.addEventListener('change', (event) => update(endMonth));
+  startYear.addEventListener('change', (event) => update(endYear));
+  startHour.addEventListener('change', (event) => update(endHour));
+  startMinute.addEventListener('change', (event) => update(endMinute));
+}
+// Add change event on end date (only time)
+if (endHour || endMinute) {
+  endHour.addEventListener('change', totalPrice);
+  endMinute.addEventListener('change', totalPrice);
+}
