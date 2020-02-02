@@ -7,7 +7,7 @@
 <hr>
 
 <h4><%= @booking.start_date.strftime("%A, %d %B %Y") %></h4>
-<h5><%= @booking.start_date.strftime("%H:%M") %> - <%= @booking.start_date.strftime("%H:%M") %></h5>
+<h5><%= @booking.start_date.strftime("%H:%M") %> - <%= @booking.end_date.strftime("%H:%M") %></h5>
 <hr>
 
 <p><%= "Accepted: " + @booking.accepted_at.strftime("%A, %d %B %Y") if @booking.accepted_at %></p>
