@@ -18,14 +18,14 @@ SpokenLanguage.destroy_all
 puts 'Destroying languages...'
 Language.destroy_all
 
-puts 'Destroying wallets'
-Wallet.destroy_all
-
 puts 'Destroying tutors'
 Tutor.destroy_all
 
 puts 'Destroying students'
 Student.destroy_all
+
+puts 'Destroying wallets'
+Wallet.destroy_all
 
 puts 'Destroying currencies...'
 Currency.destroy_all
@@ -203,6 +203,7 @@ bob.save
     password: '123456'
   )
   student.save
+
 end
 
 puts 'Finished'
