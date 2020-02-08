@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_01_123726) do
+ActiveRecord::Schema.define(version: 2020_02_08_145757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_123726) do
     t.bigint "tutor_id"
     t.date "canceled_at"
     t.datetime "start_date"
-    t.float "booking_price"
+    t.decimal "booking_price"
     t.date "accepted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_123726) do
   create_table "job_posts", force: :cascade do |t|
     t.bigint "student_id"
     t.string "description"
-    t.float "amount"
+    t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
@@ -95,8 +95,10 @@ ActiveRecord::Schema.define(version: 2020_02_01_123726) do
     t.string "photo_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "wallet_id"
     t.index ["email"], name: "index_students_on_email", unique: true
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
+    t.index ["wallet_id"], name: "index_students_on_wallet_id"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -123,7 +125,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_123726) do
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
-    t.float "price"
+    t.decimal "price"
     t.string "country"
     t.string "photo_url"
     t.time "average_response_time"
@@ -132,16 +134,19 @@ ActiveRecord::Schema.define(version: 2020_02_01_123726) do
     t.datetime "updated_at", null: false
     t.date "date_of_birth"
     t.bigint "currency_id"
+    t.bigint "wallet_id"
     t.index ["currency_id"], name: "index_tutors_on_currency_id"
     t.index ["email"], name: "index_tutors_on_email", unique: true
     t.index ["reset_password_token"], name: "index_tutors_on_reset_password_token", unique: true
+    t.index ["wallet_id"], name: "index_tutors_on_wallet_id"
   end
 
   create_table "wallets", force: :cascade do |t|
-    t.float "amount"
-    t.string "currency"
+    t.decimal "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "currency_id"
+    t.index ["currency_id"], name: "index_wallets_on_currency_id"
   end
 
   add_foreign_key "bookings", "languages"
@@ -156,7 +161,10 @@ ActiveRecord::Schema.define(version: 2020_02_01_123726) do
   add_foreign_key "job_posts", "subjects"
   add_foreign_key "spoken_languages", "languages"
   add_foreign_key "spoken_languages", "tutors"
+  add_foreign_key "students", "wallets"
   add_foreign_key "taught_lessons", "subjects"
   add_foreign_key "taught_lessons", "tutors"
   add_foreign_key "tutors", "currencies"
+  add_foreign_key "tutors", "wallets"
+  add_foreign_key "wallets", "currencies"
 end

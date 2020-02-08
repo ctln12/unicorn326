@@ -9,7 +9,7 @@ class JobPost < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
   validates :currency_id, presence: true
-  validates :amount, presence: true
+  validates :price, presence: true
   validates :subject_id, presence: true
   validates :language_id, presence: true
 end
