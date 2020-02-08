@@ -213,7 +213,7 @@ puts 'Creating Tutors...'
 
 pierre = Tutor.new(first_name: 'Pierre', last_name: 'Martin', date_of_birth: '1967-06-20', country: 'FR', phone_number: '33671283384', currency_id: Currency.all.sample.id, price: 25, email: 'pierre.martin@tutor.com', password: '123456')
 pierre.save
-wallet = Wallet.new(currency_id: pierre.currency_id, amount: 0)
+wallet = Wallet.new(currency_id: pierre.currency_id, amount: 123.45)
 wallet.save
 pierre.wallet_id = wallet.id
 pierre.save
@@ -343,7 +343,7 @@ puts 'Creating Post Jobs and Comments ...'
       title: Faker::Coffee.blend_name,
       description: Faker::Lorem.paragraph(sentence_count: 15),
       currency_id: Currency.all.sample.id,
-      amount: rand(10...30),
+      price: rand(10...30),
       subject_id: Subject.all.sample.id,
       language_id: Language.all.sample.id
     )
