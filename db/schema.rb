@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_08_111609) do
+ActiveRecord::Schema.define(version: 2020_02_08_145757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2020_02_08_111609) do
     t.bigint "tutor_id"
     t.date "canceled_at"
     t.datetime "start_date"
-    t.float "booking_price"
+    t.decimal "booking_price"
     t.date "accepted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2020_02_08_111609) do
   create_table "job_posts", force: :cascade do |t|
     t.bigint "student_id"
     t.string "description"
-    t.float "amount"
+    t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 2020_02_08_111609) do
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
-    t.float "price"
+    t.decimal "price"
     t.string "country"
     t.string "photo_url"
     t.time "average_response_time"
@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 2020_02_08_111609) do
   end
 
   create_table "wallets", force: :cascade do |t|
-    t.float "amount"
+    t.decimal "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "currency_id"
