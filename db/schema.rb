@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_01_123726) do
+ActiveRecord::Schema.define(version: 2020_02_08_110637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,9 +139,10 @@ ActiveRecord::Schema.define(version: 2020_02_01_123726) do
 
   create_table "wallets", force: :cascade do |t|
     t.float "amount"
-    t.string "currency"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "currency_id"
+    t.index ["currency_id"], name: "index_wallets_on_currency_id"
   end
 
   add_foreign_key "bookings", "languages"
@@ -159,4 +160,5 @@ ActiveRecord::Schema.define(version: 2020_02_01_123726) do
   add_foreign_key "taught_lessons", "subjects"
   add_foreign_key "taught_lessons", "tutors"
   add_foreign_key "tutors", "currencies"
+  add_foreign_key "wallets", "currencies"
 end
