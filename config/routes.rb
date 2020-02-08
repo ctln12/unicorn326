@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'wallets/show'
   devise_for :students, path: 'students', controllers: { sessions: 'students/sessions'}
   devise_for :tutors, paths: 'tutors', controllers: { registrations: 'tutors/registrations', sessions: 'tutors/sessions' }
 
@@ -18,6 +17,6 @@ Rails.application.routes.draw do
   resources :taught_lessons, :only => [:index, :new, :create, :destroy]
   resources :spoken_languages, :only => [:index, :new, :create, :destroy]
   resources :bookings, :only => [:index, :new, :create, :show, :edit, :update]
-
+  resources :wallets, :only => [:show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
