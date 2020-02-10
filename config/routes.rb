@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   resources :languages, :only => [:index]
   resources :taught_lessons, :only => [:index, :new, :create, :destroy]
   resources :spoken_languages, :only => [:index, :new, :create, :destroy]
-  resources :bookings, :only => [:index, :new, :create, :show, :edit, :update]
+  resources :bookings, :only => [:index, :new, :create, :show, :edit, :update] do
+    resources :payments, only: :new
+  end
   resources :wallets, :only => [:show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
