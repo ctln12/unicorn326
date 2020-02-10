@@ -2,37 +2,46 @@
 
 <div id="bookings" class="mt-5">
   <% @bookings.sort_by{|booking| booking.start_date}.reverse.each_with_index do |booking, index| %>
-    <div class="row">
+    <div class="row align-items-center">
       <div class="col-1">
-        <p><%= index + 1 %></p>
+        <p class="my-1"><%= index + 1 %></p>
       </div>
-      <div class="col-2">
+      <div class="col">
         <% if current_tutor %>
-          <p><%= booking.student.first_name %> <%= booking.student.last_name %></p>
+          <p class="my-1"><%= booking.student.first_name %> <%= booking.student.last_name %></p>
         <% elsif current_student %>
-          <p><%= booking.tutor.first_name %> <%= booking.tutor.last_name.first %>.</p>
+          <p class="my-1"><%= booking.tutor.first_name %> <%= booking.tutor.last_name.first %>.</p>
         <% end %>
       </div>
       <div class="col-2">
-        <p><%= booking.subject.name %></p>
+        <% if booking.accepted_at && booking.paid_at && booking.canceled_at.nil? && booking.start_date < Time.now %>
+          <p class='text-primary my-1'>View resources</p>
+        <% elsif booking.paid_at && booking.start_date > Time.now && booking.canceled_at.nil?%>
+          <p class='text-success my-1'>Go to lesson</p>
+        <% elsif booking.canceled_at %>
+          <p class='text-secondary my-1'>Lesson canceled</p>
+        <% elsif booking.accepted_at %>
+          <% if current_student %>
+            <p class='text-warning my-1'><%= 'Proceed to payment' %></p>
+          <% elsif current_tutor %>
+            <p class='text-warning my-1'><%= 'Waiting for payment' %></p>
+          <% end %>
+        <% else %>
+          <% if current_student %>
+            <p class='text-danger my-1'><%= 'Waiting for reply' %></p>
+          <% elsif current_tutor %>
+            <p class='text-danger my-1'><%= 'Reply to request' %></p>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-2">
+        <p class="my-1"><%= booking.subject.name %></p>
       </div>
       <div class="col-4">
-        <p><%= booking.start_date.strftime("%A, %d %B %Y") %> at <%= booking.start_date.strftime("%Hh%M") %></p>
+        <p class="my-1"><%= booking.start_date.strftime("%A, %d %B %Y") %> at <%= booking.start_date.strftime("%Hh%M") %></p>
       </div>
-      <div class="col-3">
-        <% if booking.accepted_at && booking.paid_at && booking.canceled_at.nil? && booking.start_date < Time.now %>
-          <%= link_to 'View resources', booking_path(booking), class: 'btn btn-primary mb-2 w-75'  %>
-        <% elsif booking.paid_at && booking.start_date > Time.now %>
-          <%= link_to 'Go to lesson', booking_path(booking), class: 'btn btn-success mb-2 w-75' %>
-        <% elsif booking.canceled_at %>
-          <%= link_to 'Lesson canceled', booking_path(booking), class: 'btn btn-secondary mb-2 w-75' %>
-        <% elsif booking.accepted_at %>
-          <%= link_to 'Proceed to payment', booking_path(booking), class: 'btn btn-warning mb-2 w-75' if current_student %>
-          <%= link_to 'Waiting for payment', booking_path(booking), class: 'btn btn-warning mb-2 w-75' if current_tutor %>
-        <% else %>
-          <%= link_to 'Waiting for reply', booking_path(booking), class: 'btn btn-danger mb-2 w-75' if current_student %>
-          <%= link_to 'Reply to request', booking_path(booking), class: 'btn btn-danger mb-2 w-75' if current_tutor %>
-        <% end %>
+      <div class="col-1">
+        <%= link_to 'More', booking_path(booking), class: 'btn btn-outline-primary' %>
       </div>
     </div>
     <hr>

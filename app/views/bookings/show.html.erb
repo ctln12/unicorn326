@@ -1,12 +1,21 @@
 <h1>
   <%= @booking.subject.name %> (<%= @booking.language.name %>)
   <%= link_to '[edit]', edit_booking_path(@booking) unless @booking.canceled_at || @booking.start_date < DateTime.now %>
+  <% if @booking.canceled_at %>
+    <span class='text-secondary mb-2' style='font-size: 1.6rem'>Lesson canceled</span>
+  <% elsif @booking.accepted_at && @booking.paid_at.nil? %>
+    <span class='text-warning mb-2' style='font-size: 1.5rem'><%= 'Waiting for payment' if current_tutor %></span>
+  <% elsif @booking.accepted_at.nil? %>
+    <span class='text-danger mb-2' style='font-size: 1.5rem'><%= 'Waiting for reply' if current_student %></span>
+  <% end %>
 </h1>
 
 <p>
   <% if current_student %>
-    <%= @booking.tutor.first_name %>
-    <%= @booking.tutor.last_name.first %>.
+    <%= link_to tutor_path(@booking.tutor) do %>
+      <%= @booking.tutor.first_name %>
+      <%= @booking.tutor.last_name.first %>.
+    <% end %>
   <% elsif current_tutor %>
     <%= @booking.student.first_name %>
     <%= @booking.student.last_name.first %>.
@@ -26,17 +35,61 @@
 
 <% if @booking.accepted_at && @booking.paid_at && @booking.canceled_at.nil? && @booking.start_date < Time.now %>
   <%= link_to 'View resources', '#', class: 'btn btn-primary mb-2'  %>
-<% elsif @booking.paid_at && @booking.start_date > Time.now %>
-  <%= link_to 'Go to lesson', '#', class: 'btn btn-success mb-2' %>
-<% elsif @booking.canceled_at %>
-  <%= link_to 'Lesson canceled', '#', class: 'btn btn-secondary mb-2' %>
-<% elsif @booking.accepted_at %>
-  <%= link_to 'Proceed to payment', '#', class: 'btn btn-warning mb-2' if current_student %>
-  <%= link_to 'Waiting for payment', '#', class: 'btn btn-warning mb-2' if current_tutor %>
-<% else %>
-  <%= link_to 'Waiting for reply', '#', class: 'btn btn-danger mb-2' if current_student %>
-  <%= link_to 'Reply to request', '#', class: 'btn btn-danger mb-2' if current_tutor %>
-<% end %>
 
-<br>
-<%= link_to "< back to bookings", bookings_path %>
+<% elsif @booking.paid_at && @booking.start_date > Time.now && @booking.canceled_at.nil? %>
+  <div style="display: inline-flex;">
+    <%= link_to 'Go to lesson', '#', class: "btn btn-success mt-3" %>
+    <%= simple_form_for [@booking], method: :patch do |f| %>
+      <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
+      <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary ml-3" %>
+    <% end %>
+  </div>
+
+<% elsif @booking.accepted_at && @booking.canceled_at.nil? %>
+  <% if current_tutor %>
+      <%= simple_form_for [@booking], method: :patch do |f| %>
+        <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
+        <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary mb-2" %>
+      <% end %>
+  <% elsif current_student %>
+    <div style="display: inline-flex">
+      <%= simple_form_for [@booking], method: :patch do |f| %>
+        <%= f.input :paid_at, as: :hidden, input_html: { value: DateTime.now } %>
+        <%= f.submit 'Proceed to payment', class: "btn btn-warning" %>
+      <% end %>
+      <%= simple_form_for [@booking], method: :patch do |f| %>
+        <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
+        <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary ml-3" %>
+      <% end %>
+    </div>
+  <% end %>
+
+<% elsif @booking.accepted_at.nil? && @booking.canceled_at.nil? %>
+  <% if current_tutor %>
+    <div style="display: inline-flex">
+      <%= simple_form_for [@booking], method: :patch do |f| %>
+        <%= f.input :accepted_at, as: :hidden, input_html: { value: DateTime.now } %>
+        <%= f.submit 'Accept request', class: "btn btn-danger mb-2" %>
+      <% end %>
+      <%= simple_form_for [@booking], method: :patch do |f| %>
+        <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
+        <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary ml-3 mb-2" %>
+      <% end %>
+    </div>
+  <% elsif current_student %>
+    <%= simple_form_for [@booking], method: :patch do |f| %>
+      <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
+      <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary mb-2" %>
+    <% end %>
+  <% end %>
+
+<% elsif @booking.canceled_at %>
+  <%= link_to 'Book new lesson', tutors_path, class: 'btn btn-primary mb-2' %>
+  <%= link_to 'Find another tutor', new_booking_path, class: 'text-primary ml-3 mb-2' %>
+
+<% else %>
+  <%= simple_form_for [@booking], method: :patch do |f| %>
+    <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
+    <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary ml-3 mb-2" %>
+  <% end %>
+<% end %>
