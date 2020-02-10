@@ -16,16 +16,22 @@
       <div class="col-2">
         <% if booking.accepted_at && booking.paid_at && booking.canceled_at.nil? && booking.start_date < Time.now %>
           <p class='text-primary my-1'>View resources</p>
-        <% elsif booking.paid_at && booking.start_date > Time.now %>
+        <% elsif booking.paid_at && booking.start_date > Time.now && booking.canceled_at.nil?%>
           <p class='text-success my-1'>Go to lesson</p>
         <% elsif booking.canceled_at %>
           <p class='text-secondary my-1'>Lesson canceled</p>
         <% elsif booking.accepted_at %>
-          <p class='text-warning my-1'><%= 'Proceed to payment' if current_student %></p>
-          <p class='text-warning my-1'><%= 'Waiting for payment' if current_tutor %></p>
+          <% if current_student %>
+            <p class='text-warning my-1'><%= 'Proceed to payment' %></p>
+          <% elsif current_tutor %>
+            <p class='text-warning my-1'><%= 'Waiting for payment' %></p>
+          <% end %>
         <% else %>
-          <p class='text-danger my-1'><%= 'Waiting for reply' if current_student %></p>
-          <p class='text-danger my-1'><%= 'Reply to request' if current_tutor %></p>
+          <% if current_student %>
+            <p class='text-danger my-1'><%= 'Waiting for reply' %></p>
+          <% elsif current_tutor %>
+            <p class='text-danger my-1'><%= 'Reply to request' %></p>
+          <% end %>
         <% end %>
       </div>
       <div class="col-2">
