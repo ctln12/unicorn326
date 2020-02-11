@@ -37,35 +37,33 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
     @booking.update(booking_params)
 
-    redirect_to bookings_path
+    if @booking.paid_at
+      stripe
+    end
+
+    # redirect_to bookings_path
   end
 
   def stripe
-    payment
-  end
-
-  private
-
-  def payment
     @booking = Booking.find(params[:id])
-
     session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
       line_items: [{
-        id: booking.id,
-        images: "nothing",
-        price: booking.booking_price,
-        currency: booking.tutor.currency.name
+        name: "#{@booking.tutor.first_name} #{@booking.tutor.last_name[0]}",
+        images: ['https://unsplash.com/photos/fKyOE5xtnik'],
+        amount: (@booking.booking_price * 100).to_i,
+        currency: Currency.find(@booking.tutor.currency_id).name,
+        quantity: 1,
       }],
-      payment_intent_data: {
-        capture_method: 'manual'
-      },
 
-      success_url: 'www.meteosuisse.com',
-      cancel_url: 'www.google.com'
+      success_url: booking_url(@booking),
+      cancel_url: booking_url(@booking)
     )
     @booking.update(checkout_session_id: session.id)
+    redirect_to new_booking_payment_path(@booking)
   end
+
+  private
 
   def booking_params
     params.require(:booking).permit(:student_id, :tutor_id, :subject_id, :language_id, :start_date, :end_date, :booking_price, :canceled_at, :accepted_at, :paid_at)
