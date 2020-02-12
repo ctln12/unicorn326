@@ -37,12 +37,14 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
     @booking.update(booking_params)
 
-    if @booking.paid_at
+    if @booking.go_payment
       stripe
+    else
+      redirect_to bookings_path
     end
-
-    # redirect_to bookings_path
   end
+
+  private
 
   def stripe
     @booking = Booking.find(params[:id])
@@ -53,20 +55,18 @@ class BookingsController < ApplicationController
         images: ['https://unsplash.com/photos/fKyOE5xtnik'],
         amount: (@booking.booking_price * 100).to_i,
         currency: Currency.find(@booking.tutor.currency_id).name,
-        quantity: 1,
+        quantity: 1
       }],
 
       success_url: booking_url(@booking),
       cancel_url: booking_url(@booking)
     )
-    @booking.update(checkout_session_id: session.id)
+    @booking.update(checkout_session_id: session.id, go_payment: false, paid_at: DateTime.now)
     redirect_to new_booking_payment_path(@booking)
   end
 
-  private
-
   def booking_params
-    params.require(:booking).permit(:student_id, :tutor_id, :subject_id, :language_id, :start_date, :end_date, :booking_price, :canceled_at, :accepted_at, :paid_at)
+    params.require(:booking).permit(:student_id, :tutor_id, :subject_id, :language_id, :start_date, :end_date, :booking_price, :canceled_at, :accepted_at, :paid_at, :go_payment)
   end
 
   def redirect_if_user_not_signed_in!

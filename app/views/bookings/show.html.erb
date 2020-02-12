@@ -54,7 +54,7 @@
   <% elsif current_student %>
     <div style="display: inline-flex">
       <%= simple_form_for [@booking], method: :patch do |f| %>
-        <%= f.input :paid_at, as: :hidden, input_html: { value: DateTime.now } %>
+        <%= f.input :go_payment, as: :hidden, input_html: { value: true } %>
         <%= f.submit 'Proceed to payment', class: "btn btn-outline-secondary mb-2" %>
       <% end %>
       <%= simple_form_for [@booking], method: :patch do |f| %>
