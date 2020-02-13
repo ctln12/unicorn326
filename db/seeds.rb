@@ -1,5 +1,8 @@
 require 'faker'
 
+puts 'Destroying reviews...'
+Review.destroy_all
+
 puts 'Destroying job_posts...'
 JobPost.destroy_all
 
