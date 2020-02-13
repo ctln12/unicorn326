@@ -3,4 +3,6 @@ class Booking < ApplicationRecord
   belongs_to :tutor
   belongs_to :subject
   belongs_to :language
+
+  has_many :reviews
 end

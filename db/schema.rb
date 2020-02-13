@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_08_145757) do
+ActiveRecord::Schema.define(version: 2020_02_13_095056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 2020_02_08_145757) do
     t.bigint "subject_id"
     t.bigint "language_id"
     t.datetime "end_date"
+    t.string "checkout_session_id"
+    t.boolean "go_payment"
     t.index ["language_id"], name: "index_bookings_on_language_id"
     t.index ["student_id"], name: "index_bookings_on_student_id"
     t.index ["subject_id"], name: "index_bookings_on_subject_id"
@@ -70,6 +72,15 @@ ActiveRecord::Schema.define(version: 2020_02_08_145757) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "comment"
+    t.bigint "booking_id"
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_reviews_on_booking_id"
   end
 
   create_table "spoken_languages", force: :cascade do |t|
@@ -159,6 +170,7 @@ ActiveRecord::Schema.define(version: 2020_02_08_145757) do
   add_foreign_key "job_posts", "languages"
   add_foreign_key "job_posts", "students"
   add_foreign_key "job_posts", "subjects"
+  add_foreign_key "reviews", "bookings"
   add_foreign_key "spoken_languages", "languages"
   add_foreign_key "spoken_languages", "tutors"
   add_foreign_key "students", "wallets"

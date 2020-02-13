@@ -35,7 +35,7 @@
 
 <% if @booking.accepted_at && @booking.paid_at && @booking.canceled_at.nil? && @booking.start_date < Time.now %>
   <%= link_to 'View resources', '#', class: 'btn btn-primary mb-2'  %>
-
+  <%= link_to 'Add review', new_booking_review_path(@booking), class: 'btn btn-primary mb-2'  %>
 <% elsif @booking.paid_at && @booking.start_date > Time.now && @booking.canceled_at.nil? %>
   <div style="display: inline-flex;">
     <%= link_to 'Go to lesson', '#', class: "btn btn-success mt-3" %>
