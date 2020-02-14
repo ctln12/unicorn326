@@ -450,7 +450,7 @@ booking7 = Booking.new(
 )
 booking7.save
 
-3.times do
+10.times do
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
@@ -482,7 +482,7 @@ end
   booking.save
 end
 
-3.times do
+10.times do
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
@@ -511,7 +511,7 @@ end
   booking.save
 end
 
-3.times do
+2.times do
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
@@ -526,7 +526,7 @@ end
   booking.save
 end
 
-3.times do
+2.times do
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
@@ -542,7 +542,7 @@ end
   booking.save
 end
 
-3.times do
+2.times do
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
