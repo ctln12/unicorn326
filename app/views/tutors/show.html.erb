@@ -52,17 +52,10 @@
 <hr>
 <h2>Reviews</h2>
 
-<p><strong>PK</strong> <em>10 jan 2020</em></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut.</p>
-
-<p><strong>DL</strong> <em>4 jan 2020</em></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut.</p>
-
-<p><strong>CR</strong> <em>30 dec 2019</em></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut.</p>
-
-<p><strong>AS</strong> <em>21 dec 2019</em></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut.</p>
-
-<p><strong>TD</strong> <em>16 dec 2019</em></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut.</p>
+<p><strong>
+<% @tutor.reviews.each do |review|%>
+  <%= Student.find(review.booking.student_id).first_name[0] %><%= Student.find(review.booking.student_id).last_name[0] %></strong>
+  <%= review.created_at %></p>
+  <p><%= review.rating %></p>
+  <p><%= review.comment %></p>
+<% end %>
