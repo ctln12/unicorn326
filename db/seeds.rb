@@ -449,5 +449,115 @@ booking7 = Booking.new(
   canceled_at: DateTime.now - 4.1
 )
 booking7.save
+
+3.times do
+  random_tutor = Tutor.all.sample
+  booking = Booking.new(
+    student_id: alice.id,
+    tutor_id: random_tutor.id,
+    subject_id: random_tutor.subjects.sample.id,
+    language_id: random_tutor.languages.sample.id,
+    start_date: DateTime.now - 10.1,
+    end_date: DateTime.now - 10.1 + 1.hour,
+    booking_price: random_tutor.price*1.5,
+    accepted_at: DateTime.now - 12.3,
+    paid_at: DateTime.now - 11.2
+  )
+  booking.save
+end
+
+3.times do
+  random_tutor = Tutor.all.sample
+  booking = Booking.new(
+    student_id: alice.id,
+    tutor_id: random_tutor.id,
+    subject_id: random_tutor.subjects.sample.id,
+    language_id: random_tutor.languages.sample.id,
+    start_date: DateTime.now + 1.2,
+    end_date: DateTime.now + 1.2 + 1.hour,
+    booking_price: random_tutor.price,
+    accepted_at: DateTime.now - 1.1,
+    paid_at: DateTime.now
+  )
+  booking.save
+end
+
+3.times do
+  random_tutor = Tutor.all.sample
+  booking = Booking.new(
+    student_id: alice.id,
+    tutor_id: random_tutor.id,
+    subject_id: random_tutor.subjects.sample.id,
+    language_id: random_tutor.languages.sample.id,
+    start_date: DateTime.now + 2.3,
+    end_date: DateTime.now + 2.3 + 1.hour,
+    booking_price: random_tutor.price*1.5,
+    accepted_at: DateTime.now - 1.2
+  )
+  booking.save
+end
+
+3.times do
+  random_tutor = Tutor.all.sample
+  booking = Booking.new(
+    student_id: alice.id,
+    tutor_id: random_tutor.id,
+    subject_id: random_tutor.subjects.sample.id,
+    language_id: random_tutor.languages.sample.id,
+    start_date: DateTime.now + 3,
+    end_date: DateTime.now + 3 + 1.hour,
+    booking_price: random_tutor.price
+  )
+  booking.save
+end
+
+3.times do
+  random_tutor = Tutor.all.sample
+  booking = Booking.new(
+    student_id: alice.id,
+    tutor_id: random_tutor.id,
+    subject_id: random_tutor.subjects.sample.id,
+    language_id: random_tutor.languages.sample.id,
+    start_date: DateTime.now - 1.4,
+    end_date: DateTime.now - 1.4 + 1.hour,
+    booking_price: random_tutor,
+    canceled_at: DateTime.now - 3.1
+  )
+  booking.save
+end
+
+3.times do
+  random_tutor = Tutor.all.sample
+  booking = Booking.new(
+    student_id: alice.id,
+    tutor_id: random_tutor.id,
+    subject_id: random_tutor.subjects.sample.id,
+    language_id: random_tutor.languages.sample.id,
+    start_date: DateTime.now - 2.5,
+    end_date: DateTime.now - 2.5 + 1.hour,
+    booking_price: random_tutor.price,
+    accepted_at: DateTime.now - 4.2,
+    canceled_at: DateTime.now - 3.1
+  )
+  booking.save
+end
+
+3.times do
+  random_tutor = Tutor.all.sample
+  booking = Booking.new(
+    student_id: alice.id,
+    tutor_id: random_tutor.id,
+    subject_id: random_tutor.subjects.sample.id,
+    language_id: random_tutor.languages.sample.id,
+    start_date: DateTime.now - 3.6,
+    end_date: DateTime.now - 3.6 + 1.hour,
+    booking_price: random_tutor.price*1.5,
+    accepted_at: DateTime.now - 6.3,
+    paid_at: DateTime.now - 5.2,
+    canceled_at: DateTime.now - 4.1
+  )
+  booking.save
+end
+
 puts 'Finished!'
 puts '-----------------------------'
