@@ -37,6 +37,17 @@
             <span><%= spoken_language.language.name %><%= separator %></span>
           <% end %>
         </p>
+        <p class="rating">Rating:
+          <% if tutor.reviews.exists? %>
+            <% sum = 0 %>
+            <% tutor.reviews.each do |review|%>
+              <% sum += review.rating %>
+            <% end %>
+            <%= sum / tutor.reviews.count %>
+          <% else %>
+            <%= "Not rated yet" %>
+          <% end %>
+        </p>
         <%= link_to "View profile", tutor_path(tutor), class: "btn btn-primary" %>
         <hr>
       </div>

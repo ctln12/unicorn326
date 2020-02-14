@@ -50,12 +50,4 @@ class TutorsController < ApplicationController
   def profile
     @tutor = current_tutor
   end
-
-  private
-
-  def average_rating
-
-
-
-  end
 end
