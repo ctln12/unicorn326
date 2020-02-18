@@ -45,3 +45,15 @@
 <p>Internship in Quantitative Research</p>
 <p>July 2018 - August 2018</p>
 <p>Paris, France</p>
+
+<hr>
+<h2>Reviews</h2>
+
+<p><%= "No reviews yet" if @tutor.reviews.count.zero? %></p>
+
+<% @tutor.reviews.each do |review|%>
+  <p><strong><%= Student.find(review.booking.student_id).first_name[0] %><%= Student.find(review.booking.student_id).last_name[0] %></strong>
+  <em><%= review.created_at.strftime("%d %B %Y") %></em></p>
+  <p><%= review.rating %></p>
+  <p><%= review.comment %></p>
+<% end %>
