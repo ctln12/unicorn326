@@ -170,11 +170,8 @@ chf.save
 usd = Currency.new(name: "USD")
 usd.save
 
-cad = Currency.new(name: "CAD")
-cad.save
-
-jpy = Currency.new(name: "JPY")
-jpy.save
+nok = Currency.new(name: "NOK")
+nok.save
 
 sek = Currency.new(name: "SEK")
 sek.save
@@ -214,13 +211,13 @@ puts '-----------------------------'
 
 puts 'Creating Tutors...'
 
-pierre = Tutor.new(first_name: 'Pierre', last_name: 'Martin', date_of_birth: '1967-06-20', country: 'FR', phone_number: '33671283384', currency_id: Currency.all.sample.id, price: 25, email: 'pierre.martin@tutor.com', password: '123456')
+pierre = Tutor.new(first_name: 'Pierre', last_name: 'Martin', date_of_birth: '1967-06-20', country: 'FR', phone_number: '33671283384', currency_id: usd.id, price: 25, email: 'pierre.martin@tutor.com', password: '123456')
 pierre.save
 wallet = Wallet.new(currency_id: pierre.currency_id, amount: 123.45)
 wallet.save
 pierre.wallet_id = wallet.id
 pierre.save
-david = Tutor.new(first_name: 'David', last_name: 'Lawson', date_of_birth: '1951-01-24', country: 'GB', phone_number: '44214235689', currency_id: Currency.all.sample.id, price: 30, email: 'david.lawson@tutor.com', password: '123456')
+david = Tutor.new(first_name: 'David', last_name: 'Lawson', date_of_birth: '1951-01-24', country: 'GB', phone_number: '44214235689', currency_id: eur.id, price: 30, email: 'david.lawson@tutor.com', password: '123456')
 david.save
 wallet = Wallet.new(currency_id: david.currency_id, amount: 0)
 wallet.save

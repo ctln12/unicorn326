@@ -56,8 +56,8 @@
   <% elsif current_student %>
     <div style="display: inline-flex">
       <%= simple_form_for [@booking], method: :patch do |f| %>
-        <%= f.input :paid_at, as: :hidden, input_html: { value: DateTime.now } %>
-        <%= f.submit 'Proceed to payment', class: "btn btn-warning" %>
+        <%= f.input :go_payment, as: :hidden, input_html: { value: true } %>
+        <%= f.submit 'Proceed to payment', class: "btn btn-outline-secondary mb-2" %>
       <% end %>
       <%= simple_form_for [@booking], method: :patch do |f| %>
         <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
@@ -85,9 +85,18 @@
     <% end %>
   <% end %>
 
-<% elsif @booking.canceled_at %>
+<% elsif @booking.canceled_at && @booking.paid_at.nil? %>
   <%= link_to 'Book new lesson', tutors_path, class: 'btn btn-primary mb-2' %>
   <%= link_to 'Find another tutor', new_booking_path, class: 'text-primary ml-3 mb-2' %>
+
+<% elsif @booking.canceled_at && @booking.paid_at %>
+  <%= link_to 'Book new lesson', tutors_path, class: 'btn btn-primary mb-2' %>
+  <%= link_to 'Find another tutor', new_booking_path, class: 'text-primary ml-3 mb-2 mr-3' %>
+  <% if current_tutor %>
+    <%= link_to 'Refund lesson', '#', class: 'btn btn-primary mb-2' %>
+  <% elsif current_student %>
+    <%= link_to 'Ask refund', '#', class: 'btn btn-primary mb-2' %>
+  <% end %>
 
 <% else %>
   <%= simple_form_for [@booking], method: :patch do |f| %>

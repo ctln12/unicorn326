@@ -17,6 +17,8 @@ gem 'uglifier'
 gem 'webpacker'
 gem 'country_select', '~> 4.0'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem 'stripe'
+gem 'stripe_event'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
