@@ -1,2 +1,2 @@
-<h3>Your current balance is <%= @wallet.amount %></h3>
+<h3>Your current balance is <%= @wallet.amount %> <%= Currency.find(@wallet.tutor.currency_id).name %></h3>
 
