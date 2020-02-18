@@ -26,7 +26,8 @@
                 required: false,
                 autofocus: true,
                 input_html: { autocomplete: "photo-url" }%>
-    <%= f.collection_select :currency_id, Currency.all, :id, :name, prompt: true %>
+    <%= f.input :currency_id, collection: Currency.all,
+                required: true %>
     <%= f.input :price,
                 required: true,
                 autofocus: true,
