@@ -4,12 +4,11 @@ class Tutor < ApplicationRecord
   has_many :taught_lessons
   has_many :spoken_languages
   has_many :bookings
-  has_many :currencies
+  has_one :currency
   has_many :subjects, through: :taught_lessons
   has_many :languages, through: :spoken_languages
   has_many :reviews, through: :bookings
-
-  belongs_to :wallet
+  has_many :wallets
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable

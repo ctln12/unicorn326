@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Tutors::RegistrationsController < Devise::RegistrationsController
+  after_action :add_wallet
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -39,6 +40,12 @@ class Tutors::RegistrationsController < Devise::RegistrationsController
   # end
 
   protected
+
+  def add_wallet
+    if resource.persisted? # tutor is created successfuly
+      resource.wallets.create(amount: 0, tutor_id: current_tutor)
+    end
+  end
 
   def after_update_path_for(resource)
     profile_tutors_path(resource)

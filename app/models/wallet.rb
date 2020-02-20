@@ -1,3 +1,3 @@
 class Wallet < ApplicationRecord
-  has_one :tutor
+  belongs_to :tutor
 end

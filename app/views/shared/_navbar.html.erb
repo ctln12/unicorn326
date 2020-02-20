@@ -29,7 +29,7 @@
         </li>
         <li class="nav-item">
           <% if current_tutor %>
-            <%= link_to "Wallet", wallet_path(current_tutor.wallet), class: "nav-link" %>
+            <%= link_to "Wallet", tutor_wallet_path(current_tutor, current_tutor.wallets.first.id), class: "nav-link" %>
           <% end %>
         </li>
         <li class="nav-item dropdown">

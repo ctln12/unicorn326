@@ -21,14 +21,14 @@ SpokenLanguage.destroy_all
 puts 'Destroying languages...'
 Language.destroy_all
 
+puts 'Destroying wallets'
+Wallet.destroy_all
+
 puts 'Destroying tutors'
 Tutor.destroy_all
 
 puts 'Destroying students'
 Student.destroy_all
-
-puts 'Destroying wallets'
-Wallet.destroy_all
 
 puts 'Destroying currencies...'
 Currency.destroy_all
@@ -213,34 +213,29 @@ puts 'Creating Tutors...'
 
 pierre = Tutor.new(first_name: 'Pierre', last_name: 'Martin', date_of_birth: '1967-06-20', country: 'FR', phone_number: '33671283384', currency_id: usd.id, price: 25, email: 'pierre.martin@tutor.com', password: '123456')
 pierre.save
-wallet = Wallet.new(currency_id: pierre.currency_id, amount: 123.45)
+wallet = Wallet.new(tutor_id: pierre.id, amount: 123.45)
 wallet.save
-pierre.wallet_id = wallet.id
-pierre.save
+
 david = Tutor.new(first_name: 'David', last_name: 'Lawson', date_of_birth: '1951-01-24', country: 'GB', phone_number: '44214235689', currency_id: eur.id, price: 30, email: 'david.lawson@tutor.com', password: '123456')
 david.save
-wallet = Wallet.new(currency_id: david.currency_id, amount: 0)
+wallet = Wallet.new(tutor_id: david.id, amount: 0)
 wallet.save
-david.wallet_id = wallet.id
-david.save
+
 charles = Tutor.new(first_name: 'Charles', last_name: 'Davis', date_of_birth: '1991-04-30', country: 'US', phone_number: '12145096897', currency_id: Currency.all.sample.id, price: 25, email: 'charles.davis@tutor.com', password: '123456')
 charles.save
-wallet = Wallet.new(currency_id: charles.currency_id, amount: 0)
+wallet = Wallet.new(tutor_id: charles.id, amount: 0)
 wallet.save
-charles.wallet_id = wallet.id
-charles.save
+
 john = Tutor.new(first_name: 'John', last_name: 'Kendall', date_of_birth: '1972-12-17', country: 'CA', phone_number: '12267741234', currency_id: Currency.all.sample.id, price: 20, email: 'john.kendall@tutor.com', password: '123456')
 john.save
-wallet = Wallet.new(currency_id: john.currency_id, amount: 0)
+wallet = Wallet.new(tutor_id: john.id, amount: 0)
 wallet.save
-john.wallet_id = wallet.id
-john.save
+
 georges = Tutor.new(first_name: 'Georges', last_name: 'Till', date_of_birth: '1980-02-03', country: 'CH', phone_number: '41786272034', currency_id: Currency.all.sample.id, price: 30, email: 'george.till@tutor.com', password: '123456')
 georges.save
-wallet = Wallet.new(currency_id: georges.currency_id, amount: 0)
+wallet = Wallet.new(tutor_id: georges.id, amount: 0)
 wallet.save
-georges.wallet_id = wallet.id
-georges.save
+
 
 50.times do
   fn = Faker::Name.first_name
@@ -258,11 +253,8 @@ georges.save
   )
   tutor.save
 
-  wallet = Wallet.new(currency_id: tutor.currency_id, amount: 0)
+  wallet = Wallet.new(tutor_id: tutor.id, amount: 0)
   wallet.save
-  tutor.wallet_id = wallet.id
-
-  tutor.save
 
   3.times do
     taught_lesson = TaughtLesson.new(
