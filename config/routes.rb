@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'lessons/show'
   devise_for :students, path: 'students', controllers: { sessions: 'students/sessions'}
   devise_for :tutors, paths: 'tutors', controllers: { registrations: 'tutors/registrations', sessions: 'tutors/sessions' }
 
@@ -27,6 +26,7 @@ Rails.application.routes.draw do
   resources :bookings, only: [:index, :new, :create, :show, :edit, :update] do
     resources :payments, only: :new
     resources :reviews, only: [:new, :create, :edit, :update, :show]
+    resources :lessons, only: [:show]
   end
 
   put '/stripe', to: 'bookings#stripe', as: 'stripe'
