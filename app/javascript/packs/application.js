@@ -19,7 +19,7 @@ var option = {
   channel: "cactus",
   uid: null,
   token:
-    "006de8e59ad20b84deebc9477274c1d3adfIADaEJMVSvmx7wkcaHY9OsKeKawoBm739ls9D/QDQl8BCv6333oAAAAAEADaplk0wtBPXgEAAQDC0E9e"
+    "006de8e59ad20b84deebc9477274c1d3adfIACqQ/F9JhC7wUWMc2kKYJA9FcVRFFyZzWmeRkqZyhrSqf6333oAAAAAEACBv91i31JRXgEAAQDfUlFe"
 };
 
 // Other functions
