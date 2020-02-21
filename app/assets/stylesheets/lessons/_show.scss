@@ -1,0 +1,13 @@
+div#local_stream > div {
+  background-color: transparent !important;
+}
+
+[id^="player"] {
+  background-color: transparent !important;
+}
+
+video {
+  width: 400px !important;
+  height: 400px !important;
+  position: unset !important;
+}
