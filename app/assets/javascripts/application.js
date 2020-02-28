@@ -1,5 +1,6 @@
 //= require rails-ujs
 //= require_tree .
+//= require jquery
 
 // ----------------- BOOKINGS -----------------
 // Add change event on start date
