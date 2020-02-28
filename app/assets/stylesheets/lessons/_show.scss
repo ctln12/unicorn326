@@ -1,13 +1,13 @@
-div#local_stream > div {
-  background-color: transparent !important;
-}
-
 [id^="player"] {
   background-color: transparent !important;
 }
 
 video {
-  width: 400px !important;
-  height: 400px !important;
+  height: auto !important;
   position: unset !important;
+}
+
+#local_stream video {
+  width: 200px !important;
+  border-radius: 5px;
 }
