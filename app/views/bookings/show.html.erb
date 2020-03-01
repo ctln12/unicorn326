@@ -40,7 +40,12 @@
   <% end %>
 <% elsif @booking.paid_at && @booking.start_date > Time.now && @booking.canceled_at.nil? %>
   <div style="display: inline-flex;">
-    <%= link_to 'Go to lesson', booking_lesson_path(@booking, @lesson), class: "btn btn-success mt-3" %>
+    <% if @booking.lesson %>
+      <%= link_to 'Go to lesson', booking_lesson_path(@booking, @lesson), class: "btn btn-success mt-3" %>
+    <% else %>
+      <%= link_to 'Go to lesson', booking_lessons_path(@booking), method: :post, class: "btn btn-success mt-3" %>
+    <% end %>
+
     <%= simple_form_for [@booking], method: :patch do |f| %>
       <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
       <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary ml-3" %>
