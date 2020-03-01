@@ -23,4 +23,12 @@ class Tutor < ApplicationRecord
   # validates :spoken_languages, presence: true
   validates :currency_id, presence: true
   validates :price, presence: true
+
+  after_create :send_welcome_email
+
+  private
+
+  def send_welcome_email
+    TutorMailer.with(tutor: self).welcome.deliver_now
+  end
 end
