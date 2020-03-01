@@ -1,6 +1,6 @@
 // ----------------- AGORA -----------------
 
-// RTC Object
+// rtc object
 var rtc = {
   client: null,
   joined: false,
@@ -13,20 +13,13 @@ var rtc = {
 // Options for joining a channel
 var option = {
   appID: "23eafc68667e4d9b893d739712dfafb4",
-  channel: "lesson",
+  channel: "math",
   uid: null,
   token:
-    "00623eafc68667e4d9b893d739712dfafb4IACoTjKDaVSyNVyVf2ybSvDO8Aere74M5fiOobRxMzh8bfN0dPgAAAAAEABULH+Eoj1aXgEAAQChPVpe"
+    "00623eafc68667e4d9b893d739712dfafb4IACsbB+i12PfFSYD3XFBzOuuUBwHRpkaJGJ1rPB0yk7vck0EJ6kAAAAAEABULH+EsVldXgEAAQCxWV1e"
 };
 
 // Additional functions
-// const addView = id => {
-//   console.log("VIEW ADDED");
-// };
-
-// const removeView = id => {
-//   console.log("VIEW REMOVED");
-// };
 function addView(id, show) {
   if (!$("#" + id)[0]) {
     $("<div/>", {
@@ -60,64 +53,57 @@ function removeView(id) {
 // Helper functions to handle DOM operations
 document.querySelector("#join").onclick = () => {
   // Create a client
-  rtc.client = AgoraRTC.createClient({
-    mode: "rtc",
-    codec: "h264" // encoding
-  });
+  rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
 
   // Initialize the client
   rtc.client.init(
     option.appID,
-    () => {
+    function() {
       console.log("init success");
-
       // Join a channel
       rtc.client.join(
         option.token ? option.token : null,
         option.channel,
         option.uid ? +option.uid : null,
-        uid => {
+        function(uid) {
           console.log(
             "join channel: " + option.channel + " success, uid: " + uid
           );
           rtc.params.uid = uid;
-
           // Create a local stream
           rtc.localStream = AgoraRTC.createStream({
             streamID: rtc.params.uid,
             audio: true,
             video: true,
-            screen: false // screen sharing
+            screen: false
           });
 
           // Initialize the local stream
           rtc.localStream.init(
-            () => {
+            function() {
               console.log("init local stream success");
-              // PLAY ???
-              rtc.localStream.play("local_stream"); // HTMLElementID
+              rtc.localStream.play("local_stream");
               // Publish the local stream
-              rtc.client.publish(rtc.localStream, err => {
+              rtc.client.publish(rtc.localStream, function(err) {
                 console.log("publish failed");
                 console.error(err);
               });
             },
-            err => {
+            function(err) {
               console.error("init local stream failed ", err);
             }
           );
         },
-        err => {
+        function(err) {
           console.error("client join failed", err);
         }
       );
     },
-    err => {
+    function(err) {
       console.error(err);
     }
   );
 
-  // Subscribe to a remote stream
   rtc.client.on("stream-added", function(evt) {
     var remoteStream = evt.stream;
     var id = remoteStream.getId();
@@ -129,7 +115,6 @@ document.querySelector("#join").onclick = () => {
     console.log("stream-added remote-uid: ", id);
   });
 
-  // Play remote stream after subscribing
   rtc.client.on("stream-subscribed", function(evt) {
     var remoteStream = evt.stream;
     var id = remoteStream.getId();
@@ -138,9 +123,10 @@ document.querySelector("#join").onclick = () => {
     // Play the remote stream.
     remoteStream.play("remote_video_" + id);
     console.log("stream-subscribed remote-uid: ", id);
+    // Display remote video
+    $("[id^='remote_video_panel']").fadeIn();
   });
 
-  // Stop stream playback and remove view
   rtc.client.on("stream-removed", function(evt) {
     var remoteStream = evt.stream;
     var id = remoteStream.getId();
@@ -150,12 +136,31 @@ document.querySelector("#join").onclick = () => {
     removeView(id);
     console.log("stream-removed remote-uid: ", id);
   });
+
+  // Hide JOIN LESSON button
+  $("#join").fadeOut();
+  // Show LEAVE LESSON button on mouse move
+  var i = null;
+  $(".container")
+    .mousemove(function() {
+      clearTimeout(i);
+      $("#leave").fadeIn();
+      i = setTimeout(function() {
+        $("#leave").fadeOut();
+      }, 1250);
+    })
+    .mouseleave(function() {
+      clearTimeout(i);
+      $("#leave").fadeOut();
+    });
+  // Display local video
+  $(".video-view").fadeIn();
 };
 
 document.querySelector("#leave").onclick = () => {
   // Leave the channel
   rtc.client.leave(
-    () => {
+    function() {
       // Stop playing the local stream
       rtc.localStream.stop();
       // Close the local stream
@@ -174,4 +179,13 @@ document.querySelector("#leave").onclick = () => {
       console.error(err);
     }
   );
+
+  // Hide local stream
+  $(".video-view").hide();
+  // Hide remote video
+  $("[id^='remote_video_panel']").fadeOut();
+  // Remove END button
+  $("#leave").remove();
+  // Hide JOIN button
+  $("#back").fadeIn();
 };
