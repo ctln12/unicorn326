@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_18_155521) do
+ActiveRecord::Schema.define(version: 2020_02_21_130335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,14 @@ ActiveRecord::Schema.define(version: 2020_02_18_155521) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string "video_url"
+    t.bigint "booking_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_lessons_on_booking_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -168,6 +176,7 @@ ActiveRecord::Schema.define(version: 2020_02_18_155521) do
   add_foreign_key "job_posts", "languages"
   add_foreign_key "job_posts", "students"
   add_foreign_key "job_posts", "subjects"
+  add_foreign_key "lessons", "bookings"
   add_foreign_key "reviews", "bookings"
   add_foreign_key "spoken_languages", "languages"
   add_foreign_key "spoken_languages", "tutors"

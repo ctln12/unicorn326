@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :bookings, only: [:index, :new, :create, :show, :edit, :update] do
     resources :payments, only: :new
     resources :reviews, only: [:new, :create, :edit, :update, :show]
+    resources :lessons, only: [:create, :show]
   end
 
   put '/stripe', to: 'bookings#stripe', as: 'stripe'
