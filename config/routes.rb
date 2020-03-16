@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   devise_for :students, path: 'students', controllers: { sessions: 'students/sessions'}
   devise_for :tutors, paths: 'tutors', controllers: { registrations: 'tutors/registrations', sessions: 'tutors/sessions' }
 
