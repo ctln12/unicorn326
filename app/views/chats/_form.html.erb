@@ -1,0 +1,5 @@
+<%= simple_form_for @chat do |f| %>
+  <%= f.input :student_id, input_html: { value: Student.first.id } %>
+  <%= f.input :tutor_id,input_html: { value: Tutor.first.id } %>
+  <%= f.submit "Save", class: 'btn btn-success' %>
+<% end %>
