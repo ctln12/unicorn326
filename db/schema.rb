@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_145429) do
+ActiveRecord::Schema.define(version: 2020_03_16_184251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,15 @@ ActiveRecord::Schema.define(version: 2020_02_27_145429) do
     t.index ["tutor_id"], name: "index_bookings_on_tutor_id"
   end
 
+  create_table "chats", force: :cascade do |t|
+    t.bigint "student_id"
+    t.bigint "tutor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_chats_on_student_id"
+    t.index ["tutor_id"], name: "index_chats_on_tutor_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.bigint "job_post_id"
     t.bigint "tutor_id"
@@ -106,6 +115,15 @@ ActiveRecord::Schema.define(version: 2020_02_27_145429) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["booking_id"], name: "index_lessons_on_booking_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.string "username"
+    t.bigint "chat_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -196,6 +214,8 @@ ActiveRecord::Schema.define(version: 2020_02_27_145429) do
   add_foreign_key "bookings", "students"
   add_foreign_key "bookings", "subjects"
   add_foreign_key "bookings", "tutors"
+  add_foreign_key "chats", "students"
+  add_foreign_key "chats", "tutors"
   add_foreign_key "comments", "job_posts"
   add_foreign_key "comments", "tutors"
   add_foreign_key "job_posts", "currencies"
@@ -203,6 +223,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_145429) do
   add_foreign_key "job_posts", "students"
   add_foreign_key "job_posts", "subjects"
   add_foreign_key "lessons", "bookings"
+  add_foreign_key "messages", "chats"
   add_foreign_key "reviews", "bookings"
   add_foreign_key "spoken_languages", "languages"
   add_foreign_key "spoken_languages", "tutors"
