@@ -1,6 +1,8 @@
 //= require rails-ujs
 //= require_tree .
 //= require jquery
+//= require popper
+//= require bootstrap-sprockets
 
 // ----------------- BOOKINGS -----------------
 // Add change event on start date
