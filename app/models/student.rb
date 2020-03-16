@@ -12,4 +12,12 @@ class Student < ApplicationRecord
   validates :country, presence: true
   #validates :photo_url, presence: true
   validates :date_of_birth, presence: true
+
+  after_create :send_welcome_email
+
+  private
+
+  def send_welcome_email
+    StudentMailer.with(student: self).welcome.deliver_now
+  end
 end

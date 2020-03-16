@@ -100,6 +100,14 @@ ActiveRecord::Schema.define(version: 2020_02_27_145429) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "lessons", force: :cascade do |t|
+    t.string "video_url"
+    t.bigint "booking_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_lessons_on_booking_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.string "comment"
     t.bigint "booking_id"
@@ -194,6 +202,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_145429) do
   add_foreign_key "job_posts", "languages"
   add_foreign_key "job_posts", "students"
   add_foreign_key "job_posts", "subjects"
+  add_foreign_key "lessons", "bookings"
   add_foreign_key "reviews", "bookings"
   add_foreign_key "spoken_languages", "languages"
   add_foreign_key "spoken_languages", "tutors"

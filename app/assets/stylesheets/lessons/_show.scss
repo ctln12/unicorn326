@@ -1,0 +1,71 @@
+// DISPLAY VIDEOS
+video {
+  position: relative !important;
+}
+
+// LOCAL STREAM
+.video-view {
+  width: 200px;
+  height: 150px;
+
+  #local_stream {
+    height: 100%;
+  }
+
+  [id^="player"] {
+    border-radius: 5px;
+  }
+}
+
+// REMOTE VIDEO FULL SCREEN
+[id^="remote_video_panel"] {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: none;
+
+  [id^="remote_video"] {
+    width: 100%;
+    height: 100%;
+  }
+
+  [id^="remote_video_info"],
+  [id^="video_autoplay"] {
+    height: 0 !important;
+  }
+}
+
+// LOCAL VIDEO MINIFIED
+.video-view {
+  position: absolute;
+  z-index: 1;
+  bottom: 5px;
+  right: 5px;
+  display: none;
+}
+
+// BUTTONS
+button,
+a#back {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+#join {
+  top: 50%;
+}
+
+#leave {
+  top: 90%;
+  display: none;
+}
+
+a#back {
+  top: 50%;
+  display: none;
+}

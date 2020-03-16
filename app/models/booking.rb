@@ -5,4 +5,5 @@ class Booking < ApplicationRecord
   belongs_to :language
 
   has_many :reviews
+  has_one :lesson
 end

@@ -6,6 +6,9 @@ Review.destroy_all
 puts 'Destroying job_posts...'
 JobPost.destroy_all
 
+puts 'Destroying lessons...'
+Lesson.destroy_all
+
 puts 'Destroying bookings...'
 Booking.destroy_all
 
@@ -376,6 +379,8 @@ booking2 = Booking.new(
   paid_at: DateTime.now
 )
 booking2.save
+lesson = Lesson.new(video_url: "video", booking: booking2)
+  lesson.save!
 # Accepted / Not paid
 booking3 = Booking.new(
   student_id: alice.id,
@@ -469,6 +474,8 @@ end
     paid_at: DateTime.now
   )
   booking.save
+  lesson = Lesson.new(video_url: "video", booking: booking)
+  lesson.save
 end
 
 10.times do
