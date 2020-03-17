@@ -4,9 +4,15 @@ class MessagesController < ApplicationController
   def create
     @messages = @chat.messages
 
-    @username = current_student.first_name || current_tutor.first_name
+    if student_signed_in?
+      @user = @chat.student
+    elsif tutor_signed_in?
+      @user = @chat.tutor
+    end
 
-    @message = Message.create(content: params.dig(:message, :content), username: @username, chat: @chat)
+    @message = Message.create(content: params.dig(:message, :content), username: @user.first_name, chat: @chat)
+
+    ChatChannel.broadcast_to @chat, @message
   end
 
   protected
