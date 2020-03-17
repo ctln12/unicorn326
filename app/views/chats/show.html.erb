@@ -8,31 +8,53 @@
   </div>
 
   <div class="col">
-    <div class="chat" style="border: 1px solid #f8f8f8; background: #f8f8f8; height: 50vh; border-radius: 3px 3px 0 0; overflow-y: auto;">
+    <div class="chat" data-channel-subscribe="chat" data-chat-id="<%= @chat.id %>" style="border: 1px solid #f8f8f8; background: #f8f8f8; height: 50vh; border-radius: 3px 3px 0 0; overflow-y: auto;">
       <% @messages.each do |message| %>
 
         <div class="chat-message-container" style="padding: 5px; margin-top: 10px;">
 
           <div class="row no-gutters">
 
-            <div class="col-auto text-center">
-              <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", style: "margin: 5px; margin-top: 10px;" %>
-            </div>
+              <% if student_signed_in? && @chat.student.first_name == message.username || tutor_signed_in? && @chat.tutor.first_name == message.username %>
 
-            <div class="col">
-              <div class="message-content" style= "margin-top: 10px; padding: 5px; border: 1px solid #83c0d4; border-radius: 5px; background: #add8e6; color: #103744;">
-                <p class="mb-1">
-                  <%= message.content %>
-                </p>
-                <div class="text-right" style="color: #014c65">
-                  <small>
-                    <%= message.created_at %>
-                  </small>
+                <div class="col">
+                  <div id="<%= message.username %>" class="message-content text-right" style= "margin-top: 10px; padding: 5px; border: 1px solid #83c0d4; border-radius: 5px; background: #add8e6; color: #103744;">
+                    <p class="mb-1">
+                      <%= message.content %>
+                    </p>
+                    <div class="text-right" style="color: #014c65">
+                      <small>
+                        <%= message.created_at %>
+                      </small>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-          </div>
+                <div class="col-auto text-center">
+                  <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", style: "margin: 5px; margin-top: 10px;" %>
+                </div>
+
+              <% else %>
+
+                <div class="col-auto text-center">
+                  <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", style: "margin: 5px; margin-top: 10px;" %>
+                </div>
+
+                <div class="col">
+                  <div id="<%= message.username %>" class="message-content" style= "margin-top: 10px; padding: 5px; border: 1px solid #83c0d4; border-radius: 5px; background: #add8e6; color: #103744;">
+                    <p class="mb-1">
+                      <%= message.content %>
+                    </p>
+                    <div class="text-right" style="color: #014c65">
+                      <small>
+                        <%= message.created_at %>
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+
+            </div>
 
         </div>
 
@@ -56,5 +78,25 @@
       <%= f.input :username, as: :hidden %>
       <%= f.input :chat_id, as: :hidden %>
     <% end %>
+  </div>
+</div>
+
+<div class="d-none" data-role="message-template">
+  <div class="chat-message-container" style="padding: 5px; margin-top: 10px;">
+    <div class="row no-gutters">
+      <div class="col-auto text-center">
+        <img src="" class="avatar" style= "margin: 5px; margin-top: 10px;" alt="" data-role="user-avatar">
+      </div>
+
+      <div class="col">
+        <div class="message-content" style= "margin-top: 10px; padding: 5px; border: 1px solid #83c0d4; border-radius: 5px; background: #add8e6; color: #103744;">
+          <p class="mb-1" data-role="message-text"></p>
+
+          <div class="text-right" style="color: #014c65">
+            <small data-role="message-date"></small>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
