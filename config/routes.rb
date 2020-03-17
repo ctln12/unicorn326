@@ -35,5 +35,9 @@ Rails.application.routes.draw do
 
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
+  require "sidekiq/web"
+  authenticate :admin_user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
