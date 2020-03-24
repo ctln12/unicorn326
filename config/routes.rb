@@ -31,12 +31,17 @@ Rails.application.routes.draw do
     resources :lessons, only: [:create, :show]
   end
 
+  resources :chats
+  resources :messages
+
   put '/stripe', to: 'bookings#stripe', as: 'stripe'
 
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
-  resources :chats
-  resources :messages
+  require "sidekiq/web"
+  authenticate :admin_user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
