@@ -2,22 +2,19 @@ class ChatsController < ApplicationController
   before_action :redirect_if_user_not_signed_in!, only: :index
   before_action :load_entities
 
-  def index
-    @chats = Chat.all
-  end
-
-  def new
-    @chat = Chat.new
-  end
-
   def create
     @chat = Chat.new(chats_params)
 
     if @chat.save
       flash[:success] = "Room was created successfully"
-      redirect_to chats_path
+      redirect_to chat_path(@chat)
+
+    elsif Chat.exists?(student_id: @chat.student_id, tutor_id: @chat.tutor_id)
+      existing_chat = Chat.where(student_id: @chat.student_id).where(tutor_id: @chat.tutor_id).first
+
+      redirect_to chat_path(existing_chat)
     else
-      render :new
+      render "tutors/show"
     end
   end
 
