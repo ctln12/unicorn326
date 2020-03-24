@@ -47,7 +47,8 @@ video {
 }
 
 // BUTTONS
-button,
+button#join,
+button#leave,
 a#back {
   position: absolute;
   z-index: 1;
