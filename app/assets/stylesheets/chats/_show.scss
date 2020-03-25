@@ -1,0 +1,49 @@
+// ------------------- Chats -------------------
+
+// ------------------ Messages -----------------
+.chat-message {
+  align-self: flex-start;
+}
+.left {
+  align-self: flex-end;
+}
+
+.chat-message-content {
+  display: flex;
+}
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.chat-message-content-avatar {
+  margin-bottom: 5px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  align-self: flex-end;
+}
+
+.chat-message-content-text {
+  margin: 5px;
+  padding: 10px 15px;
+  max-width: 100%;
+  border-radius: 10px 10px 10px 0;
+  background-color: white;
+  align-self: flex-start;
+}
+.bg-style {
+  background-color: #bbdff9;
+  border-radius: 10px 10px 0 10px;
+}
+
+.chat-message-date {
+  margin-right: 5px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  font-weight: lighter;
+  text-align: right;
+  color: #696969;
+}
+.indent {
+  margin-right: 40px;
+}

@@ -18,93 +18,48 @@
         <p style="font-size: 0.9rem; font-weight: lighter; color: #696969;">Online</p>
       </div>
     </div>
-    <div class="chat" data-channel-subscribe="chat" data-chat-id="<%= @chat.id %>" style="height: calc(100vh - 200px); border-radius: 3px 3px 0 0; overflow-y: auto;">
+    <div class="chat" data-channel-subscribe="chat" data-chat-id="<%= @chat.id %>" style="height: calc(100vh - 210px); border-radius: 3px 3px 0 0; overflow-y: auto; display: flex; flex-direction: column;">
       <% @messages.each do |message| %>
-
-        <div class="chat-message-container" style="padding: 5px;">
-
-          <div class="row no-gutters">
-
-              <% if student_signed_in? && @chat.student.first_name == message.username || tutor_signed_in? && @chat.tutor.first_name == message.username %>
-
-                <div class="col" style="display: flex; justify-content: flex-end; }">
-                  <div id="<%= message.username %>" class="message-content" style= "margin-top: 10px; padding: 10px 15px; border-radius: 10px 10px 0 10px; background: white; width: 70%;">
-                    <p class="mb-1">
-                      <%= message.content %>
-                    </p>
-                    <div class="text-right">
-                      <small style="color: #4c4c4c">
-                        <%= message.created_at %>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-auto text-center">
-                  <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", style: "margin: 5px; margin-top: 10px;" %>
-                </div>
-
-              <% else %>
-
-                <div class="col-auto text-center">
-                  <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", style: "margin: 5px; margin-top: 10px;" %>
-                </div>
-
-                <div class="col">
-                  <div id="<%= message.username %>" class="message-content" style= "margin-top: 10px; padding: 10px 15px; border-radius: 10px 10px 10px 0; background: #bbdff9; width: 70%;">
-                    <p class="mb-1" style="color: black;">
-                      <%= message.content %>
-                    </p>
-                    <div class="text-right">
-                      <small style="color: #4c4c4c">
-                        <%= message.created_at %>
-                      </small>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-
-            </div>
-
+        <div class="chat-message <%= message.author == (current_student || current_tutor) ? 'left' : '' %>">
+          <div class="chat-message-content <%= message.author == (current_student || current_tutor) ? 'reverse' : '' %>">
+            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "chat-message-content-avatar" %>
+            <p class="chat-message-content-text <%= message.author == (current_student || current_tutor) ? 'bg-style' : '' %>">
+              <%= message.content %>
+            </p>
+          </div>
+          <div>
+            <p class="chat-message-date <%= message.author == (current_student || current_tutor) ? 'indent' : '' %>">
+            <%= message.created_at.in_time_zone("CET").strftime("%H:%M") %>
+          </p>
+          </div>
         </div>
-
       <% end %>
     </div>
 
-    <%= simple_form_for @message, remote: true do |f| %>
-      <div style="border-top: 1px solid #cecece; display: flex;">
+    <%= simple_form_for @message, remote: true, style: "" do |f| %>
+      <div style="chat-new-message-content">
         <%= f.input :content, as: :string,
                                  wrapper: false,
                                  label: false, placeholder: "Write your message...",
                                  input_html: {
-                                   class: 'chat-input mt-2',
-                                   style: "border: none; background-color: transparent;"
+                                   id: 'chat-new-message-input'
                                  } %>
-        <%= f.input :username, as: :hidden %>
+        <%= f.input :is_student, as: :hidden %>
         <%= f.input :chat_id, as: :hidden  %>
-        <%= f.submit "Send", class: 'btn btn-primary chat-input mt-2' %>
       </div>
-
+      <%= f.submit "Send", id: 'chat-new-message-button' %>
     <% end %>
   </div>
 </div>
 
 <div class="d-none" data-role="message-template">
-  <div class="chat-message-container" style="padding: 5px; margin-top: 10px;">
-    <div class="row no-gutters">
-      <div class="col-auto text-center">
-        <img src="" class="avatar" style= "margin: 5px; margin-top: 10px;" alt="" data-role="user-avatar">
-      </div>
-
-      <div class="col">
-        <div class="message-content" style= "margin-top: 10px; padding: 5px; border: 1px solid #83c0d4; border-radius: 5px; background: #add8e6; color: #103744;">
-          <p class="mb-1" data-role="message-text"></p>
-
-          <div class="text-right" style="color: #014c65">
-            <small data-role="message-date"></small>
-          </div>
-        </div>
-      </div>
+  <div class="chat-message <%= @message.author == (current_student || current_tutor) ? 'left' : '' %>"" >
+    <div class="chat-message-content <%= @message.author == (current_student || current_tutor) ? 'reverse' : '' %>">
+      <img src="" class="chat-message-content-avatar" alt="" data-role="user-avatar">
+      <p class="chat-message-content-text <%= @message.author == (current_student || current_tutor) ? 'bg-style' : '' %>" data-role="message-text"></p>
+    </div>
+    <div>
+      <p class="chat-message-date <%= @message.author == (current_student || current_tutor) ? 'indent' : '' %>" data-role="message-date"></p>
     </div>
   </div>
 </div>
