@@ -3,6 +3,11 @@
   display: flex;
   justify-content: space-between;
 }
+
+.chat-new-message-content {
+  width: 92%;
+}
+
 #chat-new-message-input {
   margin-top: 8px;
   border: none;

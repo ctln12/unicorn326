@@ -37,7 +37,7 @@
     </div>
 
     <%= simple_form_for @message, remote: true, style: "" do |f| %>
-      <div style="chat-new-message-content">
+      <div class="chat-new-message-content">
         <%= f.input :content, as: :string,
                                  wrapper: false,
                                  label: false, placeholder: "Write your message...",
