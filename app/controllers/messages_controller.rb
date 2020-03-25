@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
       @user = @chat.tutor
     end
 
-    @message = Message.create(content: params.dig(:message, :content), username: @user.first_name, chat: @chat)
+    @message = Message.create(content: params.dig(:message, :content), is_student: @user == current_student, chat: @chat)
 
     ChatChannel.broadcast_to @chat, @message
   end
@@ -22,6 +22,6 @@ class MessagesController < ApplicationController
   end
 
   def messages_params
-    params.require(:chat).permit(:content, :username, :chat_id)
+    params.require(:chat).permit(:content, :is_student, :chat_id)
   end
 end
