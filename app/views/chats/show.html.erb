@@ -11,14 +11,14 @@
   </div>
 
   <div class="col-9">
-    <div style="display: flex; align-items: center;">
-      <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", style: "width: 56px; height: 56px;" %>
-      <div style="padding-left: 15px;">
-        <h5 style="margin: 15px 0 0 0;"><strong><%= @chat.tutor.first_name %></strong></h5>
-        <p style="font-size: 0.9rem; font-weight: lighter; color: #696969;">Online</p>
+    <div id="chat-user-banner">
+      <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "chat-user-banner-avatar" %>
+      <div class="chat-user-banner-infos">
+        <h5 class="chat-user-banner-name"><%= @chat.tutor.first_name %></h5>
+        <p class="chat-user-banner-status">Online</p>
       </div>
     </div>
-    <div class="chat" data-channel-subscribe="chat" data-chat-id="<%= @chat.id %>" style="height: calc(100vh - 210px); border-radius: 3px 3px 0 0; overflow-y: auto; display: flex; flex-direction: column;">
+    <div class="chat" data-channel-subscribe="chat" data-chat-id="<%= @chat.id %>">
       <% @messages.each do |message| %>
         <div class="chat-message <%= message.author == (current_student || current_tutor) ? 'left' : '' %>">
           <div class="chat-message-content <%= message.author == (current_student || current_tutor) ? 'reverse' : '' %>">

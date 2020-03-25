@@ -16,7 +16,7 @@
 }
 .current-user {
   font-weight: bold;
-  border-left: 5px solid #167FFB;
+  border-left: 5px solid #1edd88;
 }
 
 .chat-user-card-avatar {
@@ -28,6 +28,41 @@
 .chat-user-card-name {
   margin-bottom: 0;
   margin-left: 10px;
+}
+
+#chat-user-banner {
+  display: flex;
+  align-items: center;
+}
+
+.chat-user-banner-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.chat-user-banner-infos {
+  padding-left: 15px;
+}
+
+.chat-user-banner-name {
+  margin: 15px 0 0 0;
+  font-weight: bolder;
+}
+
+.chat-user-banner-status {
+  font-size: 0.9rem;
+  font-weight: lighter;
+  color: #696969;
+}
+
+.chat {
+  height: calc(100vh - 210px);
+  padding-right: 10px;
+  border-radius: 3px 3px 0 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 // ------------------ Messages -----------------
