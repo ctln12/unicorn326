@@ -18,7 +18,16 @@ $(function() {
             .find('[data-role="user-avatar"]')
             .attr("src", data.user_avatar_url);
           content.find('[data-role="message-text"]').text(data.content);
-          content.find('[data-role="message-date"]').text(data.updated_at);
+          var timeNow = new Date(data.updated_at);
+          var addZero = function(nb) {
+            if (nb < 10) {
+              return `0${nb}`;
+            } else {
+              return nb;
+            }
+          }
+          var timeNowStyled = `${addZero(timeNow.getHours())}:${addZero(timeNow.getMinutes())}`
+          content.find('[data-role="message-date"]').text(timeNowStyled);
           $element.append(content);
           $element.animate({ scrollTop: $element.prop("scrollHeight") }, 1000);
         }
