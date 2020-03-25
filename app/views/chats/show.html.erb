@@ -2,7 +2,7 @@
   <div class="col-3">
     <% @chats.each do |chat| %>
       <%= link_to chat_path(chat), id: "chat-users-menu" do %>
-        <div class="chat-user-card <%= @chat.tutor == chat.tutor ? "current-user" : "" %>">
+        <div class="chat-user-card <%= (student_signed_in? && @chat.tutor == chat.tutor) || (tutor_signed_in? && @chat.student == chat.student) ? "current-user" : "" %>">
           <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "chat-user-card-avatar" %>
           <p class="chat-user-card-name"><%= student_signed_in? ? chat.tutor.first_name : chat.student.first_name %></p>
         </div>
@@ -14,7 +14,7 @@
     <div id="chat-user-banner">
       <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "chat-user-banner-avatar" %>
       <div class="chat-user-banner-infos">
-        <h5 class="chat-user-banner-name"><%= @chat.tutor.first_name %></h5>
+        <h5 class="chat-user-banner-name"><%= student_signed_in? ? @chat.tutor.first_name : @chat.student.first_name %></h5>
         <p class="chat-user-banner-status">Online</p>
       </div>
     </div>
