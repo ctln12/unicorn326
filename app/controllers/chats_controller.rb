@@ -26,7 +26,11 @@ class ChatsController < ApplicationController
   protected
 
   def load_entities
-    @chats = Chat.all
+    if student_signed_in?
+      @chats = Chat.where(student_id: current_student.id)
+    else
+      @chats = Chat.where(tutor_id: current_tutor.id)
+    end
     @chat = Chat.find(params[:id]) if params[:id]
   end
 
