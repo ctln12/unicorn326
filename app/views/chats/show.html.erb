@@ -1,5 +1,6 @@
 <div class="row mt-1">
-  <div class="col-3">
+  <div id="chat-users" class="col-3">
+    <h3><strong>Tutors</strong></h3>
     <% @chats.each do |chat| %>
       <%= link_to chat_path(chat), id: "chat-users-menu" do %>
         <div class="chat-user-card <%= (student_signed_in? && @chat.tutor == chat.tutor) || (tutor_signed_in? && @chat.student == chat.student) ? "current-user" : "" %>">
