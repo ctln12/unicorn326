@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
       @user = @chat.tutor
     end
 
-    @message = Message.create(content: params.dig(:message, :content), is_student: @user == current_student, chat: @chat)
+    @message = Message.create(content: params.dig(:message, :content), is_student: params.dig(:message, :is_student), chat: @chat)
 
     ChatChannel.broadcast_to @chat, @message
   end
