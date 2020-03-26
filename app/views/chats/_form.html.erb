@@ -6,7 +6,7 @@
                               input_html: {
                                 id: 'chat-new-message-input'
                               } %>
-    <%= f.input :is_student, as: :hidden %>
+    <%= f.input :is_student, as: :hidden, input_html: { value: student_signed_in? } %>
     <%= f.input :chat_id, as: :hidden  %>
   </div>
   <%= f.submit "Send", id: 'chat-new-message-button' %>
