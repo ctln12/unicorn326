@@ -1,0 +1,13 @@
+<div class="chat-message <%= message.author == (current_student || current_tutor) ? 'left' : '' %>">
+  <div class="chat-message-content <%= message.author == (current_student || current_tutor) ? 'reverse' : '' %>">
+    <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "chat-message-content-avatar" %>
+    <p class="chat-message-content-text <%= message.author == (current_student || current_tutor) ? 'bg-style' : '' %>">
+      <%= message.content %>
+    </p>
+  </div>
+  <div>
+    <p class="chat-message-date <%= message.author == (current_student || current_tutor) ? 'indent' : '' %>">
+    <%= message.updated_at.in_time_zone("CET").strftime("%H:%M") %>
+  </p>
+  </div>
+</div>
