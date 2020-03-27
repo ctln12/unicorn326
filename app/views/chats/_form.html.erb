@@ -1,4 +1,4 @@
-<%= simple_form_for @message, remote: true do |f| %>
+<%= simple_form_for [@chat, @message] do |f| %>
   <div class="chat-new-message-content">
     <%= f.input :content, as: :string,
                               wrapper: false,
@@ -6,8 +6,8 @@
                               input_html: {
                                 id: 'chat-new-message-input'
                               } %>
-    <%= f.input :is_student, as: :hidden, input_html: { value: student_signed_in? } %>
-    <%= f.input :chat_id, as: :hidden  %>
+    <%#= f.input :is_student, as: :hidden, input_html: { value: student_signed_in? } %>
+    <%#= f.input :chat_id, as: :hidden  %>
   </div>
   <%= f.submit "Send", id: 'chat-new-message-button' %>
 <% end %>

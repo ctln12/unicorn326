@@ -1,27 +1,8 @@
 class MessagesController < ApplicationController
-  before_action :load_entities
-
   def create
-    @messages = @chat.messages
-
-    if student_signed_in?
-      @user = @chat.student
-    elsif tutor_signed_in?
-      @user = @chat.tutor
-    end
-
-    @message = Message.create(content: params.dig(:message, :content), is_student: params.dig(:message, :is_student), chat: @chat)
-
-    ChatChannel.broadcast_to @chat, @message
-  end
-
-  protected
-
-  def load_entities
-    @chat = Chat.find(params.dig(:message, :chat_id))
-  end
-
-  def messages_params
-    params.require(:chat).permit(:content, :is_student, :chat_id)
+    @chat = Chat.find(params[:chat_id])
+    @new_message = Message.new(content: params.dig(:message, :content), chat: @chat)
+    @new_message.is_student = student_signed_in?
+    @new_message.save
   end
 end
