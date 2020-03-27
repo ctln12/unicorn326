@@ -31,8 +31,9 @@ Rails.application.routes.draw do
     resources :lessons, only: [:create, :show]
   end
 
-  resources :chats
-  resources :messages
+  resources :chats, only: [:create, :show] do
+    resources :messages, only: [:create]
+  end
 
   put '/stripe', to: 'bookings#stripe', as: 'stripe'
 
