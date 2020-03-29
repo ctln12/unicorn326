@@ -194,7 +194,7 @@ alice.save
 bob = Student.new(first_name: 'Bob', last_name: 'Hutchings', country: 'GB', date_of_birth: '1995-10-08', email: 'bob.hutchingsg@student.com', password: '123456')
 bob.save
 
-25.times do
+5.times do
   fn = Faker::Name.first_name
   ln = Faker::Name.last_name
   student = Student.new(
@@ -240,7 +240,7 @@ wallet = Wallet.new(tutor_id: georges.id, amount: 0)
 wallet.save
 
 
-50.times do
+5.times do
   fn = Faker::Name.first_name
   ln = Faker::Name.last_name
   tutor = Tutor.new(
