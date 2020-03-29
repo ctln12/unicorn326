@@ -94,5 +94,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: "https://unicorn326.herokuapp.com/" }
+  config.action_mailer.default_url_options = { host: "https://unicorn-326.herokuapp.com/" }
 end
