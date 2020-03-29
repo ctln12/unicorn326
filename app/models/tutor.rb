@@ -29,6 +29,6 @@ class Tutor < ApplicationRecord
   private
 
   def send_welcome_email
-    TutorMailer.with(tutor: self).welcome.deliver_now
+    TutorMailer.with(tutor: self).welcome.deliver_later
   end
 end
