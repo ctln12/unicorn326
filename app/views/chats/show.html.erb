@@ -15,24 +15,13 @@
       </div>
     </div>
 
-    <div class="chat" data-channel-subscribe="chat" data-chat-id="<%= @chat.id %>">
+    <div id="chat-messages" class="chat" data-chat-id="<%= @chat.id %>"
+    data-chat-recipient-is-student="<%= is_recipient_student?(@chat) %>" data-chat-recipient-id="<%= student_signed_in? ? @chat.tutor.id : @chat.student.id %>">
       <% @messages.each do |message| %>
         <%= render 'messages/message', message: message %>
       <% end %>
     </div>
 
     <%= render partial: 'form' %>
-  </div>
-</div>
-
-<div class="d-none" data-role="message-template">
-  <div class="chat-message <%#= @message.author == (current_student || current_tutor) ? 'right' : '' %>">
-    <div class="chat-message-content <%#= @message.author == (current_student || current_tutor) ? 'reverse' : '' %>">
-      <img src="" class="chat-message-content-avatar" alt="" data-role="user-avatar">
-      <p class="chat-message-content-text <%#= @message.author == (current_student || current_tutor) ? 'bg-style' : '' %>" data-role="message-text"></p>
-    </div>
-    <div>
-      <p class="chat-message-date <%#= @message.author == (current_student || current_tutor) ? 'indent' : '' %>" data-role="message-date"></p>
-    </div>
   </div>
 </div>
