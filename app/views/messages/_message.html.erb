@@ -1,4 +1,4 @@
-<div class="chat-message <%= is_sender?(message) ? 'right' : '' %>">
+<div id="message-<%= message.id %>" class="chat-message <%= is_sender?(message) ? 'right' : '' %>" data-message-author-is-student="<%= message.is_student %>" data-message-author-id="<%= message.author_id %>">
   <div class="chat-message-content <%= is_sender?(message) ? 'reverse' : '' %>">
     <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "chat-message-content-avatar" %>
     <p class="chat-message-content-text <%= is_sender?(message) ? 'bg-style' : '' %>">
