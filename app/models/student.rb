@@ -18,6 +18,6 @@ class Student < ApplicationRecord
   private
 
   def send_welcome_email
-    StudentMailer.with(student: self).welcome.deliver_now
+    StudentMailer.with(student: self).welcome.deliver_later
   end
 end
