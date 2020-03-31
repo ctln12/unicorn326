@@ -1,37 +1,57 @@
-// $(function() {
-//   $('[data-channel-subscribe="chat"]').each(function(index, element) {
-//     var $element = $(element),
-//       chat_id = $element.data("chat-id");
-//     messageTemplate = $('[data-role="message-template"]');
+const messagesContainer = document.getElementById('chat-messages');
 
-//     $element.animate({ scrollTop: $element.prop("scrollHeight") }, 1000);
+const chatRecipientIsStudent = messagesContainer.dataset.chatRecipientIsStudent;
+const chatRecipientId = messagesContainer.dataset.chatRecipientId;
 
-//     App.cable.subscriptions.create(
-//       {
-//         channel: "ChatChannel",
-//         chat: chat_id
-//       },
-//       {
-//         received: function(data) {
-//           var content = messageTemplate.children().clone(true, true);
-//           content
-//             .find('[data-role="user-avatar"]')
-//             .attr("src", data.user_avatar_url);
-//           content.find('[data-role="message-text"]').text(data.content);
-//           var timeNow = new Date(data.updated_at);
-//           var addZero = function(nb) {
-//             if (nb < 10) {
-//               return `0${nb}`;
-//             } else {
-//               return nb;
-//             }
-//           }
-//           var timeNowStyled = `${addZero(timeNow.getHours())}:${addZero(timeNow.getMinutes())}`
-//           content.find('[data-role="message-date"]').text(timeNowStyled);
-//           $element.append(content);
-//           $element.animate({ scrollTop: $element.prop("scrollHeight") }, 1000);
-//         }
-//       }
-//     );
-//   });
-// });
+const getLastMessage = () => {
+  const messages = document.querySelectorAll('.chat-message');
+  const size = messages.length;
+  console.log(size);
+  return messages[size - 1];
+}
+
+const scrollMessages = () => {
+  const lastMessage = getLastMessage();
+  if (lastMessage) {
+    lastMessage.scrollIntoView({ behavior: "smooth", block: "end" });
+  }
+}
+
+const removeAuthorClasses = (lastMessage, lastMessageContent, lastMessageContentText, lastMessageContentDate) => {
+  lastMessage.classList.remove('right');
+  lastMessageContent.classList.remove('reverse');
+  lastMessageContentText.classList.remove('bg-style');
+  lastMessageContentDate.classList.remove('indent');
+}
+
+scrollMessages();
+
+if (messagesContainer) {
+  const id = messagesContainer.dataset.chatId;
+
+  App.cable.subscriptions.create({ channel: "ChatChannel", id: id}, {
+    received(data) {
+      const lastMessage = jQuery.parseHTML(data)[0];
+      const lastMessageContent = lastMessage.children[0];
+      const lastMessageContentText = lastMessage.children[0].children[1];
+      const lastMessageContentDate = lastMessage.children[1].children[0];
+
+      const messageAuthorIsStudent = lastMessage.dataset.messageAuthorIsStudent;
+      const messageAuthorId = lastMessage.dataset.messageAuthorId;
+
+      if (chatRecipientIsStudent === messageAuthorIsStudent && chatRecipientId === messageAuthorId) {
+        removeAuthorClasses(lastMessage, lastMessageContent, lastMessageContentText, lastMessageContentDate);
+      }
+
+      messagesContainer.insertAdjacentElement('beforeend', lastMessage);
+
+      scrollMessages();
+
+      const newMessageInput = document.querySelector('#chat-new-message-input');
+      newMessageInput.value = '';
+
+      const chatNewMessageButton = document.querySelector('#chat-new-message-button');
+      chatNewMessageButton.removeAttribute('disabled');
+    }
+  });
+}
