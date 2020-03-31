@@ -27,6 +27,9 @@ Language.destroy_all
 puts 'Destroying wallets...'
 Wallet.destroy_all
 
+puts 'Destroying messages...'
+Message.destroy_all
+
 puts 'Destroying chats...'
 Chat.destroy_all
 
