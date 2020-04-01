@@ -13,10 +13,10 @@ var rtc = {
 // Options for joining a channel
 var option = {
   appID: "23eafc68667e4d9b893d739712dfafb4",
-  channel: "lesson",
+  channel: "test",
   uid: null,
   token:
-    "00623eafc68667e4d9b893d739712dfafb4IAAOitErlz1QG5IYeyXPUjqzc7pfDa/IBRu8T2XO4bMoHvN0dPgAAAAAEABJFYGYEONnXgEAAQAQ42de"
+    "00623eafc68667e4d9b893d739712dfafb4IADu3IkdOuh3gRNuzAH7D2ixvM9moz1KafV91MJwtiAQVgx+f9gAAAAAEACapUd9dsOFXgEAAQB2w4Ve"
 };
 
 // Additional functions
