@@ -1,0 +1,24 @@
+#new_message {
+  border-top: 1px solid #cecece;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chat-new-message-content {
+  width: 92%;
+}
+
+#chat-new-message-input {
+  margin-top: 8px;
+  border: none;
+  background-color: transparent;
+}
+
+#chat-new-message-button {
+  margin-top: 5px;
+  height: 45px;
+  width: 65px;
+  border-radius: 30px;
+  background-color: #bbdff9;
+  border: 1px solid #bbdff9;
+}

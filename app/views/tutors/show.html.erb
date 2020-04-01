@@ -1,6 +1,6 @@
 <h1>
   <%= @tutor.first_name %> <%= @tutor.last_name %>
-  <%= link_to 'Send a message', '#', class: 'btn btn-outline-primary' %>
+  <%= link_to 'Send a message', chats_path(tutor_id: @tutor), method: :post, class: 'btn btn-outline-primary' %>
   <%= link_to 'Book a lesson', new_booking_path(tutor_id: @tutor), class: 'btn btn-primary' %>
 </h1>
 <h5><%= ISO3166::Country.find_country_by_alpha2("#{@tutor.country}").unofficial_names.first %></h5>

@@ -1,0 +1,119 @@
+// ------------------- Chats -------------------
+#chat-users {
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+#chat-users-menu {
+  text-decoration: none;
+  color: black;
+}
+
+.chat-user-card {
+  margin-bottom: 10px;
+  padding-left: 10px;
+  height: 60px;
+  background-color: white;
+  border-radius: 5px;
+  border-left: 5px solid transparent;
+  display: flex;
+  align-items: center;
+}
+.current-user {
+  font-weight: bold;
+  border-left: 5px solid #1edd88;
+}
+
+.chat-user-card-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.chat-user-card-name {
+  margin-bottom: 0;
+  margin-left: 10px;
+}
+
+#chat-user-banner {
+  display: flex;
+  align-items: center;
+}
+
+.chat-user-banner-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.chat-user-banner-infos {
+  padding-left: 15px;
+}
+
+.chat-user-banner-name {
+  margin: 15px 0 0 0;
+  font-weight: bolder;
+}
+
+.chat-user-banner-status {
+  font-size: 0.9rem;
+  font-weight: lighter;
+  color: #696969;
+}
+
+.chat {
+  height: calc(100vh - 210px);
+  padding-right: 10px;
+  border-radius: 3px 3px 0 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+// ------------------ Messages -----------------
+.chat-message {
+  align-self: flex-start;
+}
+.right {
+  align-self: flex-end;
+}
+
+.chat-message-content {
+  display: flex;
+}
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.chat-message-content-avatar {
+  margin-bottom: 5px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  align-self: flex-end;
+}
+
+.chat-message-content-text {
+  margin: 5px;
+  padding: 10px 15px;
+  max-width: 100%;
+  border-radius: 10px 10px 10px 0;
+  background-color: white;
+  align-self: flex-start;
+}
+.bg-style {
+  background-color: #bbdff9;
+  border-radius: 10px 10px 0 10px;
+}
+
+.chat-message-date {
+  margin-right: 5px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  font-weight: lighter;
+  text-align: right;
+  color: #696969;
+}
+.indent {
+  margin-right: 40px;
+}

@@ -24,13 +24,19 @@ SpokenLanguage.destroy_all
 puts 'Destroying languages...'
 Language.destroy_all
 
-puts 'Destroying wallets'
+puts 'Destroying wallets...'
 Wallet.destroy_all
 
-puts 'Destroying tutors'
+puts 'Destroying messages...'
+Message.destroy_all
+
+puts 'Destroying chats...'
+Chat.destroy_all
+
+puts 'Destroying tutors...'
 Tutor.destroy_all
 
-puts 'Destroying students'
+puts 'Destroying students...'
 Student.destroy_all
 
 puts 'Destroying currencies...'
@@ -214,31 +220,30 @@ puts '-----------------------------'
 
 puts 'Creating Tutors...'
 
-pierre = Tutor.new(first_name: 'Pierre', last_name: 'Martin', date_of_birth: '1967-06-20', country: 'FR', phone_number: '33671283384', currency_id: usd.id, price: 25, email: 'pierre.martin@tutor.com', password: '123456')
+pierre = Tutor.new(first_name: 'Pierre', last_name: 'Martin', date_of_birth: '1967-06-20', country: 'FR', phone_number: '33671283384', currency_id: eur.id, price: 25, email: 'pierre.martin@tutor.com', password: '123456')
 pierre.save
 wallet = Wallet.new(tutor_id: pierre.id, amount: 123.45)
 wallet.save
 
-david = Tutor.new(first_name: 'David', last_name: 'Lawson', date_of_birth: '1951-01-24', country: 'GB', phone_number: '44214235689', currency_id: eur.id, price: 30, email: 'david.lawson@tutor.com', password: '123456')
+david = Tutor.new(first_name: 'David', last_name: 'Lawson', date_of_birth: '1951-01-24', country: 'GB', phone_number: '44214235689', currency_id: gbp.id, price: 30, email: 'david.lawson@tutor.com', password: '123456')
 david.save
 wallet = Wallet.new(tutor_id: david.id, amount: 0)
 wallet.save
 
-charles = Tutor.new(first_name: 'Charles', last_name: 'Davis', date_of_birth: '1991-04-30', country: 'US', phone_number: '12145096897', currency_id: Currency.all.sample.id, price: 25, email: 'charles.davis@tutor.com', password: '123456')
+charles = Tutor.new(first_name: 'Charles', last_name: 'Davis', date_of_birth: '1991-04-30', country: 'US', phone_number: '12145096897', currency_id: usd.id, price: 25, email: 'charles.davis@tutor.com', password: '123456')
 charles.save
 wallet = Wallet.new(tutor_id: charles.id, amount: 0)
 wallet.save
 
-john = Tutor.new(first_name: 'John', last_name: 'Kendall', date_of_birth: '1972-12-17', country: 'CA', phone_number: '12267741234', currency_id: Currency.all.sample.id, price: 20, email: 'john.kendall@tutor.com', password: '123456')
+john = Tutor.new(first_name: 'John', last_name: 'Kendall', date_of_birth: '1972-12-17', country: 'CA', phone_number: '12267741234', currency_id: usd.id, price: 20, email: 'john.kendall@tutor.com', password: '123456')
 john.save
 wallet = Wallet.new(tutor_id: john.id, amount: 0)
 wallet.save
 
-georges = Tutor.new(first_name: 'Georges', last_name: 'Till', date_of_birth: '1980-02-03', country: 'CH', phone_number: '41786272034', currency_id: Currency.all.sample.id, price: 30, email: 'george.till@tutor.com', password: '123456')
+georges = Tutor.new(first_name: 'Georges', last_name: 'Till', date_of_birth: '1980-02-03', country: 'CH', phone_number: '41786272034', currency_id: chf.id, price: 30, email: 'george.till@tutor.com', password: '123456')
 georges.save
 wallet = Wallet.new(tutor_id: georges.id, amount: 0)
 wallet.save
-
 
 5.times do
   fn = Faker::Name.first_name
@@ -352,7 +357,7 @@ puts 'Creating Post Jobs and Comments ...'
 puts 'Finished'
 puts '-----------------------------'
 
-puts 'Creating Bookings...'
+puts 'Creating Bookings and Chats...'
 # Accepted / Paid / Given
 booking1 = Booking.new(
   student_id: alice.id,
@@ -366,6 +371,8 @@ booking1 = Booking.new(
   paid_at: DateTime.now - 11.2
 )
 booking1.save
+chat1 = Chat.new(student: booking1.student, tutor: booking1.tutor)
+chat1.save
 # Accepted / Paid / Not given yet
 booking2 = Booking.new(
   student_id: alice.id,
@@ -379,8 +386,10 @@ booking2 = Booking.new(
   paid_at: DateTime.now
 )
 booking2.save
+chat2 = Chat.new(student: booking2.student, tutor: booking2.tutor)
+chat2.save
 lesson = Lesson.new(video_url: "video", booking: booking2)
-  lesson.save!
+lesson.save!
 # Accepted / Not paid
 booking3 = Booking.new(
   student_id: alice.id,
@@ -393,6 +402,8 @@ booking3 = Booking.new(
   accepted_at: DateTime.now - 1.2
 )
 booking3.save
+chat3 = Chat.new(student: booking3.student, tutor: booking3.tutor)
+chat3.save
 # Not accepted yet
 booking4 = Booking.new(
   student_id: alice.id,
@@ -404,6 +415,8 @@ booking4 = Booking.new(
   booking_price: pierre.price
 )
 booking4.save
+chat4 = Chat.new(student: booking4.student, tutor: booking4.tutor)
+chat4.save
 # Canceled by tutor
 booking5 = Booking.new(
   student_id: alice.id,
@@ -416,6 +429,8 @@ booking5 = Booking.new(
   canceled_at: DateTime.now - 3.1
 )
 booking5.save
+chat5 = Chat.new(student: booking5.student, tutor: booking5.tutor)
+chat5.save
 # Accepted / Canceled by student
 booking6 = Booking.new(
   student_id: alice.id,
@@ -429,6 +444,8 @@ booking6 = Booking.new(
   canceled_at: DateTime.now - 3.1
 )
 booking6.save
+chat6 = Chat.new(student: booking6.student, tutor: booking6.tutor)
+chat6.save
 # Accepted / Paid / Canceled
 booking7 = Booking.new(
   student_id: alice.id,
@@ -443,8 +460,10 @@ booking7 = Booking.new(
   canceled_at: DateTime.now - 4.1
 )
 booking7.save
+chat7 = Chat.new(student: booking7.student, tutor: booking7.tutor)
+chat7.save
 
-50.times do
+5.times do # 50.times
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
@@ -458,6 +477,8 @@ booking7.save
     paid_at: DateTime.now - 11.2
   )
   booking.save
+  chat = Chat.new(student: booking.student, tutor: booking.tutor)
+  chat.save
 end
 
 3.times do
@@ -474,11 +495,13 @@ end
     paid_at: DateTime.now
   )
   booking.save
+  chat = Chat.new(student: booking.student, tutor: booking.tutor)
+  chat.save
   lesson = Lesson.new(video_url: "video", booking: booking)
   lesson.save
 end
 
-10.times do
+5.times do # 10.times
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
@@ -491,6 +514,8 @@ end
     accepted_at: DateTime.now - 1.2
   )
   booking.save
+  chat = Chat.new(student: booking.student, tutor: booking.tutor)
+  chat.save
 end
 
 3.times do
@@ -505,6 +530,8 @@ end
     booking_price: random_tutor.price
   )
   booking.save
+  chat = Chat.new(student: booking.student, tutor: booking.tutor)
+  chat.save
 end
 
 2.times do
@@ -520,6 +547,8 @@ end
     canceled_at: DateTime.now - 3.1
   )
   booking.save
+  chat = Chat.new(student: booking.student, tutor: booking.tutor)
+  chat.save
 end
 
 2.times do
@@ -536,6 +565,8 @@ end
     canceled_at: DateTime.now - 3.1
   )
   booking.save
+  chat = Chat.new(student: booking.student, tutor: booking.tutor)
+  chat.save
 end
 
 2.times do
@@ -553,6 +584,8 @@ end
     canceled_at: DateTime.now - 4.1
   )
   booking.save
+  chat = Chat.new(student: booking.student, tutor: booking.tutor)
+  chat.save
 end
 
 puts 'Finished!'

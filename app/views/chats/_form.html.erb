@@ -1,0 +1,11 @@
+<%= simple_form_for [@chat, @message] do |f| %>
+  <div class="chat-new-message-content">
+    <%= f.input :content, as: :string,
+                              wrapper: false,
+                              label: false, placeholder: "Write your message...",
+                              input_html: {
+                                id: 'chat-new-message-input'
+                              } %>
+  </div>
+  <%= f.submit "Send", id: 'chat-new-message-button' %>
+<% end %>

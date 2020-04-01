@@ -9,6 +9,7 @@ class Tutor < ApplicationRecord
   has_many :languages, through: :spoken_languages
   has_many :reviews, through: :bookings
   has_many :wallets
+  has_many :chats
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable

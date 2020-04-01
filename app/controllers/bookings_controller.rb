@@ -27,6 +27,7 @@ class BookingsController < ApplicationController
   def show
     @booking = Booking.find(params[:id])
     @lesson = @booking.lesson
+    @chat = Chat.where(student_id: @booking.student.id).where(tutor_id: @booking.tutor.id).first
   end
 
   def edit
