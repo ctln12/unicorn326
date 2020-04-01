@@ -1,32 +1,34 @@
 const messagesContainer = document.getElementById('chat-messages');
 
-const chatRecipientIsStudent = messagesContainer.dataset.chatRecipientIsStudent;
-const chatRecipientId = messagesContainer.dataset.chatRecipientId;
-
-const getLastMessage = () => {
-  const messages = document.querySelectorAll('.chat-message');
-  const size = messages.length;
-  console.log(size);
-  return messages[size - 1];
-}
-
-const scrollMessages = () => {
-  const lastMessage = getLastMessage();
-  if (lastMessage) {
-    lastMessage.scrollIntoView({ behavior: "smooth", block: "end" });
-  }
-}
-
-const removeAuthorClasses = (lastMessage, lastMessageContent, lastMessageContentText, lastMessageContentDate) => {
-  lastMessage.classList.remove('right');
-  lastMessageContent.classList.remove('reverse');
-  lastMessageContentText.classList.remove('bg-style');
-  lastMessageContentDate.classList.remove('indent');
-}
-
-scrollMessages();
-
 if (messagesContainer) {
+
+  const chatRecipientIsStudent = messagesContainer.dataset.chatRecipientIsStudent;
+  const chatRecipientId = messagesContainer.dataset.chatRecipientId;
+
+  const getLastMessage = () => {
+    const messages = document.querySelectorAll('.chat-message');
+    const size = messages.length;
+    console.log(size);
+    return messages[size - 1];
+  }
+
+  const scrollMessages = () => {
+    const lastMessage = getLastMessage();
+    if (lastMessage) {
+      lastMessage.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }
+
+  const removeAuthorClasses = (lastMessage, lastMessageContent, lastMessageContentText, lastMessageContentDate) => {
+    lastMessage.classList.remove('right');
+    lastMessageContent.classList.remove('reverse');
+    lastMessageContentText.classList.remove('bg-style');
+    lastMessageContentDate.classList.remove('indent');
+  }
+
+  scrollMessages();
+
+// if (messagesContainer) {
   const id = messagesContainer.dataset.chatId;
 
   App.cable.subscriptions.create({ channel: "ChatChannel", id: id}, {
@@ -54,4 +56,5 @@ if (messagesContainer) {
       chatNewMessageButton.removeAttribute('disabled');
     }
   });
+
 }
