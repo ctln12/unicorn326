@@ -20,6 +20,8 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.save
+    @chat = Chat.new(student: @booking.student, tutor: @booking.tutor)
+    @chat.save
 
     redirect_to bookings_path
   end
