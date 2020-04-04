@@ -1,7 +1,5 @@
 <%= simple_form_for [@booking, @review] do |f| %>
   <%= f.input :comment, label: "Review" %>
-  <%= f.collection_radio_buttons :rating, [[1], [2], [3], [4], [5]], :first, :last, item_wrapper_tag: false, boolean_style: :inline do |b| %>
-    <%= b.radio_button + b.label {''} %>
-  <% end %>
-  <%= f.submit "add a review", class: "btn btn-primary" %>
+  <%= f.input :rating, collection: (1..5).to_a, label: "Rate your experience" %>
+  <%= f.submit "Add review", class: "btn btn-primary" %>
 <% end %>
