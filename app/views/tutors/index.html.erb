@@ -39,11 +39,7 @@
         </p>
         <p class="rating">Rating:
           <% if tutor.reviews.exists? %>
-            <% sum = 0 %>
-            <% tutor.reviews.each do |review|%>
-              <% sum += review.rating %>
-            <% end %>
-            <%= sum / tutor.reviews.count %>
+            <span class="review-avg-rating" data-score="<%= average_rating(tutor.reviews) %>"></span>
           <% else %>
             <%= "Not rated yet" %>
           <% end %>
@@ -54,3 +50,15 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  jQuery(function() {
+    $('.review-avg-rating').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+    })
+  });
+</script>

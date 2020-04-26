@@ -55,8 +55,20 @@
 <p><%= "No reviews yet" if @tutor.reviews.count.zero? %></p>
 
 <% @tutor.reviews.each do |review|%>
-  <p><strong><%= Student.find(review.booking.student_id).first_name[0] %><%= Student.find(review.booking.student_id).last_name[0] %></strong>
+  <p><strong><%= Student.find(review.booking.student_id).first_name %> <%= Student.find(review.booking.student_id).last_name[0] %></strong>
   <em><%= review.created_at.strftime("%d %B %Y") %></em></p>
-  <p><%= review.rating %></p>
+  <p class="review-rating" data-score="<%= review.rating %>"></p>
   <p><%= review.comment %></p>
 <% end %>
+
+<script>
+  jQuery(function() {
+    $('.review-rating').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+    })
+  });
+</script>

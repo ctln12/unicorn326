@@ -1,7 +1,20 @@
 <%= simple_form_for [@booking, @review] do |f| %>
-  <%= f.input :comment, label: "Review" %>
-  <%= f.collection_radio_buttons :rating, [[1], [2], [3], [4], [5]], :first, :last, item_wrapper_tag: false, boolean_style: :inline do |b| %>
-    <%= b.radio_button + b.label {''} %>
-  <% end %>
+
+  <div id="rating-form">
+    <label>Rating</label>
+  </div>
+
+  <%= f.input :comment %>
+
   <%= f.submit "add a review", class: "btn btn-primary" %>
+
 <% end %>
+
+<script>
+  jQuery(function () {
+    $('#rating-form').raty({
+      path: '/assets/',
+      scoreName: 'review[rating]'
+    });
+  });
+</script>
