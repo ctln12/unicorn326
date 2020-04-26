@@ -1,4 +1,13 @@
 module ApplicationHelper
+
+  def average_rating(reviews)
+    sum = 0
+    reviews.each do |review|
+      sum += review.rating
+    end
+    average = sum.fdiv(reviews.count).round(2)
+  end
+
   def is_sender?(message)
     message.author == (current_student || current_tutor)
   end
@@ -10,4 +19,5 @@ module ApplicationHelper
       Student.exists?(id: chat.student.id, first_name: chat.student.first_name, last_name: chat.student.last_name, email: chat.student.email, date_of_birth: chat.student.date_of_birth, country: chat.student.country)
     end
   end
+
 end
