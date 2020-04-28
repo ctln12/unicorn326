@@ -8,8 +8,11 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @booking = Booking.find(params[:booking_id])
     @review.booking = @booking
-    @review.save
-    redirect_to booking_path(@booking)
+    if @review.save
+      redirect_to tutor_path(@booking.tutor)
+    else
+      render 'new'
+    end
   end
 
   private
@@ -18,5 +21,3 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(:comment, :rating)
   end
 end
-
-
