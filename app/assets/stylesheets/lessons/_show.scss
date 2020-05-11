@@ -48,8 +48,7 @@ video {
 
 // BUTTONS
 button#join,
-button#leave,
-a#back {
+a#leave {
   position: absolute;
   z-index: 1;
   left: 50%;
@@ -63,10 +62,5 @@ a#back {
 
 #leave {
   top: 90%;
-  display: none;
-}
-
-a#back {
-  top: 50%;
   display: none;
 }

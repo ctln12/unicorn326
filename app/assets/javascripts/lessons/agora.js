@@ -186,6 +186,4 @@ document.querySelector("#leave").onclick = () => {
   $("[id^='remote_video_panel']").fadeOut();
   // Remove END button
   $("#leave").remove();
-  // Hide JOIN button
-  $("#back").fadeIn();
 };
