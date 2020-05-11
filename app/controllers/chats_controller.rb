@@ -1,10 +1,6 @@
 class ChatsController < ApplicationController
   def index
-    if student_signed_in?
-      @chats = Chat.where(student_id: current_student.id)
-    elsif tutor_signed_in?
-      @chats = Chat.where(tutor_id: current_tutor.id)
-    end
+    @chats = load_chats
     if @chats.empty?
       @chat, @messages = []
     else
@@ -30,14 +26,19 @@ class ChatsController < ApplicationController
   end
 
   def show
-    if student_signed_in?
-      @chats = Chat.where(student_id: current_student.id)
-    elsif tutor_signed_in?
-      @chats = Chat.where(tutor_id: current_tutor.id)
-    end
-
+    @chats = load_chats
     @chat = Chat.find(params[:id])
     @messages = @chat.messages.order('created_at ASC')
     @message = Message.new
+  end
+
+  private
+
+  def load_chats
+    if student_signed_in?
+      Chat.where(student_id: current_student.id)
+    elsif tutor_signed_in?
+      Chat.where(tutor_id: current_tutor.id)
+    end
   end
 end
