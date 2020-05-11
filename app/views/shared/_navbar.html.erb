@@ -28,6 +28,9 @@
           <%= link_to "Lessons", bookings_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
+          <%= link_to "Chats", chats_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
           <% if current_tutor %>
             <%= link_to "Wallet", tutor_wallet_path(current_tutor, current_tutor.wallets.first.id), class: "nav-link" %>
           <% end %>

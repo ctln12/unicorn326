@@ -1,0 +1,37 @@
+<% if @chats.empty? %>
+  <h1>Chats</h1>
+  <p>No chats yet</p>
+  <%= link_to "Browse tutors", tutors_path, class: "btn btn-primary" if current_student %>
+<% else %>
+  <div class="row mt-1">
+    <div id="chat-users" class="col-3">
+      <% if student_signed_in? %>
+        <h3><strong>Tutors</strong></h3>
+      <% else %>
+        <h3><strong>Students</strong></h3>
+      <% end %>
+      <% @chats.each do |chat| %>
+        <%= render 'users', chat: chat %>
+      <% end %>
+    </div>
+
+    <div class="col-9">
+      <div id="chat-user-banner">
+        <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "chat-user-banner-avatar" %>
+        <div class="chat-user-banner-infos">
+          <h5 class="chat-user-banner-name"><%= student_signed_in? ? @chat.tutor.first_name : @chat.student.first_name %></h5>
+          <p class="chat-user-banner-status">Online</p>
+        </div>
+      </div>
+
+      <div id="chat-messages" class="chat" data-chat-id="<%= @chat.id %>"
+      data-chat-recipient-is-student="<%= is_recipient_student?(@chat) %>" data-chat-recipient-id="<%= student_signed_in? ? @chat.tutor.id : @chat.student.id %>">
+        <% @messages.each do |message| %>
+          <%= render 'messages/message', message: message %>
+        <% end %>
+      </div>
+
+      <%= render partial: 'form' %>
+    </div>
+  </div>
+<% end %>

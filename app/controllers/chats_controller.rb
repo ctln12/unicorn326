@@ -1,4 +1,19 @@
 class ChatsController < ApplicationController
+  def index
+    if student_signed_in?
+      @chats = Chat.where(student_id: current_student.id)
+    elsif tutor_signed_in?
+      @chats = Chat.where(tutor_id: current_tutor.id)
+    end
+    if @chats.empty?
+      @chat, @messages = []
+    else
+      @chat = @chats.first
+      @messages = @chat.messages.order('created_at ASC')
+    end
+    @message = Message.new
+  end
+
   def create
     @tutor = Tutor.find(params[:tutor_id])
     @new_chat = Chat.new(tutor: @tutor, student: current_student)
