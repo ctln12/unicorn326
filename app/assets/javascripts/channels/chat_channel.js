@@ -8,7 +8,6 @@ if (messagesContainer) {
   const getLastMessage = () => {
     const messages = document.querySelectorAll('.chat-message');
     const size = messages.length;
-    console.log(size);
     return messages[size - 1];
   }
 

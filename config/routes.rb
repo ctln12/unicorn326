@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     resources :lessons, only: [:create, :show]
   end
 
-  resources :chats, only: [:create, :show] do
+  resources :chats, only: [:index, :create, :show] do
     resources :messages, only: [:create]
   end
 
