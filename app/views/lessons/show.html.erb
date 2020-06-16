@@ -1,15 +1,1 @@
-<button class="btn btn-raised btn-success" id="join">JOIN</button>
-<% if current_student %>
-  <%= link_to "END", new_booking_review_path, class: "btn btn-raised btn-danger", id: "leave" %>
-<% elsif current_tutor %>
-  <%= link_to "END", bookings_path, class: "btn btn-raised btn-danger", id: "leave" %>
-<% end %>
-
-<div class="video-grid" id="video">
-  <div class="video-view">
-    <div id="local_stream">
-    </div>
-    <div id="local_video_info"></div>
-    <div id="video_autoplay_local"></div>
-  </div>
-</div>
+<h1>Lesson</h1>
