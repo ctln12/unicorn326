@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_152222) do
+ActiveRecord::Schema.define(version: 2020_06_16_163633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,8 @@ ActiveRecord::Schema.define(version: 2020_03_27_152222) do
     t.bigint "booking_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "opentok_session_id"
+    t.string "opentok_token"
     t.index ["booking_id"], name: "index_lessons_on_booking_id"
   end
 
@@ -129,11 +131,11 @@ ActiveRecord::Schema.define(version: 2020_03_27_152222) do
 
   create_table "reviews", force: :cascade do |t|
     t.string "comment"
-    t.bigint "booking_id"
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["booking_id"], name: "index_reviews_on_booking_id"
+    t.bigint "booking_id"
+    t.index ["booking_id"], name: "index_reviews_on_booking_id", unique: true
   end
 
   create_table "spoken_languages", force: :cascade do |t|
