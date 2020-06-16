@@ -4,13 +4,13 @@ const initOpenTok = () => {
   if (videosContainer) {
     console.log("Hello from OpenTok!");
     // replace these values with those generated in your TokBox Account
-    var apiKey = process.env.OPENTOK_API_KEY;
-    console.log(apiKey);
-    var opentokData = videosContainer.dataset;
-    var sessionId = opentokData.sessionId;
-    console.log(sessionId);
-    var token = opentokData.token;
-    console.log(token);
+    var opentokApiKey = process.env.OPENTOK_API_KEY;
+    console.log(opentokApiKey);
+    var videosData = videosContainer.dataset;
+    var opentokSessionId = videosData.opentokSessionId;
+    console.log(opentokSessionId);
+    var opentokToken = videosData.opentokToken;
+    console.log(opentokToken);
 
     // (optional) add server code here
     initializeSession();
@@ -23,7 +23,7 @@ const initOpenTok = () => {
     }
 
     function initializeSession() {
-      var session = OT.initSession(apiKey, sessionId);
+      var session = OT.initSession(opentokApiKey, opentokSessionId);
 
       // Subscribe to a newly created stream
       session.on('streamCreated', function (event) {
@@ -42,7 +42,7 @@ const initOpenTok = () => {
       }, handleError);
 
       // Connect to the session
-      session.connect(token, function (error) {
+      session.connect(opentokToken, function (error) {
         // If the connection is successful, publish to the session
         if (error) {
           handleError(error);

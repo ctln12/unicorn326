@@ -15,11 +15,13 @@ class LessonsController < ApplicationController
 
   def show
     @lesson = Lesson.find(params[:id])
+    # @opentok_session_id = @lesson.opentok_session_id
+    # @opentok_token = @lesson.opentok_token
 
     opentok = OpenTok::OpenTok.new(ENV['OPENTOK_API_KEY'], ENV['OPENTOK_SECRET_KEY'])
     session = opentok.create_session
-    @session_id = session.session_id
-    @token = opentok.generate_token(@session_id)
+    @opentok_session_id = session.session_id
+    @opentok_token = opentok.generate_token(@opentok_session_id)
   end
 
   private
