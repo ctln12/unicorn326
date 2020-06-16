@@ -4,9 +4,13 @@ const initOpenTok = () => {
   if (videosContainer) {
     console.log("Hello from OpenTok!");
     // replace these values with those generated in your TokBox Account
-    var apiKey = "46794434";
-    var sessionId = "2_MX40Njc5NDQzNH5-MTU5MjMwMjkwMDIyN35IQmdGKzZkaFpIWDVPS2tYRFBiaGN5di9-fg";
-    var token = "T1==cGFydG5lcl9pZD00Njc5NDQzNCZzaWc9NWM3NDU0YTQzZWQwNGE0ODg4YWI1OTY4YjQ5NzBhNjNiZGVlZWRjOTpzZXNzaW9uX2lkPTJfTVg0ME5qYzVORFF6Tkg1LU1UVTVNak13TWprd01ESXlOMzVJUW1kR0t6WmthRnBJV0RWUFMydFlSRkJpYUdONWRpOS1mZyZjcmVhdGVfdGltZT0xNTkyMzEzOTA0Jm5vbmNlPTAuNzI4MTg1MzAyMDI2ODM1JnJvbGU9cHVibGlzaGVyJmV4cGlyZV90aW1lPTE1OTIzMTc1MDMmaW5pdGlhbF9sYXlvdXRfY2xhc3NfbGlzdD0=";
+    var apiKey = process.env.OPENTOK_API_KEY;
+    console.log(apiKey);
+    var opentokData = videosContainer.dataset;
+    var sessionId = opentokData.sessionId;
+    console.log(sessionId);
+    var token = opentokData.token;
+    console.log(token);
 
     // (optional) add server code here
     initializeSession();

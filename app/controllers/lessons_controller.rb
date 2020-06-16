@@ -1,3 +1,5 @@
+require 'opentok'
+
 class LessonsController < ApplicationController
   def create
     @booking = Booking.find(params[:booking_id])
@@ -13,6 +15,11 @@ class LessonsController < ApplicationController
 
   def show
     @lesson = Lesson.find(params[:id])
+
+    opentok = OpenTok::OpenTok.new(ENV['OPENTOK_API_KEY'], ENV['OPENTOK_SECRET_KEY'])
+    session = opentok.create_session
+    @session_id = session.session_id
+    @token = opentok.generate_token(@session_id)
   end
 
   private
