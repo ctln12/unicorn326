@@ -22,6 +22,7 @@ gem 'stripe_event'
 gem 'activeadmin'
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
+gem 'opentok', '~> 4.0.0'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

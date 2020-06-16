@@ -1,3 +1,4 @@
+require 'opentok'
 require 'faker'
 
 puts 'Destroying reviews...'
@@ -358,6 +359,8 @@ puts 'Finished'
 puts '-----------------------------'
 
 puts 'Creating Bookings and Chats...'
+opentok = OpenTok::OpenTok.new(ENV['OPENTOK_API_KEY'], ENV['OPENTOK_SECRET_KEY'])
+
 # Accepted / Paid / Given
 booking1 = Booking.new(
   student_id: alice.id,
@@ -388,8 +391,12 @@ booking2 = Booking.new(
 booking2.save
 chat2 = Chat.new(student: booking2.student, tutor: booking2.tutor)
 chat2.save
-lesson = Lesson.new(video_url: "video", booking: booking2)
+session = opentok.create_session
+opentok_session_id = session.session_id
+opentok_token = opentok.generate_token(opentok_session_id)
+lesson = Lesson.new(video_url: "video", booking: booking2, opentok_session_id: opentok_session_id, opentok_token: opentok_token)
 lesson.save!
+
 # Accepted / Not paid
 booking3 = Booking.new(
   student_id: alice.id,
@@ -497,8 +504,11 @@ end
   booking.save
   chat = Chat.new(student: booking.student, tutor: booking.tutor)
   chat.save
-  lesson = Lesson.new(video_url: "video", booking: booking)
-  lesson.save
+  session = opentok.create_session
+  opentok_session_id = session.session_id
+  opentok_token = opentok.generate_token(opentok_session_id)
+  lesson = Lesson.new(video_url: "video", booking: booking, opentok_session_id: opentok_session_id, opentok_token: opentok_token)
+  lesson.save!
 end
 
 5.times do # 10.times
