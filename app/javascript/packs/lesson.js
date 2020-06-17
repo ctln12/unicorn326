@@ -2,15 +2,15 @@ const initOpenTok = () => {
   const videosContainer = document.getElementById('videos');
 
   if (videosContainer) {
-    // console.log("Hello from OpenTok!");
+    console.log("Hello from OpenTok!");
     // replace these values with those generated in your TokBox Account
     var opentokApiKey = process.env.OPENTOK_API_KEY;
-    // console.log(opentokApiKey);
+    console.log(opentokApiKey);
     var videosData = videosContainer.dataset;
     var opentokSessionId = videosData.opentokSessionId;
-    // console.log(opentokSessionId);
+    console.log(opentokSessionId);
     var opentokToken = videosData.opentokToken;
-    // console.log(opentokToken);
+    console.log(opentokToken);
 
     // (optional) add server code here
     initializeSession();
