@@ -56,7 +56,8 @@ class BookingsController < ApplicationController
       payment_method_types: ['card'],
       line_items: [{
         name: "#{@booking.tutor.first_name} #{@booking.tutor.last_name[0]}",
-        images: ['https://unsplash.com/photos/fKyOE5xtnik'],
+        description: "1 Lesson of #{@booking.subject.name}",
+        images: ['https://images.unsplash.com/photo-1592332280537-70d3142bd01a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'],
         amount: (@booking.booking_price * 100).to_i,
         currency: Currency.find(@booking.tutor.currency_id).name,
         quantity: 1

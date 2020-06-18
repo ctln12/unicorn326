@@ -2,7 +2,7 @@
   <div class="row py-4">
     <div class="col">
       <h1>Checkout summary</h1>
-      <p>Purchase of <strong><%= @booking_id %></strong> for <strong><%= @booking.booking_price %></strong></p>
+      <p>Purchase of a <strong><%= @booking.subject.name %> Lesson</strong> for <strong><%= @booking.booking_price %> <%= Currency.find(@booking.tutor.currency_id).name %></strong> with <strong><%= @booking.tutor.first_name%> <%= @booking.tutor.last_name[0] %>.</strong></p>
       <button id="pay" class="btn btn-primary">Pay</button>
 
       <script src="https://js.stripe.com/v3/"></script>
