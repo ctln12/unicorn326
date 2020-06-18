@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     collection do
       get 'profile'
     end
-    resources :wallets, only: [:create, :show]
+    resources :wallets, only: [:create, :show, :update]
   end
 
   resources :job_posts do
