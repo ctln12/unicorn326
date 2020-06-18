@@ -223,7 +223,7 @@ puts 'Creating Tutors...'
 
 pierre = Tutor.new(first_name: 'Pierre', last_name: 'Martin', date_of_birth: '1967-06-20', country: 'FR', phone_number: '33671283384', currency_id: eur.id, price: 25, email: 'pierre.martin@tutor.com', password: '123456')
 pierre.save
-wallet = Wallet.new(tutor_id: pierre.id, amount: 123.45)
+wallet = Wallet.new(tutor_id: pierre.id, amount: 0)
 wallet.save
 
 david = Tutor.new(first_name: 'David', last_name: 'Lawson', date_of_birth: '1951-01-24', country: 'GB', phone_number: '44214235689', currency_id: gbp.id, price: 30, email: 'david.lawson@tutor.com', password: '123456')
