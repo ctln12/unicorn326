@@ -11,30 +11,32 @@
 }
 
 .banner-container {
-  padding: 0 750px 0 200px;
+  padding: 0 900px 0 90px;
+  color: white;
 }
 
 .banner h1 {
-  margin: 0;
-  color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  font-size: 32px;
+  margin-bottom: 0.6rem;
   font-weight: bold;
 }
 
 .banner p {
-  font-size: 20px;
-  color: white;
-  opacity: .7;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  opacity: .8;
 }
 
 .btn-banner {
   background-color: #00002F;
   border: 1px solid #00002F;
+  border-radius: $border-radius-lg;
+  padding: 10px 20px;
+  font-weight: 500;
 
   &:hover {
-    background-color: #000074;
-    border: 1px solid #000074;
+    background-color: #00002F;
+    border: 1px solid #00002F;
+    // background-color: #000074;
+    // border: 1px solid #000074;
   }
 }
