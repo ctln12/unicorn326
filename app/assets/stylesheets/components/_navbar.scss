@@ -10,3 +10,21 @@
 .navbar-lewagon .navbar-brand img {
   width: 40px;
 }
+
+.home-navbar {
+  background: none;
+
+  a {
+    color: $dark-blue; //white
+
+    &:hover {
+      color: lightblue; // $dark-blue
+      border-bottom: 1px solid lightblue; // $dark-blue
+    }
+  }
+
+  a.navbar-brand:hover {
+    color: $dark-blue;
+    border-bottom: none;
+  }
+}
