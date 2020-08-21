@@ -1,10 +1,10 @@
 .banner {
-  background-image: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3) ), image-url("home.jpg");
+  background-image: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), image-url("home.jpg");
   background-size: cover;
   background-position: center;
-  height: calc(100vh - 66px);
+  height: 100vh;
   position: absolute;
-  top: 66px;
+  top: 0;
   left: 0;
   width: 100%;
   color: white;
