@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-sm navbar-lewagon home-navbar">
+<div class="navbar navbar-expand-sm navbar-lewagon<%= ' home-navbar' if params[:controller] == 'pages' && params[:action] == "home" %>">
   <%= link_to 'Brainiak', root_path, class: "navbar-brand" %>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
