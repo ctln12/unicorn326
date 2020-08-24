@@ -11,27 +11,38 @@
   width: 40px;
 }
 
-.home-navbar {
-  background: none;
+.navbar-home.navbar-light {
+  position: absolute;
+  width: 100%;
+  background: transparent;
   z-index: 10;
 
-  a {
+  .nav-link {
     color: white;
 
     &:hover {
       color: $dark-blue;
       border-bottom: 1px solid $dark-blue;
+      text-shadow: 1px 2px 3px rgba(255, 255, 255, 0.2);
     }
   }
 
-  a.navbar-brand {
+  .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
     color: white;
   }
 
-  a.navbar-brand:hover {
+  .navbar-brand:hover {
     color: white;
     border-bottom: none;
   }
+}
+
+.toggler-home .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.toggler-home.navbar-toggler {
+  border-color: white;
 }
