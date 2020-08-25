@@ -7,7 +7,6 @@ class Tutor < ApplicationRecord
   has_many :taught_lessons
   has_many :spoken_languages
   has_many :bookings
-  # has_one :currency
   belongs_to :currency
   has_many :subjects, through: :taught_lessons
   has_many :languages, through: :spoken_languages
@@ -28,8 +27,6 @@ class Tutor < ApplicationRecord
 
   after_create :send_welcome_email
 
-  after_validation :update_attributes
-
   include AlgoliaSearch
   algoliasearch do
     attributes :id, :first_name, :last_name, :email, :price
@@ -49,13 +46,15 @@ class Tutor < ApplicationRecord
         { name: s.name }
       end
     end
-    attribute :rating do
-      reviews.select { |s| s }.map do |s|
-        { rating: s.rating }
+    attribute :average_rating do
+      if reviews.empty?
+        0
+      else
+        reviews.map{ |review| review.rating }.sum.fdiv(reviews.length).round(1)
       end
     end
-    searchableAttributes ['subjects', 'languages', 'country', 'price', 'rating', 'currency', 'unordered(first_name)', 'unordered(last_name)']
-    customRanking ['asc(price)']
+    searchableAttributes ['average_rating', 'subjects', 'languages', 'country', 'price', 'currency', 'unordered(first_name)', 'unordered(last_name)']
+    customRanking ['desc(reviews)']
   end
 
   private
