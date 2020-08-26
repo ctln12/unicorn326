@@ -27,8 +27,10 @@ class Tutor < ApplicationRecord
 
   after_create :send_welcome_email
 
+  after_save :algoliasearch
+
   include AlgoliaSearch
-  algoliasearch do
+  algoliasearch per_environment: true do
     attributes :id, :first_name, :last_name, :email, :price
     attribute :country do
       ISO3166::Country.find_country_by_alpha2(self.country).unofficial_names.first
@@ -37,12 +39,12 @@ class Tutor < ApplicationRecord
       currency.name
     end
     attribute :languages do
-      languages.select { |s| s }.map do |s|
+      languages.map do |s|
         { name: s.name }
       end
     end
     attribute :subjects do
-      subjects.select { |s| s }.map do |s|
+      subjects.map do |s|
         { name: s.name }
       end
     end
@@ -53,8 +55,17 @@ class Tutor < ApplicationRecord
         reviews.map{ |review| review.rating }.sum.fdiv(reviews.length).round(1)
       end
     end
-    searchableAttributes ['average_rating', 'subjects', 'languages', 'country', 'price', 'currency', 'unordered(first_name)', 'unordered(last_name)']
-    customRanking ['desc(reviews)']
+    searchableAttributes ['average_rating', 'subjects', 'languages', 'country', 'currency', 'first_name', 'last_name', 'price']
+    customRanking ['desc(average_rating)']
+    attributesForFaceting ['searchable(subjects.name)', 'searchable(languages.name)', 'searchable(country)', 'average_rating', 'price', 'currency']
+    add_replica 'Tutor_by_price_desc', per_environment: true do
+      searchableAttributes ['price']
+      customRanking ['desc(price)']
+    end
+    add_replica 'Tutor_by_price_asc', per_environment: true do
+      searchableAttributes ['price']
+      customRanking ['asc(price)']
+    end
   end
 
   private
