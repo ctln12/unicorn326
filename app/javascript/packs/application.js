@@ -9,7 +9,7 @@ initOpenTok();
 
 import algoliasearch from "algoliasearch";
 import instantsearch from "instantsearch.js";
-import { searchBox, hits, currentRefinements, clearRefinements, sortBy, refinementList, menuSelect, ratingMenu, rangeSlider, pagination, stats } from "instantsearch.js/es/widgets";
+import { searchBox, hits, currentRefinements, clearRefinements, sortBy, refinementList, pagination, stats } from "instantsearch.js/es/widgets";
 
 const tutors = document.getElementById('tutors');
 
@@ -45,18 +45,22 @@ if (tutors) {
           <div class="hit-price">
             {{currency}}
             {{price}}
+            / h
           </div>
           <div class="hit-subjects">
+            Teaches:
             {{#subjects}}
               <span>{{name}}</span>
             {{/subjects}}
           </div>
           <div class="hit-languages">
+            Speaks:
             {{#languages}}
               <span>{{name}}</span>
             {{/languages}}
           </div>
           <div class="hit-rating">
+            Rating:
             {{average_rating}}
           </div>
           <a href='tutors/{{id}}' class='btn btn-primary'>View profile</a>
@@ -70,18 +74,18 @@ if (tutors) {
     }),
 
     currentRefinements({
-      container: '#current-refinements',
+      container: '#current-filters',
     }),
 
     clearRefinements({
-      container: "#clear-refinements",
+      container: "#clear-filters",
       templates: {
         resetLabel: 'Clear all',
       },
     }),
 
     sortBy({
-      container: '#price',
+      container: '#sort-by',
       items: [
         { label: 'Most relevant', value: 'Tutor_development' },
         // { label: 'Popularity', value: 'Tutor_by_rating_desc_development' },
@@ -90,52 +94,32 @@ if (tutors) {
       ],
     }),
 
-    ratingMenu({
-      container: '#ratings',
-      attribute: 'average_rating',
-      max: 5,
-    }),
-
     refinementList({
       container: '#subjects-list',
       attribute: 'subjects.name',
-      limit: 5,
+      limit: 3,
       showMore: true,
     }),
 
     refinementList({
       container: '#languages-list',
       attribute: 'languages.name',
-      limit: 5,
+      limit: 3,
       showMore: true,
     }),
 
     refinementList({
       container: '#countries-list',
       attribute: 'country',
-      limit: 5,
+      limit: 3,
       showMore: true,
     }),
 
-    // rangeSlider({
-    //   container: '#prices-range',
-    //   attribute: 'price',
-    //   min: 0,
-    //   max: 50,
-    //   // Optional parameters
-    //   // precision: number,
-    //   // step: number,
-    //   // pips: boolean,
-    //   // tooltips: boolean | object,
-    //   // cssClasses: object,
-    // }),
-
-    menuSelect({
+    refinementList({
       container: '#currencies-select',
       attribute: 'currency',
-      templates: {
-        defaultOption: 'Currencies',
-      },
+      limit: 3,
+      showMore: true,
     }),
 
     pagination({
