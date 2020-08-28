@@ -27,8 +27,6 @@ class Tutor < ApplicationRecord
 
   after_create :send_welcome_email
 
-  after_save :algoliasearch
-
   include AlgoliaSearch
   algoliasearch per_environment: true do
     attributes :id, :first_name, :last_name, :email, :price
