@@ -25,6 +25,9 @@ if (tutors) {
     searchBox({
       container: "#searchbox",
       placeholder: "Search for a subject, language, country, currency, tutor's name, ...",
+      cssClasses: {
+        input: 'input-style'
+      }
     }),
 
     hits({

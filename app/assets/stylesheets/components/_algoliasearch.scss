@@ -26,6 +26,14 @@
   margin-bottom: 1rem;
 }
 
+.ais-SearchBox-input.input-style {
+  border: 1px solid $dark-blue;
+
+  &::placeholder {
+    color: #575757;
+  }
+}
+
 #below-search {
   display: flex;
   justify-content: space-between;
