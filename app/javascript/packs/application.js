@@ -34,14 +34,14 @@ if (tutors) {
       container: "#hits",
       templates: {
         item: `
-        <div class="card">
-          <img class="card-img-top" src="https://www.lifewire.com/thmb/xVByvioteKa61v_yrpENqbYROWI=/1300x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/find-anyone-online-3482687-91a015d74d794f77b299703eff0f47a9.png" align="left" alt="tutor's photo">
+        <div class="card tutor-card">
+          <img class="card-img-top tutor-card-img" src="https://www.lifewire.com/thmb/xVByvioteKa61v_yrpENqbYROWI=/1300x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/find-anyone-online-3482687-91a015d74d794f77b299703eff0f47a9.png" align="left" alt="tutor's photo">
           <div class="card-body">
-            <h4 class="card-title hit-name">
+            <h4 class="card-title tutor-card-title hit-name">
               {{first_name}}
               {{last_name}}
+              <p class="card-text tutor-card-country hit-country">{{country}}</p>
             </h4>
-            <p class="card-text hit-country">{{country}}</p>
             <p class="card-text hit-price">
               {{currency}}
               {{price}}
