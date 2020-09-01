@@ -1,19 +1,44 @@
-// Tutors index
+// ---------- Tutors index ----------
+.tutor-card-link {
+  color: $dark-blue;
+
+  &:hover {
+    text-decoration: none;
+    color: $dark-blue;
+  }
+}
+
 .tutor-card {
   border: none;
+  border-radius: 20px;
+  box-shadow: 1px 2px 3px #cecece;
+
+  &:hover {
+    box-shadow: 2px 3px 4px #c1c1c1;
+  }
 }
 
 .tutor-card-img {
-  border-radius: 20px;
+  border-radius: 20px 20px 0 0;
+  height: 200px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.tutor-card-body {
+  padding: 1.25rem 2.3rem;
 }
 
 .tutor-card-title {
   text-align: center;
 }
 
-.tutor-card-country {
-  // text-align: center;
-  font-size: 1rem;
-  color: #595959;
-  margin-top: .4rem;
+.tutor-card-subjects {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.tutor-card-info {
+  display: flex;
+  justify-content: space-between;
 }

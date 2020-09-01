@@ -34,43 +34,55 @@ if (tutors) {
       container: "#hits",
       templates: {
         item: `
-        <div class="card tutor-card">
-          <img class="card-img-top tutor-card-img" src="https://www.lifewire.com/thmb/xVByvioteKa61v_yrpENqbYROWI=/1300x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/find-anyone-online-3482687-91a015d74d794f77b299703eff0f47a9.png" align="left" alt="tutor's photo">
-          <div class="card-body">
-            <h4 class="card-title tutor-card-title hit-name">
-              {{first_name}}
-              {{last_name}}
-              <p class="card-text tutor-card-country hit-country">{{country}}</p>
-            </h4>
-            <p class="card-text hit-price">
-              {{currency}}
-              {{price}}
-            </p>
-            <p class="card-text hit-subjects">
-              Teaches:
-              {{#subjects}}
-                <span>{{name}}</span>
-              {{/subjects}}
-            </p>
-            <p class="card-text hit-languages">
-              Speaks:
-              {{#languages}}
-                <span>{{name}}</span>
-              {{/languages}}
-            </p>
-            <p class="card-text hit-rating">
-              Rating:
-              {{average_rating}}
-            </p>
-            <a href='tutors/{{id}}' class='btn btn-primary'>View profile</a>
+        <a href='tutors/{{id}}' class="tutor-card-link">
+          <div class="card tutor-card">
+            <img class="card-img-top tutor-card-img" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" align="left" alt="tutor's photo">
+            <div class="card-body tutor-card-body">
+              <h4 class="card-title tutor-card-title hit-name">
+                {{first_name}}
+                {{last_name}}
+              </h4>
+              <div class="card-text tutor-card-subjects hit-subjects">
+                <p>
+                  {{#subjects}}
+                    <span>{{name}}</span>
+                  {{/subjects}}
+                </p>
+              </div>
+              <div class="tutor-card-info">
+                <div class="card-text tutor-card-languages hit-languages">
+                  <p>
+                    <i class="fas fa-comment"></i>
+                    {{#languages}}
+                    <span>{{name}}</span>
+                    {{/languages}}
+                  </p>
+                </div>
+                <p class="card-text hit-rating">
+                  <i class="fas fa-star"></i>
+                  {{average_rating}}
+                  (213 reviews)
+                </p>
+              </div>
+              <div class="tutor-card-info">
+                <p class="card-text hit-country">
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{country}}
+                </p>
+                <p class="card-text tutor-card-price hit-price">
+                  <span>{{currency}}</span>
+                  {{price}} / h
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        </a>
       `,
       },
       cssClasses: {
         root: 'search-results',
         list: 'tutors-list row',
-        item: 'tutor col-12 col-sm-6',
+        item: 'tutor col-12 col-md-6',
       },
     }),
 
@@ -208,38 +220,3 @@ if (tutors) {
 
   search.start();
 }
-
-/* <div>
-  <img src="https://www.lifewire.com/thmb/xVByvioteKa61v_yrpENqbYROWI=/1300x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/find-anyone-online-3482687-91a015d74d794f77b299703eff0f47a9.png" align="left" class="tutor-image" alt="photo" />
-  <div class="hit-name">
-    <h4>
-      {{ first_name }}
-      {{ last_name }}
-    </h4>
-  </div>
-  <div class="hit-country">
-    {{ country }}
-  </div>
-  <div class="hit-price">
-    {{ currency }}
-    {{ price }}
-            / h
-          </div>
-  <div class="hit-subjects">
-    Teaches:
-            {{ #subjects}}
-    <span>{{ name }}</span>
-    {{/ subjects}}
-          </div>
-  <div class="hit-languages">
-    Speaks:
-            {{ #languages}}
-    <span>{{ name }}</span>
-    {{/ languages}}
-          </div>
-  <div class="hit-rating">
-    Rating:
-            {{ average_rating }}
-  </div>
-  <a href='tutors/{{id}}' class='btn btn-primary'>View profile</a>
-</div> */
