@@ -12,9 +12,11 @@ import instantsearch from "instantsearch.js";
 import { searchBox, hits, currentRefinements, clearRefinements, sortBy, refinementList, pagination, stats } from "instantsearch.js/es/widgets";
 
 const tutors = document.getElementById('tutors');
+const algoliaAppId = process.env.ALGOLIA_APP_ID;
+const algoliaSearchApiKey = process.env.ALGOLIA_SEARCH_API_KEY;
 
 if (tutors) {
-  const searchClient = algoliasearch("11UNBLSZP5", "1beb4d87ba411f5793a0645f224e90ce");
+  const searchClient = algoliasearch(algoliaAppId, algoliaSearchApiKey);
 
   const search = instantsearch({
     indexName: "Tutor_development",
@@ -60,8 +62,8 @@ if (tutors) {
                 </div>
                 <p class="card-text hit-rating">
                   <i class="fas fa-star"></i>
-                  {{average_rating}}
-                  (213 reviews)
+                  {{reviews.average_rating}}
+                  ({{reviews.reviews_number}} reviews)
                 </p>
               </div>
               <div class="tutor-card-info">
