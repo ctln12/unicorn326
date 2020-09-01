@@ -7,6 +7,7 @@ import { initOpenTok } from "./lesson";
 
 initOpenTok();
 
+// To move in a separate file
 import algoliasearch from "algoliasearch";
 import instantsearch from "instantsearch.js";
 import { searchBox, hits, currentRefinements, clearRefinements, sortBy, refinementList, pagination, stats } from "instantsearch.js/es/widgets";
@@ -47,7 +48,7 @@ if (tutors) {
               <div class="card-text tutor-card-subjects hit-subjects">
                 <p>
                   {{#subjects}}
-                    <span>{{name}}</span>
+                    <span class="{{name}}">{{name}}</span>
                   {{/subjects}}
                 </p>
               </div>

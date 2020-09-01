@@ -35,7 +35,67 @@
 
 .tutor-card-subjects {
   text-align: center;
-  margin-bottom: 1.5rem;
+  padding-top: .5rem;
+  margin-bottom: 1.6rem;
+
+  span {
+    border-radius: 5px;
+    padding: .4rem .5rem;
+    color: white;
+    // text-shadow: 1px 2px 2px #5a5a5a;
+  }
+
+  span.Mathematics {
+    background-color: $ocean-green;
+  }
+
+  span.Physics {
+    background-color: $uranian-blue;
+  }
+
+  span.Statistics {
+    background-color: $cyclamen;
+  }
+
+  span.Chemistry {
+    background-color: $lemon-yellow-crayola;
+  }
+
+  span.Philosophy {
+    background-color: $light-pink;
+  }
+
+  span.Russian {
+    background-color: $amaranth-pink;
+  }
+
+  span.Chinese {
+    background-color: $mellow-apricot;
+  }
+
+  span.German {
+    background-color: $dark-salmon;
+  }
+
+  span.Korean {
+    background-color: $turquoise-green;
+  }
+
+  span.Chemistry {
+    background-color: $maximum-blue-purple;
+  }
+
+  span.Computer.Science {
+    background-color: $baby-blue-eyes;
+  }
+
+  span.Biology {
+    background-color: $yellow-green-crayola;
+  }
+
+  span.French {
+    background-color: $pale-cerulean;
+  }
 }
 
 .tutor-card-info {
