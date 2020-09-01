@@ -27,9 +27,14 @@ class Tutor < ApplicationRecord
 
   after_create :send_welcome_email
 
+  after_create :reindex_tutors # to test
+
   include AlgoliaSearch
   algoliasearch per_environment: true do
-    attributes :id, :first_name, :last_name, :email, :price
+    attributes :id, :first_name, :last_name, :email
+    attribute :price do
+      price.round
+    end
     attribute :country do
       ISO3166::Country.find_country_by_alpha2(self.country).unofficial_names.first
     end
@@ -46,16 +51,20 @@ class Tutor < ApplicationRecord
         { name: s.name }
       end
     end
-    attribute :average_rating do
+    attribute :reviews do
       if reviews.empty?
-        0
+        { average_rating: 0, reviews_number: 0}
       else
-        reviews.map{ |review| review.rating }.sum.fdiv(reviews.length).round(1)
+        { average_rating: reviews.map{ |review| review.rating }.sum.fdiv(reviews.length).round(1), reviews_number: reviews.count }
       end
     end
-    searchableAttributes ['average_rating', 'subjects', 'languages', 'country', 'currency', 'first_name', 'last_name', 'price']
-    customRanking ['desc(average_rating)']
-    attributesForFaceting ['searchable(subjects.name)', 'searchable(languages.name)', 'searchable(country)', 'average_rating', 'price', 'currency']
+    searchableAttributes ['reviews.average_rating', 'subjects', 'languages', 'country', 'currency', 'first_name', 'last_name', 'price']
+    customRanking ['desc(reviews.average_rating)']
+    attributesForFaceting ['searchable(subjects.name)', 'searchable(languages.name)', 'searchable(country)', 'reviews.average_rating', 'price', 'currency']
+    # add_replica 'Tutor_by_rating_desc', per_environment: true do
+    #   searchableAttributes ['price']
+    #   customRanking ['desc(price)']
+    # end
     add_replica 'Tutor_by_price_desc', per_environment: true do
       searchableAttributes ['price']
       customRanking ['desc(price)']
@@ -70,5 +79,9 @@ class Tutor < ApplicationRecord
 
   def send_welcome_email
     TutorMailer.with(tutor: self).welcome.deliver_later
+  end
+
+  def reindex_tutors
+    self.reindex
   end
 end
