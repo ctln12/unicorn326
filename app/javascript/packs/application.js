@@ -1,7 +1,10 @@
 import "bootstrap";
 import "bootstrap-select";
-import { initOpenTok } from "./lesson";
 
 require('dotenv').config()
 
+import { initOpenTok } from "./lesson";
+import { initAlgoliasearch } from "../plugins/algoliasearch";
+
 initOpenTok();
+initAlgoliasearch();

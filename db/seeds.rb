@@ -376,6 +376,8 @@ booking1 = Booking.new(
 booking1.save
 chat1 = Chat.new(student: booking1.student, tutor: booking1.tutor)
 chat1.save
+review1 = Review.new(comment: 'Suspendisse consectetur elit vel libero maximus aliquam et in nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos.', rating: rand(1..5), booking: booking1)
+review1.save!
 # Accepted / Paid / Not given yet
 booking2 = Booking.new(
   student_id: alice.id,
@@ -470,6 +472,7 @@ booking7.save
 chat7 = Chat.new(student: booking7.student, tutor: booking7.tutor)
 chat7.save
 
+# Accepted / Paid / Not given yet
 5.times do # 50.times
   random_tutor = Tutor.all.sample
   booking = Booking.new(
@@ -486,6 +489,8 @@ chat7.save
   booking.save
   chat = Chat.new(student: booking.student, tutor: booking.tutor)
   chat.save
+  review = Review.new(comment: 'Suspendisse consectetur elit vel libero maximus aliquam et in nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos.', rating: rand(1..5), booking: booking)
+  review.save!
 end
 
 3.times do
@@ -597,6 +602,14 @@ end
   chat = Chat.new(student: booking.student, tutor: booking.tutor)
   chat.save
 end
+
+puts 'Finished!'
+puts '-----------------------------'
+
+puts 'Reindexing tutors...'
+
+Tutor.clear_index!
+Tutor.reindex!
 
 puts 'Finished!'
 puts '-----------------------------'

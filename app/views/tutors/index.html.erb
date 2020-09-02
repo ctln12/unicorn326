@@ -1,54 +1,30 @@
-<div class="container">
-  <h1>Choose your tutor</h1>
-
-  <p><%= pluralize(@tutors_nb, 'result') %></p>
-
-  <div class="row">
-    <div class="col-4">
-      <div style="position: sticky; top: 30px;">
-        <%= form_tag tutors_path, method: :get do %>
-          <p>Subject</p>
-          <%= select_tag(:subject, options_for_select(Subject.pluck(:name), selected: params[:subject]), {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
-          <p>Language</p>
-          <%= select_tag(:language, options_for_select(Language.pluck(:name), selected: params[:language]),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
-          <p>Country</p>
-          <%= select_tag(:country, options_for_select(ISO3166::Country.all.sort, selected: params[:country]),  {class: "selectpicker w-75", data: {"live-search": true, "style": "bg-white rounded-pill px-4 py-3 shadow-sm"}, include_blank: 'All'}) %>
-          <div class="mt-3">
-            <%= submit_tag "Search", class: "btn btn-primary" %>
-          </div>
-        <% end %>
-        <%= link_to "Can't find your tutor ?", job_posts_path %>
-      </div>
+<div id="tutors" class="container ais-InstantSearch">
+  <h1 id="tutors-header">Choose your tutor</h1>
+  <div id="searchbox"></div>
+  <div id="below-search">
+    <div id="filter-tags">
+      <div id="current-filters"></div>
+      <div id="clear-filters"></div>
     </div>
-    <div class="col">
-      <% @tutors.each do |tutor| %>
-        <div id="<%= tutor.id %>" class="tutor">
-          <h4 class="name"><%= tutor.first_name %> <%= tutor.last_name %></h4>
-          <p class="country"><%= ISO3166::Country.find_country_by_alpha2("#{tutor.country}").unofficial_names.first %></p>
-          <p class="price"><%= tutor.price %> <%= Currency.find(tutor.currency_id).name %> / h</p>
-          <p class="subject">Teaches:
-            <% tutor.taught_lessons.each do |taught_lesson| %>
-              <% separator = taught_lesson == tutor.taught_lessons.last ? '' : ',' %>
-              <span><%= taught_lesson.subject.name %><%= separator %></span>
-            <% end %>
-          </p>
-          <p class="language">Speaks:
-            <% tutor.spoken_languages.each do |spoken_language| %>
-              <% separator = spoken_language == tutor.spoken_languages.last ? '' : ',' %>
-              <span><%= spoken_language.language.name %><%= separator %></span>
-            <% end %>
-          </p>
-          <p class="rating">Rating:
-            <% if tutor.reviews.exists? %>
-              <span class="review-avg-rating" data-score="<%= average_rating(tutor.reviews) %>"></span>
-            <% else %>
-              <%= "Not rated yet" %>
-            <% end %>
-          </p>
-          <%= link_to "View profile", tutor_path(tutor), class: "btn btn-primary" %>
-          <hr>
-        </div>
-      <% end %>
+    <div id="results-number"></div>
+  </div>
+  <div id="sort-by"></div>
+
+  <div id="search-results" class="row">
+    <div class="col-4 col-lg-3 filters">
+      <h5>Subjects</h5>
+      <div id="subjects-list" class="filter-section"></div>
+      <h5>Languages</h5>
+      <div id="languages-list" class="filter-section"></div>
+      <h5>Countries</h5>
+      <div id="countries-list" class="filter-section"></div>
+      <h5>Currencies</h5>
+      <div id="currencies-select"></div>
+    </div>
+
+    <div class="col-8 col-lg-9 results">
+      <div id="hits"></div>
+      <div id="pagination"></div>
     </div>
   </div>
 </div>

@@ -1,0 +1,103 @@
+// ---------- General ----------
+[class^=ais-],
+.dark-blue-color,
+.ais-CurrentRefinements-label.dark-blue-color,
+.ais-CurrentRefinements-categoryLabel.dark-blue-color,
+.ais-CurrentRefinements-delete.dark-blue-color,
+.ais-ClearRefinements-button.dark-blue-color,
+.ais-RefinementList-showMore.dark-blue-color {
+  color: $dark-blue;
+}
+
+// ---------- Search ----------
+#searchbox {
+  margin-bottom: 1rem;
+}
+
+.ais-SearchBox-input.input-style {
+  border: 1px solid $dark-blue;
+
+  &::placeholder {
+    color: #575757;
+  }
+}
+
+#below-search {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.ais-CurrentRefinements-item.filter-tag {
+  background-color: #cdecff;
+}
+
+#clear-filters .ais-ClearRefinements-button--disabled,
+.ais-RefinementList-showMore--disabled {
+  display: none;
+}
+
+#clear-filters .ais-ClearRefinements-button{
+  padding: .43rem .6rem;
+  background-color: #e9e9e9;
+}
+
+#results-number .ais-Stats-text {
+  color: #3e3e3e;
+}
+
+#sort-by {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.ais-SortBy-select.custom-select {
+  border: 1px solid #00002F;
+  color: #00002F;
+  padding: .3rem 2.1rem .3rem .6rem;
+}
+
+// ---------- Filters ----------
+#filter-tags {
+  display: flex;
+}
+
+.filter-section {
+  margin-bottom: 1rem;
+}
+
+.ais-RefinementList-showMore.more-button,
+.ais-RefinementList-showMore.more-button:hover,
+.ais-RefinementList-showMore.more-button:focus {
+  background-color: transparent;
+  color: #3e3e3e;
+  margin: 0;
+  border-radius: 0;
+  transition: .2s ease-out;
+  padding: 0;
+
+  &:hover {
+    color: #cdecff;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// ---------- Results ----------
+// .ais-Hits.search-results {}
+
+.results {
+  padding: 0;
+}
+
+// .ais-Hits-list.tutors-list {}
+
+.ais-Hits-item.tutor {
+  width: calc(50% - 1rem);
+  border: none;
+  box-shadow: none;
+  margin: 0;
+}
