@@ -60,11 +60,7 @@ class Tutor < ApplicationRecord
     end
     searchableAttributes ['reviews.average_rating', 'subjects', 'languages', 'country', 'currency', 'first_name', 'last_name', 'price']
     customRanking ['desc(reviews.average_rating)']
-    attributesForFaceting ['searchable(subjects.name)', 'searchable(languages.name)', 'searchable(country)', 'reviews.average_rating', 'price', 'currency']
-    # add_replica 'Tutor_by_rating_desc', per_environment: true do
-    #   searchableAttributes ['price']
-    #   customRanking ['desc(price)']
-    # end
+    attributesForFaceting ['searchable(subjects.name)', 'searchable(languages.name)', 'searchable(country)', 'currency']
     add_replica 'Tutor_by_price_desc', per_environment: true do
       searchableAttributes ['price']
       customRanking ['desc(price)']

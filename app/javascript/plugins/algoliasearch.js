@@ -111,7 +111,6 @@ const initAlgoliasearch = () => {
         },
         items: [
           { label: 'Most relevant', value: 'Tutor_development' },
-          // { label: 'Popularity', value: 'Tutor_by_rating_desc_development' },
           { label: 'Price (asc)', value: 'Tutor_by_price_asc_development' },
           { label: 'Price (desc)', value: 'Tutor_by_price_desc_development' },
         ],
