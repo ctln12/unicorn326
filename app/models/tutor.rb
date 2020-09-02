@@ -27,7 +27,7 @@ class Tutor < ApplicationRecord
 
   after_create :send_welcome_email
 
-  after_create :reindex_tutors # to test
+  after_save :algolia_index!
 
   include AlgoliaSearch
   algoliasearch per_environment: true do
@@ -75,9 +75,5 @@ class Tutor < ApplicationRecord
 
   def send_welcome_email
     TutorMailer.with(tutor: self).welcome.deliver_later
-  end
-
-  def reindex_tutors
-    self.reindex
   end
 end
