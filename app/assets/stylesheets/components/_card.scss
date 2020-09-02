@@ -45,56 +45,96 @@
     // text-shadow: 1px 2px 2px #5a5a5a;
   }
 
+  span.English {
+    background-color: $mauve;
+  }
+
   span.Mathematics {
-    background-color: $ocean-green;
+    background-color: $ao-english;
   }
 
   span.Physics {
     background-color: $uranian-blue;
   }
 
-  span.Statistics {
-    background-color: $cyclamen;
+  span.Biology {
+    background-color: $kombu-green;
   }
 
-  span.Chemistry {
-    background-color: $lemon-yellow-crayola;
+  span.Finance {
+    background-color: $star-command-blue;
   }
 
-  span.Philosophy {
-    background-color: $light-pink;
-  }
-
-  span.Russian {
-    background-color: $amaranth-pink;
-  }
-
-  span.Chinese {
-    background-color: $mellow-apricot;
-  }
-
-  span.German {
-    background-color: $dark-salmon;
-  }
-
-  span.Korean {
-    background-color: $turquoise-green;
+  span.Accounting {
+    background-color: $glossy-grape;
   }
 
   span.Chemistry {
     background-color: $maximum-blue-purple;
   }
 
+  span.French {
+    background-color: $celadon-blue;
+  }
+
+  span.Philosophy {
+    background-color: $bitter-lemon;
+  }
+
+  span.Statistics {
+    background-color: $cyclamen;
+  }
+
+  span.Chinese {
+    background-color: $fire-opal;
+  }
+
+  span.Communication {
+    background-color: $selective-yellow;
+  }
+
+  span.German {
+    background-color: $heat-wave;
+  }
+
+  span.Japanese {
+    background-color: $unbleached-silk;
+  }
+
+  span.Korean {
+    background-color: $turquoise-green;
+  }
+
+  span.Latin {
+    background-color: $grullo;
+  }
+
+  span.Russian {
+    background-color: $coffee;
+  }
+
+  span.Spanish {
+    background-color: $imperial-red;
+  }
+
+  span.Science {
+    background-color: $gunmetal;
+  }
+
+  span.Astronomy {
+    background-color: $trypan-blue;
+  }
+
+  span.Human.Biology {
+    background-color: $dark-red;
+  }
+
+  span.Graphics {
+    background-color: $bright-purple;
+  }
+
   span.Computer.Science {
     background-color: $baby-blue-eyes;
-  }
-
-  span.Biology {
-    background-color: $yellow-green-crayola;
-  }
-
-  span.French {
-    background-color: $pale-cerulean;
   }
 }
 
