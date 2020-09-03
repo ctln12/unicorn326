@@ -11,17 +11,19 @@ const initAlgoliasearch = () => {
     const searchClient = algoliasearch(algoliaAppId, algoliaSearchApiKey);
 
     const search = instantsearch({
-      indexName: "Tutor_development",
+      // indexName: "Tutor_development",
+      indexName: "Tutor_production",
       searchClient,
     });
 
     search.addWidgets([
       searchBox({
         container: "#searchbox",
-        placeholder: "Search for a subject, language, country, currency, tutor's name, ...",
+        placeholder:
+          "Search for a subject, language, country, currency, tutor's name, ...",
         cssClasses: {
-          input: 'input-style'
-        }
+          input: "input-style",
+        },
       }),
 
       hits({
@@ -74,9 +76,9 @@ const initAlgoliasearch = () => {
         `,
         },
         cssClasses: {
-          root: 'search-results',
-          list: 'tutors-list row',
-          item: 'tutor col-12 col-md-6',
+          root: "search-results",
+          list: "tutors-list row",
+          item: "tutor col-12 col-md-6",
         },
       }),
 
@@ -85,40 +87,43 @@ const initAlgoliasearch = () => {
       }),
 
       currentRefinements({
-        container: '#current-filters',
+        container: "#current-filters",
         cssClasses: {
-          item: 'filter-tag',
-          label: 'dark-blue-color',
-          categoryLabel: 'dark-blue-color',
-          delete: 'dark-blue-color'
-        }
+          item: "filter-tag",
+          label: "dark-blue-color",
+          categoryLabel: "dark-blue-color",
+          delete: "dark-blue-color",
+        },
       }),
 
       clearRefinements({
         container: "#clear-filters",
         templates: {
-          resetLabel: 'Clear filters',
+          resetLabel: "Clear filters",
         },
         cssClasses: {
-          button: 'dark-blue-color'
-        }
+          button: "dark-blue-color",
+        },
       }),
 
       sortBy({
-        container: '#sort-by',
+        container: "#sort-by",
         cssClasses: {
-          select: 'custom-select'
+          select: "custom-select",
         },
         items: [
-          { label: 'Most relevant', value: 'Tutor_development' },
-          { label: 'Price (asc)', value: 'Tutor_by_price_asc_development' },
-          { label: 'Price (desc)', value: 'Tutor_by_price_desc_development' },
+          // { label: "Most relevant", value: "Tutor_development" },
+          // { label: "Price (asc)", value: "Tutor_by_price_asc_development" },
+          // { label: "Price (desc)", value: "Tutor_by_price_desc_development" },
+          { label: "Most relevant", value: "Tutor_production" },
+          { label: "Price (asc)", value: "Tutor_by_price_asc_production" },
+          { label: "Price (desc)", value: "Tutor_by_price_desc_production" },
         ],
       }),
 
       refinementList({
-        container: '#subjects-list',
-        attribute: 'subjects.name',
+        container: "#subjects-list",
+        attribute: "subjects.name",
         limit: 3,
         showMore: true,
         templates: {
@@ -134,13 +139,13 @@ const initAlgoliasearch = () => {
           `,
         },
         cssClasses: {
-          showMore: 'more-button',
-        }
+          showMore: "more-button",
+        },
       }),
 
       refinementList({
-        container: '#languages-list',
-        attribute: 'languages.name',
+        container: "#languages-list",
+        attribute: "languages.name",
         limit: 3,
         showMore: true,
         templates: {
@@ -156,13 +161,13 @@ const initAlgoliasearch = () => {
           `,
         },
         cssClasses: {
-          showMore: 'more-button',
-        }
+          showMore: "more-button",
+        },
       }),
 
       refinementList({
-        container: '#countries-list',
-        attribute: 'country',
+        container: "#countries-list",
+        attribute: "country",
         limit: 3,
         showMore: true,
         templates: {
@@ -178,13 +183,13 @@ const initAlgoliasearch = () => {
           `,
         },
         cssClasses: {
-          showMore: 'more-button',
-        }
+          showMore: "more-button",
+        },
       }),
 
       refinementList({
-        container: '#currencies-select',
-        attribute: 'currency',
+        container: "#currencies-select",
+        attribute: "currency",
         limit: 3,
         showMore: true,
         templates: {
@@ -200,15 +205,14 @@ const initAlgoliasearch = () => {
           `,
         },
         cssClasses: {
-          showMore: 'more-button',
-        }
+          showMore: "more-button",
+        },
       }),
 
       pagination({
         container: "#pagination",
         scrollTo: "#hits",
-      })
-
+      }),
     ]);
 
     search.start();
