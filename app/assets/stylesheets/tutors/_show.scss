@@ -1,20 +1,32 @@
+// Tutors show page
+
+i.fas.fa-star {
+  color: #ffef00;
+}
+i.fas.fa-map-marker-alt {
+  color: #dd0000;
+}
+
+// General
+.tutor-section {
+  margin-bottom: 2rem;
+}
+
+// Tutor header section
 .tutor-image {
   width: 100%;
+  border-radius: 2px;
+  box-shadow: 1px 2px 4px #cecece;
 }
 
 #tutor-info {
-  padding: 0 2rem;
-
-  div {
-    margin-top: 1.5rem;
-
-    &:last-child {
-      margin-top: 1.2rem;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .tutor-info-name {
+  margin: 0;
   a {
     margin-left: .5rem;
     color: $dark-blue;
@@ -26,16 +38,29 @@
   }
 }
 
+.tutor-info-detail {
+  margin-right: 1rem;
+}
+
+#tutor-booking {
+  border-radius: 5px;
+  box-shadow: 1px 2px 4px #cecece;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .tutor-price {
   font-size: 1.2rem;
-  vertical-align: middle;
+  color: #57bfff;
 }
 
 .btn-dark-blue {
   background-color: $dark-blue;
   border: 1px solid $dark-blue;
+  border-radius: 25px;
   color: white;
-  margin-left: 2rem;
 
   &:hover {
     background-color: #00005A;
