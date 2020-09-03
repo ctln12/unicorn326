@@ -39,7 +39,7 @@ const initAlgoliasearch = () => {
                 <div class="card-text tutor-card-subjects hit-subjects">
                   <p>
                     {{#subjects}}
-                      <span class="{{name}}">{{name}}</span>
+                      <span class="tag {{name}}">{{name}}</span>
                     {{/subjects}}
                   </p>
                 </div>
