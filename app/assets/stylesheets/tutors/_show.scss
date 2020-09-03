@@ -1,0 +1,45 @@
+.tutor-image {
+  width: 100%;
+}
+
+#tutor-info {
+  padding: 0 2rem;
+
+  div {
+    margin-top: 1.5rem;
+
+    &:last-child {
+      margin-top: 1.2rem;
+    }
+  }
+}
+
+.tutor-info-name {
+  a {
+    margin-left: .5rem;
+    color: $dark-blue;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &:hover {
+      color: lightskyblue;
+    }
+  }
+}
+
+.tutor-price {
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+.btn-dark-blue {
+  background-color: $dark-blue;
+  border: 1px solid $dark-blue;
+  color: white;
+  margin-left: 2rem;
+
+  &:hover {
+    background-color: #00005A;
+    border: 1px solid #00005A;
+    color: white;
+  }
+}

@@ -1,65 +1,76 @@
-<h1>
-  <%= @tutor.first_name %> <%= @tutor.last_name %>
-  <%= link_to 'Send a message', chats_path(tutor_id: @tutor), method: :post, class: 'btn btn-outline-primary' %>
-  <%= link_to 'Book a lesson', new_booking_path(tutor_id: @tutor), class: 'btn btn-primary' %>
-</h1>
-<h5><%= ISO3166::Country.find_country_by_alpha2("#{@tutor.country}").unofficial_names.first %></h5>
-<h5><%= @tutor.price.to_i %> <%= Currency.find(@tutor.currency_id).name %> / h</h5>
+<div id="tutor" class="container">
+  <div id="tutor-header" class="row">
+    <div class="col-5">
+      <img class="tutor-image" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo">
+    </div>
+    <div id="tutor-info" class="col-7">
+      <h1 class="tutor-info-name">
+        <%= @tutor.first_name %> <%= @tutor.last_name %>
+        <%= link_to chats_path(tutor_id: @tutor), method: :post do %>
+          <i class="fas fa-comments"></i>
+        <% end %>
+      </h1>
+      <div>
+        <% @tutor.subjects.each do |subject| %>
+          <span class="tag <%= subject.name %>"><%= subject.name %></span>
+        <% end %><%=  %>
+      </div>
+      <div><i class="fas fa-star"></i> 5 (32 reviews)</div>
+      <div>
+        <i class="fas fa-comment"></i>
+        <% @tutor.spoken_languages.each do |spoken_language| %>
+          <span><%= spoken_language.language.name %></span>
+        <% end %>
+      </div>
+      <div>
+        <i class="fas fa-map-marker-alt"></i>
+        <%= ISO3166::Country.find_country_by_alpha2("#{@tutor.country}").unofficial_names.first %>
+      </div>
+      <div>
+        <span class="tutor-price"><%= @tutor.price.to_i %> <%= Currency.find(@tutor.currency_id).name %> / h</span>
+        <%= link_to 'Book a lesson', new_booking_path(tutor_id: @tutor), class: 'btn btn-dark-blue' %>
+      </div>
+    </div>
+  </div>
 
-<hr>
-<h2>Teaches:</h2>
-<p>
-  <% @tutor.taught_lessons.each do |taught_lesson| %>
-    <% separator = taught_lesson == @tutor.taught_lessons.last ? '' : ',' %>
-    <span><%= taught_lesson.subject.name %><%= separator %></span>
+  <br>
+  <h2>About me</h2>
+
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus pellentesque eu tincidunt tortor aliquam nulla. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Orci nulla pellentesque dignissim enim. Volutpat blandit aliquam etiam erat velit scelerisque in dictum non. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Ac ut consequat semper viverra nam libero. Eget nunc lobortis mattis aliquam faucibus purus in massa. Mauris a diam maecenas sed enim ut sem viverra. Eget nullam non nisi est sit amet facilisis magna etiam.</p>
+
+  <hr>
+  <h2>Education</h2>
+
+  <p><strong>Université Paris Descartes</strong></p>
+  <p>Master in Mathematics</p>
+  <p>September 2018 - present</p>
+  <p>Paris, France</p>
+
+  <p><strong>Université Paris Descartes</strong></p>
+  <p>Bachelor in Mathematics</p>
+  <p>September 2015 - June 2018</p>
+  <p>Paris, France</p>
+
+  <hr>
+  <h2>Work experience</h2>
+
+  <p><strong>G-Research</strong></p>
+  <p>Internship in Quantitative Research</p>
+  <p>July 2018 - August 2018</p>
+  <p>Paris, France</p>
+
+  <hr>
+  <h2>Reviews</h2>
+
+  <p><%= "No reviews yet" if @tutor.reviews.count.zero? %></p>
+
+  <% @tutor.reviews.each do |review|%>
+    <p><strong><%= Student.find(review.booking.student_id).first_name %> <%= Student.find(review.booking.student_id).last_name[0] %></strong>
+    <em><%= review.created_at.strftime("%d %B %Y") %></em></p>
+    <p class="review-rating" data-score="<%= review.rating %>"></p>
+    <p><%= review.comment %></p>
   <% end %>
-</p>
-
-<h2>Speaks:</h2>
-<p>
-  <% @tutor.spoken_languages.each do |spoken_language| %>
-    <% separator = spoken_language == @tutor.spoken_languages.last ? '' : ',' %>
-    <span><%= spoken_language.language.name %><%= separator %></span>
-  <% end %>
-</p>
-
-<hr>
-<h2>About me</h2>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus pellentesque eu tincidunt tortor aliquam nulla. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Orci nulla pellentesque dignissim enim. Volutpat blandit aliquam etiam erat velit scelerisque in dictum non. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Ac ut consequat semper viverra nam libero. Eget nunc lobortis mattis aliquam faucibus purus in massa. Mauris a diam maecenas sed enim ut sem viverra. Eget nullam non nisi est sit amet facilisis magna etiam.</p>
-
-<hr>
-<h2>Education</h2>
-
-<p><strong>Université Paris Descartes</strong></p>
-<p>Master in Mathematics</p>
-<p>September 2018 - present</p>
-<p>Paris, France</p>
-
-<p><strong>Université Paris Descartes</strong></p>
-<p>Bachelor in Mathematics</p>
-<p>September 2015 - June 2018</p>
-<p>Paris, France</p>
-
-<hr>
-<h2>Work experience</h2>
-
-<p><strong>G-Research</strong></p>
-<p>Internship in Quantitative Research</p>
-<p>July 2018 - August 2018</p>
-<p>Paris, France</p>
-
-<hr>
-<h2>Reviews</h2>
-
-<p><%= "No reviews yet" if @tutor.reviews.count.zero? %></p>
-
-<% @tutor.reviews.each do |review|%>
-  <p><strong><%= Student.find(review.booking.student_id).first_name %> <%= Student.find(review.booking.student_id).last_name[0] %></strong>
-  <em><%= review.created_at.strftime("%d %B %Y") %></em></p>
-  <p class="review-rating" data-score="<%= review.rating %>"></p>
-  <p><%= review.comment %></p>
-<% end %>
+</div>
 
 <script>
   jQuery(function() {
