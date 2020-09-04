@@ -1,5 +1,5 @@
 <div id="tutor" class="container mt-5">
-  <div class="tutor-container">
+  <div class="tutor-container tutor-section">
     <div id="tutor-header" class="row tutor-section">
       <div class="col-sm-4">
         <img class="tutor-image" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo">
@@ -43,8 +43,8 @@
     </div>
   </div>
 
-  <div id="tutor-education-list" class="tutor-section">
-    <h2>Education</h2>
+  <div id="tutor-education-list" class="tutor-container tutor-section">
+    <h2 class="tutor-title">EDUCATION</h2>
     <div class="tutor-education-item" style="width: 100%">
       <p><strong>Université Paris Descartes</strong></p>
       <p>Master in Mathematics</p>
@@ -59,8 +59,8 @@
     </div>
   </div>
 
-  <div id="tutor-experience-list" class="tutor-section">
-    <h2>Work experience</h2>
+  <div id="tutor-experience-list" class="tutor-container tutor-section">
+    <h2 class="tutor-title">WORK EXPERIENCE</h2>
 
     <div class="tutor-experience-item">
       <p><strong>G-Research</strong></p>
@@ -70,8 +70,8 @@
     </div>
   </div>
 
-  <div id="tutor-reviews-list" class="tutor-section">
-    <h2>Reviews</h2>
+  <div id="tutor-reviews-list" class="tutor-container tutor-section">
+    <h2 class="tutor-title">REVIEWS</h2>
     <p><%= "No reviews yet" if @tutor.reviews.count.zero? %></p>
     <% @tutor.reviews.each do |review|%>
       <p><strong><%= Student.find(review.booking.student_id).first_name %> <%= Student.find(review.booking.student_id).last_name[0] %></strong>
