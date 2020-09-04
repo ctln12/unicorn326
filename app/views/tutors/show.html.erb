@@ -1,48 +1,63 @@
-<div id="tutor" class="container mt-3">
-  <div class="row tutor-section">
-    <div class="col-sm-10">
-      <div id="tutor-header" class="row">
-        <div class="col-sm-4">
-          <img class="tutor-image" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo">
-        </div>
-        <div id="tutor-info" class="col-sm-8">
-          <h1 class="tutor-info-name">
-            <%= @tutor.first_name %> <%= @tutor.last_name %>
-            <%= link_to chats_path(tutor_id: @tutor), method: :post do %>
-              <i class="fas fa-comments"></i>
-            <% end %>
-          </h1>
-          <div class="tutor-info-subjets">
-            <% @tutor.subjects.each do |subject| %>
-              <span class="tag <%= subject.name %>"><%= subject.name %></span>
-            <% end %><%=  %>
+<div id="tutor" class="container mt-5">
+  <div class="tutor-container">
+    <%# <div class="row tutor-section"> %>
+      <%# <div class="col-sm-9"> %>
+        <div id="tutor-header" class="row tutor-section">
+          <div class="col-sm-4">
+            <img class="tutor-image" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo">
           </div>
-          <div class="tutor-info-details">
-            <span class="tutor-info-detail"><i class="fas fa-star"></i> 5 (32 reviews)</span>
-            <span class="tutor-info-detail"><i class="fas fa-comment"></i>
-              <% @tutor.spoken_languages.each do |spoken_language| %>
-                <%= spoken_language.language.name %>
+          <div id="tutor-info" class="col-sm-6">
+            <h1 class="tutor-info-name">
+              <%= @tutor.first_name %> <%= @tutor.last_name %>
+              <%= link_to chats_path(tutor_id: @tutor), method: :post do %>
+                <i class="fas fa-comments"></i>
               <% end %>
-            </span>
-            <span class="tutor-info-detail">
-              <i class="fas fa-map-marker-alt"></i>
-              <%= ISO3166::Country.find_country_by_alpha2("#{@tutor.country}").unofficial_names.first %>
-            </span>
+            </h1>
+            <div class="tutor-info-subjets">
+              <% @tutor.subjects.each do |subject| %>
+                <span class="tag <%= subject.name %>"><%= subject.name %></span>
+              <% end %><%=  %>
+            </div>
+            <div class="tutor-info-details">
+              <span class="tutor-info-detail"><i class="fas fa-star"></i> 5 (32 reviews)</span>
+              <span class="tutor-info-detail"><i class="fas fa-comment"></i>
+                <% @tutor.spoken_languages.each do |spoken_language| %>
+                  <%= spoken_language.language.name %>
+                <% end %>
+              </span>
+              <span class="tutor-info-detail">
+                <i class="fas fa-map-marker-alt"></i>
+                <%= ISO3166::Country.find_country_by_alpha2("#{@tutor.country}").unofficial_names.first %>
+              </span>
+            </div>
+          </div>
+          <div id="tutor-booking" class="col-sm-2">
+            <div>
+            <p class="tutor-price-text">Hourly price</p>
+            <p class="tutor-price"><%= @tutor.price.to_i %> <%= Currency.find(@tutor.currency_id).name %></p>
+            <%= link_to 'Book now', new_booking_path(tutor_id: @tutor), class: 'btn btn-dark-blue' %>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div id="tutor-booking" class="col-sm-2">
-      <p>Hourly price</p>
-      <p class="tutor-price"><%= @tutor.price.to_i %> <%= Currency.find(@tutor.currency_id).name %></p>
-      <%= link_to 'Book now', new_booking_path(tutor_id: @tutor), class: 'btn btn-dark-blue' %>
-    </div>
-  </div>
+      <%# </div> %>
+    <%# </div> %>
 
-  <div id="tutor-about">
-    <h3>About me</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus pellentesque eu tincidunt tortor aliquam nulla. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Orci nulla pellentesque dignissim enim. Volutpat blandit aliquam etiam erat velit scelerisque in dictum non. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Ac ut consequat semper viverra nam libero. Eget nunc lobortis mattis aliquam faucibus purus in massa. Mauris a diam maecenas sed enim ut sem viverra. Eget nullam non nisi est sit amet facilisis magna etiam.</p>
+    <div id="tutor-about">
+      <h3 class="tutor-title">ABOUT ME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus pellentesque eu tincidunt tortor aliquam nulla. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Orci nulla pellentesque dignissim enim. Volutpat blandit aliquam etiam erat velit scelerisque in dictum non. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Ac ut consequat semper viverra nam libero. Eget nunc lobortis mattis aliquam faucibus purus in massa. Mauris a diam maecenas sed enim ut sem viverra. Eget nullam non nisi est sit amet facilisis magna etiam.</p>
+    </div>
   </div>
+<%# #007b95 turquoise %>
+<%# #006ed2 blue %>
+<%# #0075be other blue %>
+<%# #b24c63 redish %>
+<%# #d991ba middle purple %>
+
+<%# $oxford-blue: #00002fff; // navbar %>
+<%# $alabaster: #f4f3eeff; // background %>
+<%# $amazon: #417b5aff; // header %>
+<%# $dark-spring-green: #007c45ff; // header %>
+<%# $cerulean-frost: #6d9dc5ff; %>
 
 <hr>
   <div>
