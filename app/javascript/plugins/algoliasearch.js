@@ -9,10 +9,10 @@ const initAlgoliasearch = () => {
 
   if (tutors) {
     const searchClient = algoliasearch(algoliaAppId, algoliaSearchApiKey);
+    const railsEnvironment = tutors.dataset.environment;
 
     const search = instantsearch({
-      // indexName: "Tutor_development",
-      indexName: "Tutor_production",
+      indexName: `Tutor_${railsEnvironment}`,
       searchClient,
     });
 
@@ -112,12 +112,9 @@ const initAlgoliasearch = () => {
           select: "custom-select",
         },
         items: [
-          // { label: "Most relevant", value: "Tutor_development" },
-          // { label: "Price (asc)", value: "Tutor_by_price_asc_development" },
-          // { label: "Price (desc)", value: "Tutor_by_price_desc_development" },
-          { label: "Most relevant", value: "Tutor_production" },
-          { label: "Price (asc)", value: "Tutor_by_price_asc_production" },
-          { label: "Price (desc)", value: "Tutor_by_price_desc_production" },
+          { label: "Most relevant", value: `Tutor_${railsEnvironment}` },
+          { label: "Price (asc)", value: `Tutor_by_price_asc_${railsEnvironment}` },
+          { label: "Price (desc)", value: `Tutor_by_price_desc_${railsEnvironment}` },
         ],
       }),
 
