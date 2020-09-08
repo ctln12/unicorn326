@@ -11,7 +11,9 @@
   width: 40px;
 }
 
-.navbar-home.navbar-light {
+// Home navbar
+.navbar-home.navbar-main.navbar-light {
+  box-shadow: none;
   position: absolute;
   width: 100%;
   background: transparent;
@@ -19,23 +21,6 @@
 
   .nav-link {
     color: white;
-
-    &:hover {
-      color: $dark-blue;
-      border-bottom: 1px solid $dark-blue;
-      text-shadow: 1px 2px 3px rgba(255, 255, 255, 0.2);
-    }
-  }
-
-  .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-  }
-
-  .navbar-brand:hover {
-    color: white;
-    border-bottom: none;
   }
 }
 
@@ -45,4 +30,35 @@
 
 .toggler-home.navbar-toggler {
   border-color: white;
+}
+
+// Main navbar
+.navbar-main.navbar-light {
+  background-color: $oxford-blue;
+  box-shadow: 1px 2px 4px #d6d6d6;
+
+  .nav-item,
+  .nav-link {
+    color: white;
+
+    &:hover {
+      color: $maya-blue;
+      border-bottom: 1px solid $maya-blue;
+    }
+  }
+
+  li.nav-item.dropdown {
+    border-bottom: none;
+  }
+
+  .navbar-brand {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .navbar-brand:hover {
+    color: white;
+    border-bottom: none;
+  }
 }
