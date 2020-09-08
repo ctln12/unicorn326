@@ -17,8 +17,13 @@
           <% end %><%=  %>
         </div>
         <div class="tutor-info-details">
-          <span class="tutor-info-detail"><i class="fas fa-star"></i> 5 (32 reviews)</span>
-          <span class="tutor-info-detail"><i class="fas fa-comment"></i>
+          <span class="tutor-info-detail">
+            <i class="fas fa-star"></i>
+            <%= @tutor.reviews.map{ |review| review.rating }.sum.fdiv(@tutor.reviews.length).round(1) %>
+            (<%= @tutor.reviews.count %> reviews)
+          </span>
+          <span class="tutor-info-detail">
+            <i class="fas fa-comment"></i>
             <% @tutor.spoken_languages.each do |spoken_language| %>
               <%= spoken_language.language.name %>
             <% end %>
