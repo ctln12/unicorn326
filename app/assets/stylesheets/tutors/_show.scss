@@ -9,16 +9,17 @@ i.fas.fa-map-marker-alt {
 
 // General
 .tutor-section {
-  margin-bottom: 2.5rem;
-}
-
-.tutor-container {
   box-shadow: 1px 2px 3px #cecece;
   background-color: white;
   padding: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 // Tutor header section
+#tutor-header {
+  margin-bottom: 2.5rem;
+}
+
 .tutor-image {
   width: 100%;
   border-radius: 2px;
@@ -117,3 +118,27 @@ i.fas.fa-map-marker-alt {
 }
 
 // Tutor reviews section
+.tutor-review {
+  margin-bottom: 2rem;
+}
+
+.tutor-review-comment {
+  margin-bottom: 1.7rem;
+}
+
+.tutor-review-author-date {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tutor-review-logo {
+  background-color: #57bfffff;
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+}
+
+.tutor-review-date {
+  color: #575757ff;
+  font-size: .9rem;
+}
