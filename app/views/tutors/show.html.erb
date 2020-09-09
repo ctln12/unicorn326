@@ -38,7 +38,7 @@
         <div>
           <p class="tutor-price-text">Hourly price</p>
           <p class="tutor-price"><%= @tutor.price.to_i %> <%= Currency.find(@tutor.currency_id).name %></p>
-          <%= link_to 'Book now', new_booking_path(tutor_id: @tutor), class: 'btn btn-dark-blue' %>
+          <%= link_to 'Book now', new_tutor_booking_path(@tutor), class: 'btn btn-dark-blue' %>
         </div>
       </div>
     </div>
