@@ -1,22 +1,42 @@
-<h1>Request a lesson with <%= @tutor.first_name %> <%= @tutor.last_name %></h1>
+<div class="container" style="margin: 3rem auto;">
+  <div class="row">
+    <div class="col-md-8 offset-md-2" style="background-color: white; padding: 2rem 2.5rem; box-shadow: 1px 2px 3px #cecece;">
+      <h1 style="margin-bottom: 2rem; text-align: center; font-weight: bold;">REQUEST A LESSON</h1>
 
-<div class="my-4">
-  <%= simple_form_for [@booking], method: :post do |f| %>
+      <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+        <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo" style="width: 65px; height: 65px; object-fit: cover; border-radius: 50%;">
+        <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 1rem;">
+          <h5 style="margin: 0"><%= @tutor.first_name %> <%= @tutor.last_name %></h5>
+          <span style="margin: 0; font-size: .9rem; color: #575757ff">Your tutor</span>
+        </div>
+      </div>
 
-    <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } %>
-    <%= f.input :tutor_id, as: :hidden,input_html: { value: @tutor.id } %>
-    <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
-    <%= f.input :language_id, collection: @tutor.languages, include_blank: false %>
-    <%= f.input :start_date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, default: @tomorrow, label: 'Start date & time' } %>
-    <%= f.input :end_date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, default: @plus_one_hour, label: 'End date & time' } %>
-    <div class="my-3">
-      <label>Price per hour (<%= Currency.find(@tutor.currency_id).name %>)</label><br>
-      <input id="price_per_hour" type="text" readonly value="<%= @tutor.price.to_i %>" class="form-control">
+      <div>
+        <%= simple_form_for [@booking], method: :post do |f| %>
+
+          <%= f.input :student_id, as: :hidden, input_html: { value: @student.id } %>
+          <%= f.input :tutor_id, as: :hidden,input_html: { value: @tutor.id } %>
+          <div class="row">
+            <div class="col">
+              <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
+            </div>
+            <div class="col">
+              <%= f.input :language_id, collection: @tutor.languages, include_blank: false %>
+            </div>
+          </div>
+          <%= f.input :start_date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, default: @tomorrow, label: 'Start date & time' } %>
+          <%= f.input :end_date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, default: @plus_one_hour, label: 'End date & time' } %>
+          <div class="my-3">
+            <label>Price per hour (<%= Currency.find(@tutor.currency_id).name %>)</label><br>
+            <input id="price_per_hour" type="text" readonly value="<%= @tutor.price.to_i %>" class="form-control">
+          </div>
+          <%= f.input :booking_price, label: "Total price (#{Currency.find(@tutor.currency_id).name})" ,readonly: true, input_html: { value: @tutor.price.to_i } %><br>
+
+          <%= f.submit "Send request", class: "btn btn-primary" %>
+        <% end %>
+
+        <%= link_to "Back to tutor's profile", tutor_path(@tutor), class: "pt-3" %>
+      </div>
     </div>
-    <%= f.input :booking_price, label: "Total price (#{Currency.find(@tutor.currency_id).name})" ,readonly: true, input_html: { value: @tutor.price.to_i } %><br>
-
-    <%= f.submit "Send request", class: "btn btn-primary" %>
-  <% end %>
+  </div>
 </div>
-
-<%= link_to "< Back to Tutor's Profile", tutor_path(@tutor), class: "pb-3" %>
