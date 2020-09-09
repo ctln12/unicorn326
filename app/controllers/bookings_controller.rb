@@ -10,10 +10,7 @@ class BookingsController < ApplicationController
   end
 
   def new
-    @student = current_student
     @tutor = Tutor.find(params[:tutor_id])
-    @tomorrow = DateTime.now + 1.day
-    @plus_one_hour = @tomorrow + 1.hour
     @booking = Booking.new
   end
 
@@ -71,7 +68,7 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:student_id, :tutor_id, :subject_id, :language_id, :start_date, :end_date, :booking_price, :canceled_at, :accepted_at, :paid_at, :go_payment)
+    # params.require(:booking).permit(:student_id, :tutor_id, :subject_id, :language_id, :start_date, :end_date, :booking_price, :canceled_at, :accepted_at, :paid_at, :go_payment)
   end
 
   def redirect_if_user_not_signed_in!
