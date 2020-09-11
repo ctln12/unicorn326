@@ -15,12 +15,19 @@ class BookingsController < ApplicationController
   end
 
   def create
+    @tutor = Tutor.find(params[:tutor_id])
     @booking = Booking.new(booking_params)
-    @booking.save
-    @chat = Chat.new(student: @booking.student, tutor: @booking.tutor)
-    @chat.save
-
-    redirect_to bookings_path
+    @booking.tutor = @tutor
+    @booking.student = current_student
+    @booking.booking_price = @tutor.price
+    if @booking.save
+      @chat = Chat.new(student: @booking.student, tutor: @booking.tutor)
+      @chat.save
+      redirect_to bookings_path
+    else
+      flash.now[:alert] = 'Please fill in all the required fields'
+      render "new"
+    end
   end
 
   def show
@@ -36,6 +43,7 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
+    raise
     @booking.update(booking_params)
 
     if @booking.go_payment
@@ -68,7 +76,7 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    # params.require(:booking).permit(:student_id, :tutor_id, :subject_id, :language_id, :start_date, :end_date, :booking_price, :canceled_at, :accepted_at, :paid_at, :go_payment)
+    params.require(:booking).permit(:subject_id, :language_id, :start_date, :end_date)
   end
 
   def redirect_if_user_not_signed_in!
