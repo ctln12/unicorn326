@@ -13,6 +13,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: .5rem;
 }
 
 #new-booking-tutor-info {
@@ -20,31 +21,27 @@
   flex-direction: column;
   align-items: center;
 
+  img,
+  h5,
+  p {
+    margin-bottom: 2rem;
+  }
+
   img {
     width: 95px;
     height: 95px;
     object-fit: cover;
     border-radius: 50%;
-    margin-bottom: 2rem;
   }
 
   h5 {
     font-weight: bold;
-    margin-bottom: 2rem;
+    // margin-bottom: 2rem;
   }
 
   span {
     font-size: .9rem;
     color: #575757ff;
-  }
-}
-
-#new-booking-total-price {
-  display: flex;
-  justify-content: space-around;
-
-  h6 {
-    font-weight: bold;
   }
 }
 
