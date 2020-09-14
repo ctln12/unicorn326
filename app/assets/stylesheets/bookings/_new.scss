@@ -1,0 +1,115 @@
+#new-booking-page {
+  margin: 3rem auto;
+}
+
+#new-booking-container {
+  background-color: white;
+  padding: 1.5rem 2rem;
+  box-shadow: 1px 2px 3px #cecece;
+}
+
+// Tutor info and total price section
+#new-booking-tutor {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#new-booking-tutor-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 95px;
+    height: 95px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+  }
+
+  h5 {
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+
+  span {
+    font-size: .9rem;
+    color: #575757ff;
+  }
+}
+
+#new-booking-total-price {
+  display: flex;
+  justify-content: space-around;
+
+  h6 {
+    font-weight: bold;
+  }
+}
+
+#new-booking-form h1 {
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+// Subject and language section
+legend.col-form-label,
+label.string.optional {
+  font-size: 1.2rem;
+}
+
+.booking_language_id {
+  @include media-breakpoint-up(sm) {
+      margin: 0 1rem;
+    }
+}
+
+// Date and time section
+div.flatpickr-calendar.hasTime.noCalendar.animate.inline {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.booking_start_time,
+.booking_end_time {
+  @include media-breakpoint-up(sm) {
+    margin: 0 1rem 1rem 1rem;
+  }
+}
+
+input#date,
+input#start_time,
+input#end_time {
+  display: none;
+}
+
+div.flatpickr-time.time24hr {
+  border-radius: 3px;
+}
+
+div.flatpickr-innerContainer {
+  border-radius: 0 0 5px 5px;
+}
+
+#new-booking-form-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btn-new-booking {
+  background-color: $oxford-blue;
+  color: white;
+  border: 1px solid $oxford-blue;
+  border-radius: 3px;
+  padding: 10px auto;
+  font-weight: 500;
+  font-size: 1.1rem;
+
+  &:hover {
+    background-color: $maya-blue;
+    color: white;
+    border: 1px solid $maya-blue;
+  }
+}
