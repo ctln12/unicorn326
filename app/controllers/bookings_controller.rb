@@ -38,6 +38,9 @@ class BookingsController < ApplicationController
 
   def edit
     @booking = Booking.find(params[:id])
+    @booking.date = @booking.date.strftime("%A %d %B %Y")
+    @booking.start_time = @booking.start_time.strftime("%H:%M")
+    @booking.end_time = @booking.end_time.strftime("%H:%M")
     @tutor = @booking.tutor
   end
 
