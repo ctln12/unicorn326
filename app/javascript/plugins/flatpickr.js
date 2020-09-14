@@ -1,17 +1,16 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/themes/material_blue.css";
 
-const newBookingForm = document.getElementById('new_booking');
-if (newBookingForm) {
+const newBookingForm = document.getElementById('new-booking-form-page');
+const editBookingForm = document.getElementById('edit-booking-form-page');
+if (newBookingForm || editBookingForm) {
   const dateNow = new Date();
-  flatpickr("#date", {
-    // enableTime: true,
-    // time_24hr: true,
+  flatpickr(".date", {
     defaultDate: dateNow,
     dateFormat: "l d F Y",
     inline: true
   });
-  flatpickr("#start_time", {
+  flatpickr(".start_time", {
     noCalendar: true,
     enableTime: true,
     time_24hr: true,
@@ -21,7 +20,7 @@ if (newBookingForm) {
   });
   const timePlusOneHour = dateNow.getHours() + 1;
   const datePlusOneHour = dateNow.setHours(timePlusOneHour);
-  flatpickr("#end_time", {
+  flatpickr(".end_time", {
     noCalendar: true,
     enableTime: true,
     time_24hr: true,
