@@ -8,7 +8,7 @@
   box-shadow: 1px 2px 3px #cecece;
 }
 
-// Tutor info and total price section
+// ---------- Tutor info and total price section ----------
 #new-booking-tutor {
   display: flex;
   flex-direction: column;
@@ -53,7 +53,7 @@
   font-weight: bold;
 }
 
-// Subject and language section
+// ---------- Subject and language section ----------
 legend.col-form-label,
 label.string.optional {
   font-size: 1.2rem;
@@ -65,10 +65,54 @@ label.string.optional {
     }
 }
 
-// Date and time section
+// ---------- Date and time section ----------
+// Overriding flatpickr style
+div.flatpickr-innerContainer {
+  border-radius: 0 0 5px 5px;
+  border: none;
+}
+
+div.flatpickr-month,
+select.flatpickr-monthDropdown-months {
+  background: $maya-blue !important;
+}
+
+div.flatpickr-weekdays {
+  background-color: $maya-blue;
+
+  span.flatpickr-weekday {
+    background-color: transparent;
+  }
+}
+
+span.flatpickr-day.selected {
+  background-color: $maya-blue;
+  border: 1px solid $maya-blue;
+}
+
+div.flatpickr-days {
+  border: none;
+}
+
 div.flatpickr-calendar.hasTime.noCalendar.animate.inline {
   width: 100%;
   margin: 0 auto;
+}
+
+div.flatpickr-time.time24hr {
+  border-radius: 3px;
+  border: none !important;
+}
+
+input.numInput.flatpickr-hour {
+  font-weight: normal !important;
+}
+
+// Own selectors
+input#date,
+input#start_time,
+input#end_time {
+  display: none;
 }
 
 .booking_start_time,
@@ -78,26 +122,13 @@ div.flatpickr-calendar.hasTime.noCalendar.animate.inline {
   }
 }
 
-input#date,
-input#start_time,
-input#end_time {
-  display: none;
-}
-
-div.flatpickr-time.time24hr {
-  border-radius: 3px;
-}
-
-div.flatpickr-innerContainer {
-  border-radius: 0 0 5px 5px;
-}
-
 #new-booking-form-time {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+// ---------- Send request button ----------
 .btn-new-booking {
   background-color: $oxford-blue;
   color: white;
