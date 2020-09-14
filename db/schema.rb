@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_144432) do
+ActiveRecord::Schema.define(version: 2020_09_14_145530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,9 @@ ActiveRecord::Schema.define(version: 2020_09_14_144432) do
     t.bigint "language_id"
     t.string "checkout_session_id"
     t.boolean "go_payment"
+    t.date "date"
+    t.time "start_time"
+    t.time "end_time"
     t.index ["language_id"], name: "index_bookings_on_language_id"
     t.index ["student_id"], name: "index_bookings_on_student_id"
     t.index ["subject_id"], name: "index_bookings_on_subject_id"
