@@ -1,9 +1,9 @@
-<div id="new-booking-page" class="container">
+<div id="new-booking-form-page" class="container booking-form-page">
   <div class="row">
-    <div id="new-booking-container" class="col-md-10 offset-md-1 col-xl-8 offset-xl-2">
+    <div class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 booking-form-container">
       <div class="row">
-        <div id="new-booking-tutor" class="col-lg-3">
-          <div id="new-booking-tutor-info">
+        <div class="col-lg-3 booking-form-tutor">
+          <div class="booking-form-tutor-info">
             <%= link_to tutor_path(@tutor) do%>
               <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo">
             <% end %>
@@ -11,7 +11,7 @@
             <p><%= @tutor.price.round %> <%= @tutor.currency.name %><span> / hr</span></p>
           </div>
         </div>
-        <div id="new-booking-form" class="col-lg-9">
+        <div class="col-lg-9 booking-form">
           <h1>REQUEST A LESSON</h1>
           <%= simple_form_for [@tutor, @booking] do |f| %>
             <div class="row">
@@ -24,11 +24,11 @@
             </div>
             <div class="row">
               <div class="col-sm-7">
-                <%= f.input :date, as: :string, input_html: {id: "date"}, label: false, required: false %>
+                <%= f.input :date, as: :string, input_html: {class: "date"}, label: false, required: false %>
               </div>
-              <div id="new-booking-form-time" class="col-sm-5">
-                <%= f.input :start_time, as: :string, input_html: {id: "start_time"}, label: "From", required: false %>
-                <%= f.input :end_time, as: :string, input_html: {id: "end_time"}, label: "Until", required: false %>
+              <div class="col-sm-5 booking-form-time">
+                <%= f.input :start_time, as: :string, input_html: {class: "start_time"}, label: "From", required: false %>
+                <%= f.input :end_time, as: :string, input_html: {class: "end_time"}, label: "Until", required: false %>
               </div>
             </div>
             <%= f.submit "Send request", class: "btn btn-new-booking btn-block" %>
