@@ -24,11 +24,11 @@
             </div>
             <div class="row">
               <div class="col-sm-7">
-                <%= f.input :date, as: :string, input_html: {class: "date"}, label: false, required: false %>
+                <%= f.input :date, as: :string, input_html: {id: "new_date"}, label: false, required: false %>
               </div>
               <div class="col-sm-5 booking-form-time">
-                <%= f.input :start_time, as: :string, input_html: {class: "start_time"}, label: "From", required: false %>
-                <%= f.input :end_time, as: :string, input_html: {class: "end_time"}, label: "Until", required: false %>
+                <%= f.input :start_time, as: :string, input_html: {id: "new_start_time"}, label: "From", required: false %>
+                <%= f.input :end_time, as: :string, input_html: {id: "new_end_time"}, label: "Until", required: false %>
               </div>
             </div>
             <%= f.submit "Send request", class: "btn btn-new-booking btn-block" %>

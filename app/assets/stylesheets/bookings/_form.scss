@@ -106,9 +106,12 @@ input.numInput.flatpickr-hour {
 }
 
 // Own selectors
-input.date,
-input.start_time,
-input.end_time {
+input#new_date,
+input#new_start_time,
+input#new_end_time,
+input#edit_date,
+input#edit_start_time,
+input#edit_end_time {
   display: none;
 }
 
