@@ -43,7 +43,6 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-    raise
     @booking.update(booking_params)
 
     if @booking.go_payment
@@ -76,7 +75,7 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:subject_id, :language_id, :start_date, :end_date)
+    params.require(:booking).permit(:subject_id, :language_id, :date, :start_time, :end_time)
   end
 
   def redirect_if_user_not_signed_in!

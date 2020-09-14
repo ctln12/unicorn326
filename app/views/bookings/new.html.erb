@@ -1,13 +1,13 @@
-<div class="container" style="margin: 3rem auto;">
+<div id="new-booking-form" class="container" style="margin: 3rem auto;">
   <div class="row">
-    <div class="col-md-8 offset-md-2" style="background-color: white; padding: 1.5rem 2rem; box-shadow: 1px 2px 3px #cecece;">
+    <div class="col-md-10 offset-md-1 col-xl-8 offset-xl-2" style="background-color: white; padding: 1.5rem 2rem; box-shadow: 1px 2px 3px #cecece;">
       <div class="row">
-        <div class="col-3" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="col-lg-3" style="display: flex; flex-direction: column; justify-content: space-between;">
           <div style="display: flex; flex-direction: column; align-items: center;">
             <%= link_to tutor_path(@tutor) do%>
-              <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo" style="width: 95px; height: 95px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem;">
+              <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo" style="width: 95px; height: 95px; object-fit: cover; border-radius: 50%; margin-bottom: 2rem;">
             <% end %>
-            <h5 style="font-weight: bold; margin-bottom: 1rem;"><%= @tutor.first_name %> <%= @tutor.last_name %></h5>
+            <h5 style="font-weight: bold; margin-bottom: 2rem;"><%= @tutor.first_name %> <%= @tutor.last_name %></h5>
             <p><%= @tutor.price.round %> <%= @tutor.currency.name %><span style="font-size: .9rem; color: #575757ff;"> / hr</span></p>
           </div>
           <div style="display: flex; justify-content: space-around;">
@@ -15,13 +15,26 @@
             <h6 style="font-weight: bold"><%= @tutor.price %> <%= @tutor.currency.name %></h6>
           </div>
         </div>
-        <div class="col-9">
+        <div class="col-lg-9">
           <h1 style="margin-bottom: 2rem; font-weight: bold;">REQUEST A LESSON</h1>
           <%= simple_form_for [@tutor, @booking] do |f| %>
-            <%= f.input :subject_id, collection: @tutor.subjects, include_blank: "Choose a subject", required: true %>
-            <%= f.input :language_id, collection: @tutor.languages, include_blank: "Choose a language", required: true %>
-            <%= f.input :start_date, as: :string, input_html: {id: "start_date"} %>
-            <%= f.input :end_date, as: :string, input_html: {id: "end_date"} %>
+            <div class="row">
+              <div class="col-sm-7">
+                <%= f.input :subject_id, collection: @tutor.subjects, as: :radio_buttons, label: "To learn" %>
+              </div>
+              <div class="col-sm-5">
+                <%= f.input :language_id, collection: @tutor.languages, as: :radio_buttons, label: "Your language" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-7">
+                <%= f.input :date, as: :string, input_html: {id: "date"}, label: false, required: false %>
+              </div>
+              <div class="col-sm-5" style="display: flex; flex-direction: column; justify-content: center;">
+                <%= f.input :start_time, as: :string, input_html: {id: "start_time"}, label: "From", required: false %>
+                <%= f.input :end_time, as: :string, input_html: {id: "end_time"}, label: "Until", required: false %>
+              </div>
+            </div>
             <%= f.submit "Send request", class: "btn btn-primary btn-block" %>
           <% end %>
         </div>
