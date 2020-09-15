@@ -19,7 +19,7 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @booking.tutor = @tutor
     @booking.student = current_student
-    @booking.booking_price = @tutor.price
+    @booking.booking_price = @tutor.price * (@booking.end_time - @booking.start_time) / 3600
     if @booking.save
       @chat = Chat.new(student: @booking.student, tutor: @booking.tutor)
       @chat.save
