@@ -655,7 +655,6 @@ puts '-----------------------------'
 
 puts 'Reindexing tutors...'
 
-# Tutor.clear_index!
 Tutor.reindex!
 
 puts 'Finished!'
