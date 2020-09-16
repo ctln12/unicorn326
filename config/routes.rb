@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     collection do
       get 'profile'
     end
+    resources :bookings, only: [:new, :create]
     resources :wallets, only: [:create, :show, :update]
   end
 
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
   resources :taught_lessons, only: [:index, :new, :create, :destroy]
   resources :spoken_languages, only: [:index, :new, :create, :destroy]
 
-  resources :bookings, only: [:index, :new, :create, :show, :edit, :update] do
+  resources :bookings, only: [:index, :show, :edit, :update] do
     resources :payments, only: :new
     resources :reviews, only: [:new, :create, :edit, :update, :show]
     resources :lessons, only: [:create, :show]

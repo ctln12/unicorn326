@@ -5,6 +5,7 @@ require('dotenv').config()
 
 import { initOpenTok } from "./lesson";
 import { initAlgoliasearch } from "../plugins/algoliasearch";
+import "../plugins/flatpickr";
 
 initOpenTok();
 initAlgoliasearch();

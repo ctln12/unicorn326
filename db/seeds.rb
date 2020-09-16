@@ -45,7 +45,7 @@ Currency.destroy_all
 
 puts '-----------------------------'
 
-puts 'Creating subjects...'
+puts 'Creating 23 subjects...'
 
 english = Subject.new(name: "English")
 english.save
@@ -119,7 +119,7 @@ computer_science.save
 puts 'Finished!'
 puts '-----------------------------'
 
-puts 'Creating Languages...'
+puts 'Creating 15 Languages...'
 
 english = Language.new(name: "English")
 english.save
@@ -169,7 +169,7 @@ chinese.save
 puts 'Finished!'
 puts '-----------------------------'
 
-puts 'Creating Currencies'
+puts 'Creating 7 Currencies'
 
 eur = Currency.new(name: "EUR")
 eur.save
@@ -195,7 +195,7 @@ gbp.save
 puts 'Finished!'
 puts '-----------------------------'
 
-puts 'Creating Students...'
+puts 'Creating 7 Students...'
 alice = Student.new(first_name: 'Alice', last_name: 'Needham', country: 'SE', date_of_birth: '2000-05-10', email: 'alice.needham@student.com', password: '123456')
 alice.save
 bob = Student.new(first_name: 'Bob', last_name: 'Hutchings', country: 'GB', date_of_birth: '1995-10-08', email: 'bob.hutchingsg@student.com', password: '123456')
@@ -219,7 +219,7 @@ end
 puts 'Finished'
 puts '-----------------------------'
 
-puts 'Creating Tutors...'
+puts 'Creating 10 Tutors...'
 
 pierre = Tutor.new(first_name: 'Pierre', last_name: 'Martin', date_of_birth: '1967-06-20', country: 'FR', phone_number: '33671283384', currency_id: eur.id, price: 25, email: 'pierre.martin@tutor.com', password: '123456')
 pierre.save
@@ -284,7 +284,7 @@ end
 puts 'Finished!'
 puts '-----------------------------'
 
-puts 'Creating Taught Lessons...'
+puts 'Creating 11 Taught Lessons...'
 taughtlesson1 = TaughtLesson.new(subject_id: mathematics.id, tutor_id: pierre.id)
 taughtlesson1.save
 taughtlesson2 = TaughtLesson.new(subject_id: physics.id, tutor_id: pierre.id)
@@ -311,7 +311,7 @@ taughtlesson11.save
 puts 'Finished!'
 puts '-----------------------------'
 
-puts 'Creating Spoken Languages...'
+puts 'Creating 10 Spoken Languages...'
 spoken1 = SpokenLanguage.new(language_id: english.id, tutor_id: pierre.id)
 spoken1.save
 spoken2 = SpokenLanguage.new(language_id: french.id, tutor_id: pierre.id)
@@ -336,7 +336,7 @@ spoken10.save
 puts 'Finished!'
 puts '-----------------------------'
 
-puts 'Creating Post Jobs and Comments ...'
+puts 'Creating 25 Post Jobs and Comments ...'
 
   25.times do
     post = JobPost.new(
@@ -358,37 +358,49 @@ puts 'Creating Post Jobs and Comments ...'
 puts 'Finished'
 puts '-----------------------------'
 
-puts 'Creating Bookings and Chats...'
+puts 'Creating 29 Bookings and Chats...'
 opentok = OpenTok::OpenTok.new(ENV['OPENTOK_API_KEY'], ENV['OPENTOK_SECRET_KEY'])
 
+date_now = DateTime.now
+this_year = date_now.year
+this_month = date_now.month
+this_day = date_now.day
+hours = (0..23).to_a
+minutes = [0, 15, 30, 45]
+
 # Accepted / Paid / Given
+date1 = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) - 10
 booking1 = Booking.new(
   student_id: alice.id,
   tutor_id: pierre.id,
   subject_id: mathematics.id,
   language_id: english.id,
-  start_date: DateTime.now - 10.1,
-  end_date: DateTime.now - 10.1 + 1.hour,
-  booking_price: pierre.price*1.5,
-  accepted_at: DateTime.now - 12.3,
-  paid_at: DateTime.now - 11.2
+  date: date1,
+  start_time: date1,
+  end_time: date1 + 1.hour,
+  booking_price: pierre.price,
+  accepted_at: date_now - 12,
+  paid_at: date_now - 11
 )
 booking1.save
 chat1 = Chat.new(student: booking1.student, tutor: booking1.tutor)
 chat1.save
 review1 = Review.new(comment: 'Suspendisse consectetur elit vel libero maximus aliquam et in nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos.', rating: rand(1..5), booking: booking1)
 review1.save!
+
 # Accepted / Paid / Not given yet
+date2 = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) + 1
 booking2 = Booking.new(
   student_id: alice.id,
   tutor_id: pierre.id,
   subject_id: mathematics.id,
   language_id: english.id,
-  start_date: DateTime.now + 1.2,
-  end_date: DateTime.now + 1.2 + 1.hour,
+  date: date2,
+  start_time: date2,
+  end_time: date2 + 1.hour,
   booking_price: pierre.price,
-  accepted_at: DateTime.now - 1.1,
-  paid_at: DateTime.now
+  accepted_at: date_now - 2,
+  paid_at: date_now - 1
 )
 booking2.save
 chat2 = Chat.new(student: booking2.student, tutor: booking2.tutor)
@@ -400,91 +412,108 @@ lesson = Lesson.new(video_url: "video", booking: booking2, opentok_session_id: o
 lesson.save!
 
 # Accepted / Not paid
+date3 = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) + 5
 booking3 = Booking.new(
   student_id: alice.id,
   tutor_id: pierre.id,
   subject_id: chemistry.id,
   language_id: french.id,
-  start_date: DateTime.now + 2.3,
-  end_date: DateTime.now + 2.3 + 1.hour,
+  date: date3,
+  start_time: date3,
+  end_time: date3 + 1.hour + 30.minute,
   booking_price: pierre.price*1.5,
-  accepted_at: DateTime.now - 1.2
+  accepted_at: date_now + 1
 )
 booking3.save
 chat3 = Chat.new(student: booking3.student, tutor: booking3.tutor)
 chat3.save
+
 # Not accepted yet
+date4 = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) + 7
 booking4 = Booking.new(
   student_id: alice.id,
   tutor_id: pierre.id,
   subject_id: chemistry.id,
   language_id: french.id,
-  start_date: DateTime.now + 3,
-  end_date: DateTime.now + 3 + 1.hour,
+  date: date4,
+  start_time: date4,
+  end_time: date4 + 1.hour,
   booking_price: pierre.price
 )
 booking4.save
 chat4 = Chat.new(student: booking4.student, tutor: booking4.tutor)
 chat4.save
+
 # Canceled by tutor
+date5 = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) - 1
 booking5 = Booking.new(
   student_id: alice.id,
   tutor_id: pierre.id,
   subject_id: physics.id,
   language_id: english.id,
-  start_date: DateTime.now - 1.4,
-  end_date: DateTime.now - 1.4 + 1.hour,
+  date: date5,
+  start_time: date5,
+  end_time: date5 + 1.hour,
   booking_price: pierre.price,
-  canceled_at: DateTime.now - 3.1
+  canceled_at: date_now - 3
 )
 booking5.save
 chat5 = Chat.new(student: booking5.student, tutor: booking5.tutor)
 chat5.save
+
 # Accepted / Canceled by student
+date6 = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) - 2
 booking6 = Booking.new(
   student_id: alice.id,
   tutor_id: pierre.id,
   subject_id: physics.id,
   language_id: english.id,
-  start_date: DateTime.now - 2.5,
-  end_date: DateTime.now - 2.5 + 1.hour,
+  date: date6,
+  start_time: date6,
+  end_time: date6 + 1.hour,
   booking_price: pierre.price,
-  accepted_at: DateTime.now - 4.2,
-  canceled_at: DateTime.now - 3.1
+  accepted_at: date_now - 4,
+  canceled_at: date_now - 3
 )
 booking6.save
 chat6 = Chat.new(student: booking6.student, tutor: booking6.tutor)
 chat6.save
+
 # Accepted / Paid / Canceled
+date7 = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) - 3
 booking7 = Booking.new(
   student_id: alice.id,
   tutor_id: pierre.id,
   subject_id: chemistry.id,
   language_id: french.id,
-  start_date: DateTime.now - 3.6,
-  end_date: DateTime.now - 3.6 + 1.hour,
-  booking_price: pierre.price*1.5,
-  accepted_at: DateTime.now - 6.3,
-  paid_at: DateTime.now - 5.2,
-  canceled_at: DateTime.now - 4.1
+  date: date7,
+  start_time: date7,
+  end_time: date7 + 45.minute,
+  booking_price: pierre.price*0.75,
+  accepted_at: date_now - 6,
+  paid_at: date_now - 5,
+  canceled_at: date_now - 4
 )
 booking7.save
 chat7 = Chat.new(student: booking7.student, tutor: booking7.tutor)
 chat7.save
 
-# Accepted / Paid / Not given yet
+days = (1..15).to_a
+# Accepted / Paid / Given
 5.times do # 50.times
+  date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) - days.sample
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
-    start_date: DateTime.now - 10.1,
-    end_date: DateTime.now - 10.1 + 1.hour,
-    booking_price: random_tutor.price*1.5,
-    accepted_at: DateTime.now - 12.3,
-    paid_at: DateTime.now - 11.2
+    date: date,
+    start_time: date,
+    end_time: date + 1.hour,
+    booking_price: random_tutor.price,
+    accepted_at: date - 2,
+    paid_at: date - 1
   )
   booking.save
   chat = Chat.new(student: booking.student, tutor: booking.tutor)
@@ -493,18 +522,21 @@ chat7.save
   review.save!
 end
 
+# Accepted / Paid / Not given yet
 3.times do
+  date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) + days.sample
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
-    start_date: DateTime.now + 1.2,
-    end_date: DateTime.now + 1.2 + 1.hour,
+    date: date,
+    start_time: date,
+    end_time: date + 1.hour,
     booking_price: random_tutor.price,
-    accepted_at: DateTime.now - 1.1,
-    paid_at: DateTime.now
+    accepted_at: date - 3,
+    paid_at: date - 2
   )
   booking.save
   chat = Chat.new(student: booking.student, tutor: booking.tutor)
@@ -516,32 +548,38 @@ end
   lesson.save!
 end
 
+# Accepted / Not paid
 5.times do # 10.times
+  date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) + days.sample
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
-    start_date: DateTime.now + 2.3,
-    end_date: DateTime.now + 2.3 + 1.hour,
-    booking_price: random_tutor.price*1.5,
-    accepted_at: DateTime.now - 1.2
+    date: date,
+    start_time: date,
+    end_time: date + 1.hour,
+    booking_price: random_tutor.price,
+    accepted_at: date - 5
   )
   booking.save
   chat = Chat.new(student: booking.student, tutor: booking.tutor)
   chat.save
 end
 
+# Not accepted yet
 3.times do
+  date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) + days.sample
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
-    start_date: DateTime.now + 3,
-    end_date: DateTime.now + 3 + 1.hour,
+    date: date,
+    start_time: date,
+    end_time: date + 1.hour,
     booking_price: random_tutor.price
   )
   booking.save
@@ -549,54 +587,63 @@ end
   chat.save
 end
 
+# Canceled by tutor
 2.times do
+  date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) - days.sample
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
-    start_date: DateTime.now - 1.4,
-    end_date: DateTime.now - 1.4 + 1.hour,
+    date: date,
+    start_time: date,
+    end_time: date + 1.hour,
     booking_price: random_tutor,
-    canceled_at: DateTime.now - 3.1
+    canceled_at: date - 3
   )
   booking.save
   chat = Chat.new(student: booking.student, tutor: booking.tutor)
   chat.save
 end
 
+# Accepted / Canceled by student
 2.times do
+  date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) - days.sample
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
-    start_date: DateTime.now - 2.5,
-    end_date: DateTime.now - 2.5 + 1.hour,
+    date: date,
+    start_time: date,
+    end_time: date + 1.hour,
     booking_price: random_tutor.price,
-    accepted_at: DateTime.now - 4.2,
-    canceled_at: DateTime.now - 3.1
+    accepted_at: date - 4,
+    canceled_at: date - 3
   )
   booking.save
   chat = Chat.new(student: booking.student, tutor: booking.tutor)
   chat.save
 end
 
+# Accepted / Paid / Canceled
 2.times do
+  date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) - days.sample
   random_tutor = Tutor.all.sample
   booking = Booking.new(
     student_id: alice.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
-    start_date: DateTime.now - 3.6,
-    end_date: DateTime.now - 3.6 + 1.hour,
-    booking_price: random_tutor.price*1.5,
-    accepted_at: DateTime.now - 6.3,
-    paid_at: DateTime.now - 5.2,
-    canceled_at: DateTime.now - 4.1
+    date: date,
+    start_time: date,
+    end_time: date + 1.hour,
+    booking_price: random_tutor.price,
+    accepted_at: date - 4,
+    paid_at: date - 3,
+    canceled_at: date - 2
   )
   booking.save
   chat = Chat.new(student: booking.student, tutor: booking.tutor)
@@ -608,7 +655,6 @@ puts '-----------------------------'
 
 puts 'Reindexing tutors...'
 
-Tutor.clear_index!
 Tutor.reindex!
 
 puts 'Finished!'

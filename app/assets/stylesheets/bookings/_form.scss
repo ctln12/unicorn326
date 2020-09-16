@@ -1,0 +1,146 @@
+.booking-form-page {
+  margin: 3rem auto;
+}
+
+.booking-form-container {
+  background-color: white;
+  padding: 1.5rem 2rem;
+  box-shadow: 1px 2px 3px #cecece;
+}
+
+// ---------- Tutor info and total price section ----------
+.booking-form-tutor {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: .5rem;
+}
+
+.booking-form-tutor-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img,
+  h5,
+  p {
+    margin-bottom: 2rem;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  h5 {
+    font-weight: bold;
+    // margin-bottom: 2rem;
+  }
+
+  span {
+    font-size: .9rem;
+    color: #575757ff;
+  }
+}
+
+.booking-form h1 {
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+// ---------- Subject and language section ----------
+legend.col-form-label,
+label.string.optional {
+  font-size: 1.2rem;
+}
+
+.booking_language_id {
+  @include media-breakpoint-up(sm) {
+      margin: 0 1rem;
+    }
+}
+
+// ---------- Date and time section ----------
+// Overriding flatpickr style
+div.flatpickr-innerContainer {
+  border-radius: 0 0 5px 5px;
+  border: none;
+}
+
+div.flatpickr-month,
+select.flatpickr-monthDropdown-months {
+  background: $maya-blue !important;
+}
+
+div.flatpickr-weekdays {
+  background-color: $maya-blue;
+
+  span.flatpickr-weekday {
+    background-color: transparent;
+  }
+}
+
+span.flatpickr-day.selected {
+  background-color: $maya-blue;
+  border: 1px solid $maya-blue;
+}
+
+div.flatpickr-days {
+  border: none;
+}
+
+div.flatpickr-calendar.hasTime.noCalendar.animate.inline {
+  width: 100%;
+  margin: 0 auto;
+}
+
+div.flatpickr-time.time24hr {
+  border-radius: 3px;
+  border: none !important;
+}
+
+input.numInput.flatpickr-hour {
+  font-weight: normal !important;
+}
+
+// Own selectors
+input#new_date,
+input#new_start_time,
+input#new_end_time,
+input#edit_date,
+input#edit_start_time,
+input#edit_end_time {
+  display: none;
+}
+
+.booking_start_time,
+.booking_end_time {
+  @include media-breakpoint-up(sm) {
+    margin: 0 1rem 1rem 1rem;
+  }
+}
+
+.booking-form-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// ---------- Send request button ----------
+.btn-new-booking {
+  background-color: $oxford-blue;
+  color: white;
+  border: 1px solid $oxford-blue;
+  border-radius: 3px;
+  padding: 10px auto;
+  font-weight: 500;
+  font-size: 1.1rem;
+
+  &:hover {
+    background-color: $maya-blue;
+    color: white;
+    border: 1px solid $maya-blue;
+  }
+}

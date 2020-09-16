@@ -1,6 +1,6 @@
 <h1>
   <%= @booking.subject.name %> (<%= @booking.language.name %>)
-  <%= link_to '[edit]', edit_booking_path(@booking) unless @booking.canceled_at || @booking.start_date < DateTime.now %>
+  <%= link_to '[edit]', edit_booking_path(@booking) unless @booking.canceled_at || @booking.date < DateTime.now %>
   <% if @booking.canceled_at %>
     <span class='text-secondary mb-2' style='font-size: 1.6rem'>Lesson canceled</span>
   <% elsif @booking.accepted_at && @booking.paid_at.nil? %>
@@ -24,8 +24,8 @@
 </p>
 <hr>
 
-<h4><%= @booking.start_date.strftime("%A, %d %B %Y") %></h4>
-<h5><%= @booking.start_date.strftime("%H:%M") %> - <%= @booking.end_date.strftime("%H:%M") %></h5>
+<h4><%= @booking.date.strftime("%A, %d %B %Y") %></h4>
+<h5><%= @booking.start_time.strftime("%H:%M") %> - <%= @booking.end_time.strftime("%H:%M") %></h5>
 <hr>
 
 <p><%= "Accepted: " + @booking.accepted_at.strftime("%A, %d %B %Y") if @booking.accepted_at %></p>
@@ -33,12 +33,12 @@
   <p><%= "Canceled: " + @booking.canceled_at.strftime("%A, %d %B %Y") if @booking.canceled_at %></p>
 <p><strong>Total Price: <%= @booking.booking_price %> <%= Currency.find(@booking.tutor.currency_id).name %></strong></p>
 
-<% if @booking.accepted_at && @booking.paid_at && @booking.canceled_at.nil? && @booking.start_date < Time.now %>
+<% if @booking.accepted_at && @booking.paid_at && @booking.canceled_at.nil? && @booking.date < Time.now %>
   <%= link_to 'View resources', '#', class: 'btn btn-primary mb-2'  %>
   <% unless @booking.reviews.exists? %>
   <%= link_to 'Add review', new_booking_review_path(@booking), class: 'btn btn-primary mb-2' if current_student %>
   <% end %>
-<% elsif @booking.paid_at && @booking.start_date > Time.now && @booking.canceled_at.nil? %>
+<% elsif @booking.paid_at && @booking.date > Time.now && @booking.canceled_at.nil? %>
   <div style="display: inline-flex;">
     <% if @booking.lesson %>
       <%= link_to 'Go to lesson', booking_lesson_path(@booking, @lesson), class: "btn btn-success mt-3" %>
@@ -91,15 +91,13 @@
   <% end %>
 
 <% elsif @booking.canceled_at && @booking.paid_at.nil? %>
-  <%= link_to 'Book new lesson', tutors_path, class: 'btn btn-primary mb-2' %>
-  <%= link_to 'Find another tutor', new_booking_path, class: 'text-primary ml-3 mb-2' %>
+  <%= link_to 'Book new lesson', new_tutor_booking_path(@booking.tutor), class: 'btn btn-primary mb-2' if current_student %>
 
 <% elsif @booking.canceled_at && @booking.paid_at %>
-  <%= link_to 'Book new lesson', tutors_path, class: 'btn btn-primary mb-2' %>
-  <%= link_to 'Find another tutor', new_booking_path, class: 'text-primary ml-3 mb-2 mr-3' %>
   <% if current_tutor %>
     <%= link_to 'Refund lesson', '#', class: 'btn btn-primary mb-2' %>
   <% elsif current_student %>
+    <%= link_to 'Book new lesson', new_tutor_booking_path(@booking.tutor), class: 'btn btn-primary mb-2' %>
     <%= link_to 'Ask refund', '#', class: 'btn btn-primary mb-2' %>
   <% end %>
 

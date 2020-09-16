@@ -1,20 +1,40 @@
-<h1>Edit Your Booking</h1>
-
-<%= simple_form_for [@booking], method: :patch do |f| %>
-
-    <%= f.input :student_id, as: :hidden %>
-    <%= f.input :tutor_id, as: :hidden %>
-    <%= f.input :subject_id, collection: @tutor.subjects, include_blank: false %>
-    <%= f.input :language_id, collection: @tutor.languages, include_blank: false %>
-    <%= f.input :start_date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, label: 'Start Date & Time' } %>
-    <%= f.input :end_date, { order: [:day, :month, :year, :hour, :minute], minute_step: 15, label: 'End Date & Time' } %>
-    <div class="my-3">
-      <label>Price per hour (<%= Currency.find(@booking.tutor.currency_id).name %>)</label><br>
-      <input id="price_per_hour" type="text" readonly value="<%= @booking.tutor.price.to_i %>" class="form-control">
+<div id="edit-booking-form-page" class="container booking-form-page">
+  <div class="row">
+    <div class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 booking-form-container">
+      <div class="row">
+        <div class="col-lg-3 booking-form-tutor">
+          <div class="booking-form-tutor-info">
+            <%= link_to tutor_path(@tutor) do%>
+              <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo">
+            <% end %>
+            <h5><%= @tutor.first_name %> <%= @tutor.last_name %></h5>
+            <p><%= @tutor.price.round %> <%= @tutor.currency.name %><span> / hr</span></p>
+          </div>
+        </div>
+        <div class="col-lg-9 booking-form">
+          <h1>EDIT YOUR REQUEST</h1>
+          <%= simple_form_for @booking do |f| %>
+            <div class="row">
+              <div class="col-sm-7">
+                <%= f.input :subject_id, collection: @tutor.subjects, as: :radio_buttons, label: "To learn" %>
+              </div>
+              <div class="col-sm-5">
+                <%= f.input :language_id, collection: @tutor.languages, as: :radio_buttons, label: "In" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-7">
+                <%= f.input :date, as: :string, input_html: {id: "edit_date"}, label: false, required: false %>
+              </div>
+              <div class="col-sm-5 booking-form-time">
+                <%= f.input :start_time, as: :string, input_html: {id: "edit_start_time"}, label: "From", required: false %>
+                <%= f.input :end_time, as: :string, input_html: {id: "edit_end_time"}, label: "Until", required: false %>
+              </div>
+            </div>
+            <%= f.submit "Update request", class: "btn btn-new-booking btn-block" %>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <%= f.input :booking_price, readonly: true %><br>
-
-    <%= f.submit "Update", class: "btn btn-primary mb-3" %>
-  <% end %>
-
-<%= link_to '< back to booking', booking_path(@booking), class: 'pb-3' %>
+  </div>
+</div>
