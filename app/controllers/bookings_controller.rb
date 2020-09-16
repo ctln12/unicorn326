@@ -46,7 +46,7 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-    @booking.update(booking_params)
+    @booking.update(update_booking_params)
 
     if @booking.go_payment
       stripe
@@ -73,12 +73,16 @@ class BookingsController < ApplicationController
       success_url: booking_url(@booking),
       cancel_url: booking_url(@booking)
     )
-    @booking.update(checkout_session_id: session.id, go_payment: false)
+    @booking.update(checkout_session_id: session.id, go_payment: false, paid_at: DateTime.now)
     redirect_to new_booking_payment_path(@booking)
   end
 
   def booking_params
     params.require(:booking).permit(:subject_id, :language_id, :date, :start_time, :end_time)
+  end
+
+  def update_booking_params
+    params.require(:booking).permit(:accepted_at, :go_payment, :canceled_at)
   end
 
   def redirect_if_user_not_signed_in!

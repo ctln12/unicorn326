@@ -91,13 +91,13 @@
   <% end %>
 
 <% elsif @booking.canceled_at && @booking.paid_at.nil? %>
-  <%= link_to 'Book new lesson', new_tutor_booking_path(@booking.tutor), class: 'btn btn-primary mb-2' %>
+  <%= link_to 'Book new lesson', new_tutor_booking_path(@booking.tutor), class: 'btn btn-primary mb-2' if current_student %>
 
 <% elsif @booking.canceled_at && @booking.paid_at %>
-  <%= link_to 'Book new lesson', new_tutor_booking_path(@booking.tutor), class: 'btn btn-primary mb-2' %>
   <% if current_tutor %>
     <%= link_to 'Refund lesson', '#', class: 'btn btn-primary mb-2' %>
   <% elsif current_student %>
+    <%= link_to 'Book new lesson', new_tutor_booking_path(@booking.tutor), class: 'btn btn-primary mb-2' %>
     <%= link_to 'Ask refund', '#', class: 'btn btn-primary mb-2' %>
   <% end %>
 
