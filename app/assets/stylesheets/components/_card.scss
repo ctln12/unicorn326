@@ -43,3 +43,94 @@
   display: flex;
   justify-content: space-between;
 }
+
+// ---------- Bookings index ----------
+.booking-card-link {
+  color: #00002F;
+
+  &:hover {
+    text-decoration: none;
+    color: #00002F;
+  }
+}
+
+.booking-card {
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 1px 2px 3px #cecece;
+  padding: 1.2rem 0;
+  margin-bottom: 1rem;
+
+  &:hover {
+    box-shadow: 2px 3px 4px #c1c1c1;
+  }
+}
+
+.booking-card-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.booking-card-date {
+  border-right: 1px solid #00002F;
+
+  span.booking-card-date-day {
+    color:  #575757ff;
+  }
+
+  span.booking-card-date-number {
+    font-weight: bold;
+    color: #00A4FF;
+  }
+}
+
+.booking-card-subject {
+  align-items: flex-start;
+  padding-left: 2.5rem;
+
+  h4 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+}
+
+.booking-card-image {
+  padding-left: 0;
+
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  @include media-breakpoint-up(sm) {
+    padding-left: 15px;
+
+    img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+}
+
+.booking-card-status {
+  align-items: stretch;
+  font-weight: bold;
+  font-size: .9rem;
+  text-align: center;
+  margin-top: 1rem;
+
+  span {
+    background-color: #ffdc9c;
+    padding: .4rem .8rem;
+    border-radius: 2px;
+  }
+
+  @include media-breakpoint-up(sm) {
+    margin: 0;
+  }
+}
