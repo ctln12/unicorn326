@@ -1,25 +1,25 @@
-<div class="container" style="margin: 3rem auto; width: 90%;">
-  <h1 style="margin-bottom: 3rem;">Your Bookings</h1>
+<div id="bookings-list" class="container">
+  <h1>Your Bookings</h1>
 
   <% @bookings.order(date: :desc).each do |booking| %>
     <%= link_to booking_path(booking), class: "booking-card-link" do %>
       <div class="row booking-card">
-        <div class="col-3 col-sm-2 booking-card-section booking-card-date">
+        <div class="col-3 col-sm-2 col-md-2 booking-card-section booking-card-date">
           <span class="booking-card-date-day"><%= booking.date.strftime("%a") %></span>
           <span class="booking-card-date-number"><%= booking.date.strftime("%d") %></span>
           <span><%= booking.date.strftime("%b") %></span>
         </div>
-        <div class="col-6 col-sm-5 booking-card-section booking-card-subject">
+        <div class="col-6 col-sm-4 4col-md-4 booking-card-section booking-card-subject">
           <h4><%= booking.subject.name %></h4>
           <span>
             From <%= booking.start_time.strftime("%k") %>:<%= booking.start_time.strftime("%M") %>
             to <%= booking.end_time.strftime("%k") %>:<%= booking.end_time.strftime("%M") %>
           </span>
         </div>
-        <div class="col-3 col-sm-2 order-sm-2 booking-card-section booking-card-image">
+        <div class="col-3 col-sm-2 order-sm-2 col-md-2 order-md-2 booking-card-section booking-card-image">
           <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo">
         </div>
-        <div class="col col-sm-3 order-sm-1 booking-card-section booking-card-status">
+        <div class="col col-sm-4 order-sm-1 col-md-4 order-md-1 booking-card-section booking-card-status">
           <span class="<%= booking.status[:class] %>"><%= booking.status[:message] %></span>
         </div>
       </div>

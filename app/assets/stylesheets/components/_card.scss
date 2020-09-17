@@ -91,7 +91,7 @@
   padding-left: 2.5rem;
 
   h4 {
-    margin: 0;
+    margin-bottom: .3rem;
     font-weight: bold;
     font-size: 1.5rem;
   }
@@ -108,6 +108,13 @@
   }
 
   @include media-breakpoint-up(sm) {
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
     padding-left: 15px;
 
     img {
@@ -136,20 +143,20 @@
 
 // Color for each status
 .canceled {
-  background-color: #6d757d;
+  background-color: #dfdfdf;
 }
 .completed {
-  background-color: #18a2b8;
+  background-color: #c1f7ff;
 }
 .today {
-  background-color: #1EDD88;
+  background-color: #d4f2cb;
 }
 .coming {
-  background-color: #167FFB;
+  background-color: #b4d7ff;
 }
 .unpaid {
-  background-color: #FFC65A;
+  background-color: #ffe3ad;
 }
 .unconfirmed {
-  background-color: #FD1015;
+  background-color: #ffbbbc;
 }
