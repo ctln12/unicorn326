@@ -1,0 +1,15 @@
+// Bookings index page
+#bookings-list {
+  margin: 3rem auto;
+  width: 90%;
+
+  h1 {
+    margin-bottom: 3rem;
+    font-weight: bold;
+    text-shadow: 1px 2px 3px #cecece;
+  }
+
+  @include media-breakpoint-up(md) {
+    width: 60%;
+  }
+}
