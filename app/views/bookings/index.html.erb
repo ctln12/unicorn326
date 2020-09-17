@@ -20,30 +20,9 @@
           <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo">
         </div>
         <div class="col col-sm-3 order-sm-1 booking-card-section booking-card-status">
-          <% if booking.canceled_at %>
-            <span class="bg-secondary">CANCELED</span>
-          <% else %>
-            <% if booking.paid_at && booking.date < Date.today %>
-              <span class="bg-info">COMPLETED</span>
-            <% elsif booking.paid_at && booking.date == Date.today %>
-              <span class="bg-success">TODAY</span>
-            <% elsif booking.paid_at && booking.date > Date.today %>
-              <span class="bg-primary">COMING SOON</span>
-            <% elsif booking.accepted_at %>
-              <span class="bg-warning">PAYMENT PENDING</span>
-            <% else %>
-              <span class="bg-danger">CONFIRMATION PENDING</span>
-            <% end %>
-          <% end %>
+          <span class="<%= booking.status[:class] %>"><%= booking.status[:message] %></span>
         </div>
       </div>
     <% end %>
   <% end %>
 </div>
-
-<%# <p class='text-secondary'>Canceled</p> %>
-<%# <p class='text-info'>Completed</p> %>
-<%# <p class='text-success'>Today</p> %>
-<%# <p class='text-primary'>Coming soon</p> %>
-<%# <p class='text-warning'>Payment pending</p> %>
-<%# <p class='text-danger'>Confirmation pending</p> %>

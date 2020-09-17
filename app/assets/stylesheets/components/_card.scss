@@ -125,7 +125,6 @@
   margin-top: 1rem;
 
   span {
-    background-color: #ffdc9c;
     padding: .4rem .8rem;
     border-radius: 2px;
   }
@@ -133,4 +132,24 @@
   @include media-breakpoint-up(sm) {
     margin: 0;
   }
+}
+
+// Color for each status
+.canceled {
+  background-color: #6d757d;
+}
+.completed {
+  background-color: #18a2b8;
+}
+.today {
+  background-color: #1EDD88;
+}
+.coming {
+  background-color: #167FFB;
+}
+.unpaid {
+  background-color: #FFC65A;
+}
+.unconfirmed {
+  background-color: #FD1015;
 }
