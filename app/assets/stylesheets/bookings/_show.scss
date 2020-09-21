@@ -1,0 +1,63 @@
+// Steps completed color
+.step-done {
+  color: $maya-blue;
+
+  span {
+    border: 1px solid $maya-blue;
+  }
+}
+
+// Button for each status
+.btn-unpaid {
+  border: 1px solid #ffd685;
+  background-color: #ffd685;
+  padding: .3rem .6rem;
+}
+.btn-unpaid:hover {
+  border: 1px solid #ffe3ad;
+  background-color: #ffe3ad;
+}
+.btn-unconfirmed {
+  border: 1px solid #ffa1a3;
+  background-color: #ffa1a3;
+  padding: .3rem .6rem;
+}
+.btn-unconfirmed:hover {
+  border: 1px solid #ffbbbc;
+  background-color: #ffbbbc;
+}
+.btn-completed {
+  border: 1px solid #9af1ff;
+  background-color: #9af1ff;
+  padding: .3rem .6rem;
+}
+.btn-completed:hover {
+  border: 1px solid #c1f7ff;
+  background-color: #c1f7ff;
+}
+.btn-today {
+  border: 1px solid #bbf0ab;
+  background-color: #bbf0ab;
+  padding: .3rem .6rem;
+}
+.btn-today:hover {
+  border: 1px solid #d4f2cb;
+  background-color: #d4f2cb;
+}
+.btn-canceled {
+  border: 1px solid #00005aff;
+  background-color: #00005aff;
+  color: white;
+  padding: .3rem .6rem;
+}
+.btn-canceled:hover {
+  border: 1px solid #57bfffff;
+  background-color: #57bfffff;
+  color: white;
+}
+.btn-cancel {
+  color: #afafaf;
+}
+.btn-cancel:hover {
+  color: $oxford-blue;
+}
