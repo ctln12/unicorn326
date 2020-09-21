@@ -46,7 +46,26 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-    @booking.update(update_booking_params)
+    @booking.update(booking_params)
+    @booking.booking_price = @booking.tutor.price * (@booking.end_time - @booking.start_time) / 3600
+    @booking.save
+    redirect_to booking_path(@booking)
+  end
+
+  def accept
+    @booking = Booking.find(params[:id])
+    @booking.accepted_at = DateTime.now
+    if @booking.save
+      redirect_to booking_path(@booking)
+    else
+      render "show"
+    end
+  end
+
+  def pay
+    @booking = Booking.find(params[:id])
+    @booking.go_payment = true
+    @booking.save
 
     if @booking.go_payment
       stripe
@@ -79,10 +98,6 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:subject_id, :language_id, :date, :start_time, :end_time)
-  end
-
-  def update_booking_params
-    params.require(:booking).permit(:accepted_at, :go_payment, :canceled_at)
   end
 
   def get_action(booking)
