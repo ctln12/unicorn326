@@ -3,7 +3,7 @@
     <p class="<%= "step-done" if @booking.accepted_at %>"><span class="booking-step-number">1</span> Confirmed</p>
     <p class="<%= "step-done" if @booking.paid_at %>"><span class="booking-step-number">2</span> Paid</p>
     <p class=" <%= "step-done" if @booking.status[:class] == 'completed' %>"><span class="booking-step-number">3</span> Completed</p>
-    <p><%= link_to "Cancel lesson", "#", class: "btn-cancel" unless @booking.canceled_at %></p>
+    <p><%= link_to "Cancel lesson", "/bookings/#{@booking.id}/cancel", class: "btn-cancel" unless @booking.canceled_at %></p>
   </div>
   <div id="booking-informations" class="row">
     <div id="booking-user" class="col-3">
@@ -36,7 +36,7 @@
         <span>Total</span>
         <span><%= @booking.booking_price %> <%= @booking.tutor.currency.name %></span>
       </div>
-      <%= link_to @booking_action, "#{@booking.status[:action]}", method: "#{@booking.status[:class] == 'today' ? 'POST' : 'GET'}", class: "btn btn-#{@booking.status[:class]}" if @booking_action %>
+      <%= link_to @booking_action, @booking.status[:action], method: "#{@booking.status[:class] == 'today' ? 'POST' : 'GET'}", class: "btn btn-#{@booking.status[:class]}" if @booking_action %>
     </div>
   </div>
 </div>
