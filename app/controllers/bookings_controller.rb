@@ -32,8 +32,9 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:id])
-    @lesson = @booking.lesson
+    @user = current_tutor ? @booking.student : @booking.tutor
     @chat = Chat.where(student_id: @booking.student.id).where(tutor_id: @booking.tutor.id).first
+    @booking_action = get_action(@booking)
   end
 
   def edit
@@ -83,6 +84,20 @@ class BookingsController < ApplicationController
 
   def update_booking_params
     params.require(:booking).permit(:accepted_at, :go_payment, :canceled_at)
+  end
+
+  def get_action(booking)
+    if booking.status[:class] == "unconfirmed" && current_tutor
+      "Accept request"
+    elsif booking.status[:class] == "unpaid" && current_student
+      "Pay now"
+    elsif booking.status[:class] == "today"
+      "Go to lesson"
+    elsif booking.status[:class] == "completed"
+      "View documents"
+    elsif booking.status[:class] == "canceled" && current_student
+      "Book new lesson"
+    end
   end
 
   def redirect_if_user_not_signed_in!

@@ -1,109 +1,47 @@
-<h1>
-  <%= @booking.subject.name %> (<%= @booking.language.name %>)
-  <%= link_to '[edit]', edit_booking_path(@booking) unless @booking.canceled_at || @booking.date < DateTime.now %>
-  <% if @booking.canceled_at %>
-    <span class='text-secondary mb-2' style='font-size: 1.6rem'>Lesson canceled</span>
-  <% elsif @booking.accepted_at && @booking.paid_at.nil? %>
-    <span class='text-warning mb-2' style='font-size: 1.5rem'><%= 'Waiting for payment' if current_tutor %></span>
-  <% elsif @booking.accepted_at.nil? %>
-    <span class='text-danger mb-2' style='font-size: 1.5rem'><%= 'Waiting for reply' if current_student %></span>
-  <% end %>
-</h1>
-
-<p>
-  <% if current_student %>
-    <%= link_to tutor_path(@booking.tutor) do %>
-      <%= @booking.tutor.first_name %>
-      <%= @booking.tutor.last_name.first %>.
-    <% end %>
-  <% elsif current_tutor %>
-    <%= @booking.student.first_name %>
-    <%= @booking.student.last_name.first %>.
-  <% end %>
-  [<%= link_to 'send a message', chat_path(@chat) %>]
-</p>
-<hr>
-
-<h4><%= @booking.date.strftime("%A, %d %B %Y") %></h4>
-<h5><%= @booking.start_time.strftime("%H:%M") %> - <%= @booking.end_time.strftime("%H:%M") %></h5>
-<hr>
-
-<p><%= "Accepted: " + @booking.accepted_at.strftime("%A, %d %B %Y") if @booking.accepted_at %></p>
-  <p><%= "Paid: " + @booking.paid_at.strftime("%A, %d %B %Y") if @booking.paid_at %></p>
-  <p><%= "Canceled: " + @booking.canceled_at.strftime("%A, %d %B %Y") if @booking.canceled_at %></p>
-<p><strong>Total Price: <%= @booking.booking_price %> <%= Currency.find(@booking.tutor.currency_id).name %></strong></p>
-
-<% if @booking.accepted_at && @booking.paid_at && @booking.canceled_at.nil? && @booking.date < Time.now %>
-  <%= link_to 'View resources', '#', class: 'btn btn-primary mb-2'  %>
-  <% unless @booking.reviews.exists? %>
-  <%= link_to 'Add review', new_booking_review_path(@booking), class: 'btn btn-primary mb-2' if current_student %>
-  <% end %>
-<% elsif @booking.paid_at && @booking.date > Time.now && @booking.canceled_at.nil? %>
-  <div style="display: inline-flex;">
-    <% if @booking.lesson %>
-      <%= link_to 'Go to lesson', booking_lesson_path(@booking, @lesson), class: "btn btn-success mt-3" %>
-    <% else %>
-      <%= link_to 'Go to lesson', booking_lessons_path(@booking), method: :post, class: "btn btn-success mt-3" %>
-    <% end %>
-
-    <%= simple_form_for [@booking], method: :patch do |f| %>
-      <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
-      <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary ml-3" %>
-    <% end %>
+<div class="container" style="margin: 3rem auto; background-color: white; border-radius: 3px; box-shadow: 1px 2px 3px #cecece; padding: 2rem 3rem;">
+  <div style="display: flex; justify-content: space-between; color: #757575; padding: .5rem 1rem;">
+    <p class="<%= "step-done" if @booking.accepted_at %>"><span style="border: 1px solid #757575; padding: .3rem .7rem; border-radius: 50%;">1</span> Confirmed</p>
+    <p class="<%= "step-done" if @booking.paid_at %>"><span style="border: 1px solid #757575; padding: .3rem .6rem; border-radius: 50%;">2</span> Paid</p>
+    <p class=" <%= "step-done" if @booking.status[:class] == 'completed' %>"><span style="border: 1px solid #757575; padding: .3rem .6rem; border-radius: 50%;">3</span> Completed</p>
+    <p><%= link_to "cancel", "#", class: "btn-cancel" unless @booking.canceled_at %></p>
   </div>
-
-<% elsif @booking.accepted_at && @booking.canceled_at.nil? %>
-  <% if current_tutor %>
-      <%= simple_form_for [@booking], method: :patch do |f| %>
-        <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
-        <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary mb-2" %>
-      <% end %>
-  <% elsif current_student %>
-    <div style="display: inline-flex">
-      <%= simple_form_for [@booking], method: :patch do |f| %>
-        <%= f.input :go_payment, as: :hidden, input_html: { value: true } %>
-        <%= f.submit 'Proceed to payment', class: "btn btn-outline-warning mb-2" %>
-      <% end %>
-      <%= simple_form_for [@booking], method: :patch do |f| %>
-        <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
-        <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary ml-3" %>
-      <% end %>
+  <div class="row" style="margin: 1.5rem 0;">
+    <div class="col-3" style="display: flex; flex-direction: column; align-items: center;">
+      <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo" style="width: 100%; border-radius: 3px; margin-bottom: .5rem;">
+      <div style="width: 100%; display: flex; justify-content: space-between;">
+        <%= link_to tutor_path(@user) do %>
+          <span><%= @user.first_name %> <%= @user.last_name %></span>
+        <% end %>
+        <%= link_to chat_path(@chat) do %>
+          <i class="fas fa-comments"></i>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-<% elsif @booking.accepted_at.nil? && @booking.canceled_at.nil? %>
-  <% if current_tutor %>
-    <div style="display: inline-flex">
-      <%= simple_form_for [@booking], method: :patch do |f| %>
-        <%= f.input :accepted_at, as: :hidden, input_html: { value: DateTime.now } %>
-        <%= f.submit 'Accept request', class: "btn btn-danger mb-2" %>
-      <% end %>
-      <%= simple_form_for [@booking], method: :patch do |f| %>
-        <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
-        <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary ml-3 mb-2" %>
-      <% end %>
+    <div class="col-6" style="display: flex;">
+      <div style="padding: 0 2rem;width: 100%;">
+        <div style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: .5rem;">
+          <h1 style="font-weight: bold;"><%= @booking.subject.name %></h1>
+          <p style="font-size: .8rem; padding: .2rem .4rem; font-weight: normal; margin: 0 0 .3rem .5rem;" class="booking-status <%= @booking.status[:class] %>"><%= @booking.status[:message] %></p>
+        </div>
+        <p><i class="fas fa-comment"></i> <%= @booking.language.name %></p>
+        <p><i class="fas fa-calendar-day"></i> <%= @booking.date.strftime("%A %d %B %Y") %></p>
+        <p><i class="fas fa-clock"></i> <%= @booking.start_time.strftime("%H:%M") %> - <%= @booking.end_time.strftime("%H:%M") %></p>
+      </div>
     </div>
-  <% elsif current_student %>
-    <%= simple_form_for [@booking], method: :patch do |f| %>
-      <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
-      <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary mb-2" %>
-    <% end %>
-  <% end %>
-
-<% elsif @booking.canceled_at && @booking.paid_at.nil? %>
-  <%= link_to 'Book new lesson', new_tutor_booking_path(@booking.tutor), class: 'btn btn-primary mb-2' if current_student %>
-
-<% elsif @booking.canceled_at && @booking.paid_at %>
-  <% if current_tutor %>
-    <%= link_to 'Refund lesson', '#', class: 'btn btn-primary mb-2' %>
-  <% elsif current_student %>
-    <%= link_to 'Book new lesson', new_tutor_booking_path(@booking.tutor), class: 'btn btn-primary mb-2' %>
-    <%= link_to 'Ask refund', '#', class: 'btn btn-primary mb-2' %>
-  <% end %>
-
-<% else %>
-  <%= simple_form_for [@booking], method: :patch do |f| %>
-    <%= f.input :canceled_at, as: :hidden, input_html: { value: DateTime.now } %>
-    <%= f.submit 'Cancel lesson', class: "btn btn-outline-secondary ml-3 mb-2" %>
-  <% end %>
-<% end %>
+    <div class="col-3">
+      <div>
+        <h4 style="margin-bottom: 1.5rem;">Payment Summary</h4>
+        <div style="display:flex; justify-content: space-between;">
+          <span>Price per hour</span>
+          <span><%= @booking.tutor.price %> <%= @booking.tutor.currency.name %></span>
+        </div>
+        <hr>
+        <div style="display:flex; justify-content: space-between; margin-bottom: .5rem;">
+          <span>Total</span>
+          <span><%= @booking.booking_price %> <%= @booking.tutor.currency.name %></span>
+        </div>
+        <%= link_to @booking_action, "#", class: "btn btn-#{@booking.status[:class]}", style: "display: block;" if @booking_action %>
+      </div>
+    </div>
+  </div>
+</div>
