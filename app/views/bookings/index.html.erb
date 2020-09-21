@@ -20,7 +20,7 @@
           <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo">
         </div>
         <div class="col col-sm-4 order-sm-1 col-md-4 order-md-1 booking-card-section booking-card-status">
-          <span class="<%= booking.status[:class] %>"><%= booking.status[:message] %></span>
+          <span class="booking-status <%= booking.status[:class] %>"><%= booking.status[:message] %></span>
         </div>
       </div>
     <% end %>
