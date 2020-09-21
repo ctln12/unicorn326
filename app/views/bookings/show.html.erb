@@ -36,7 +36,7 @@
         <span>Total</span>
         <span><%= @booking.booking_price %> <%= @booking.tutor.currency.name %></span>
       </div>
-      <%= link_to @booking_action, "#", class: "btn btn-#{@booking.status[:class]}" if @booking_action %>
+      <%= link_to @booking_action, "#{@booking.status[:action]}", method: "#{@booking.status[:class] == 'today' ? 'POST' : 'GET'}", class: "btn btn-#{@booking.status[:class]}" if @booking_action %>
     </div>
   </div>
 </div>
