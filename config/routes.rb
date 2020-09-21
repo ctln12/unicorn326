@@ -27,6 +27,11 @@ Rails.application.routes.draw do
   resources :spoken_languages, only: [:index, :new, :create, :destroy]
 
   resources :bookings, only: [:index, :show, :edit, :update] do
+    collection do
+      get '/:id/accept', to: 'bookings#accept'
+      get '/:id/pay', to: 'bookings#pay'
+      get '/:id/cancel', to: 'bookings#cancel'
+    end
     resources :payments, only: :new
     resources :reviews, only: [:new, :create, :edit, :update, :show]
     resources :lessons, only: [:create, :show]

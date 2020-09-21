@@ -10,18 +10,18 @@ class Booking < ApplicationRecord
   validates :date, :start_time, :end_time, :booking_price, presence: true
 
   def status
-    return {class: 'canceled', message: 'CANCELED'} if self.canceled_at
+    return {class: 'canceled', message: 'CANCELED', action: "/tutors/#{tutor.id}/bookings/new"} if self.canceled_at
 
     if self.paid_at && self.date < Date.today
-      {class: 'completed', message: 'COMPLETED'}
+      {class: 'completed', message: 'COMPLETED', action: '#'}
     elsif self.paid_at && self.date == Date.today
-      {class: 'today', message: 'TODAY'}
+      {class: 'today', message: 'TODAY', action: "/bookings/#{id}/lessons"}
     elsif self.paid_at && self.date > Date.today
       {class: 'coming', message: 'COMING SOON'}
     elsif self.accepted_at
-      {class: 'unpaid', message: 'PAYMENT PENDING'}
+      {class: 'unpaid', message: 'PAYMENT PENDING', action: "/bookings/#{id}/pay"}
     else
-      {class: 'unconfirmed', message: 'CONFIRMATION PENDING'}
+      {class: 'unconfirmed', message: 'CONFIRMATION PENDING', action: "/bookings/#{id}/accept"}
     end
   end
 end

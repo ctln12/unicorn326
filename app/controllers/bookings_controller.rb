@@ -32,8 +32,8 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:id])
-    @lesson = @booking.lesson
     @chat = Chat.where(student_id: @booking.student.id).where(tutor_id: @booking.tutor.id).first
+    @booking_action = get_action(@booking)
   end
 
   def edit
@@ -46,12 +46,42 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-    @booking.update(update_booking_params)
+    @booking.update(booking_params)
+    @booking.booking_price = @booking.tutor.price * (@booking.end_time - @booking.start_time) / 3600
+    @booking.save
+    redirect_to booking_path(@booking)
+  end
+
+  def accept
+    @booking = Booking.find(params[:id])
+    @booking.accepted_at = DateTime.now
+    if @booking.save
+      redirect_to booking_path(@booking)
+    else
+      render "show"
+    end
+  end
+
+  def pay
+    @booking = Booking.find(params[:id])
+    @booking.go_payment = true
+    @booking.save
 
     if @booking.go_payment
       stripe
     else
       redirect_to bookings_path
+    end
+  end
+
+  def cancel
+    @booking = Booking.find(params[:id])
+    @booking.canceled_at = DateTime.now
+    if @booking.save
+      redirect_to booking_path(@booking)
+    else
+      flash.now[:alert] = "You can't cancel a lesson on too short notice"
+      render "show"
     end
   end
 
@@ -81,8 +111,18 @@ class BookingsController < ApplicationController
     params.require(:booking).permit(:subject_id, :language_id, :date, :start_time, :end_time)
   end
 
-  def update_booking_params
-    params.require(:booking).permit(:accepted_at, :go_payment, :canceled_at)
+  def get_action(booking)
+    if booking.status[:class] == "unconfirmed" && current_tutor
+      "Accept request"
+    elsif booking.status[:class] == "unpaid" && current_student
+      "Pay now"
+    elsif booking.status[:class] == "today"
+      "Go to lesson"
+    elsif booking.status[:class] == "completed"
+      "View documents"
+    elsif booking.status[:class] == "canceled" && current_student
+      "Book new lesson"
+    end
   end
 
   def redirect_if_user_not_signed_in!
