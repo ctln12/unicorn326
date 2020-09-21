@@ -1,4 +1,26 @@
-// Steps completed color
+// Bookings show page
+#booking-show {
+  margin: 3rem auto;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 1px 2px 3px #cecece;
+  padding: 2rem 3rem;
+}
+
+// Booking steps section
+#booking-steps {
+  display: flex;
+  justify-content: space-between;
+  color: #757575;
+  padding: .5rem 1rem;
+}
+
+.booking-step-number {
+  border: 1px solid #757575;
+  padding: .3rem .7rem;
+  border-radius: 50%;
+}
+
 .step-done {
   color: $maya-blue;
 
@@ -7,7 +29,83 @@
   }
 }
 
-// Button for each status
+// Booking informations section
+#booking-informations {
+  margin: 1.5rem 0;
+}
+
+// Booking recipient section
+#booking-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 100%;
+    border-radius: 3px;
+    margin-bottom: .5rem;
+  }
+}
+
+.booking-user-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    color: $oxford-blue;
+
+    &:hover {
+      text-decoration: none;
+      color: $maya-blue;
+    }
+  }
+}
+
+// Booking details section
+#booking-details {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.subject-status {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: .5rem;
+
+  h1 {
+    font-weight: bold;
+  }
+
+  p {
+    font-size: .8rem;
+    padding: .2rem .4rem;
+    font-weight: normal;
+    margin: 0 0 .3rem .5rem;
+  }
+}
+
+// Booking payment section
+#booking-payment {
+
+  h4 {
+    margin-bottom: 1.5rem;
+  }
+
+  a {
+    display: block;
+    margin-top: 1rem;
+  }
+}
+
+.booking-price {
+  display:flex;
+  justify-content: space-between;
+}
+
 .btn-unpaid {
   border: 1px solid #ffd685;
   background-color: #ffd685;
