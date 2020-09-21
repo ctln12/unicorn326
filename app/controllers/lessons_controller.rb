@@ -5,18 +5,22 @@ class LessonsController < ApplicationController
 
   def create
     @booking = Booking.find(params[:booking_id])
-    @lesson = Lesson.new()
-    @lesson.booking = @booking
-    session = @opentok.create_session
-    opentok_session_id = session.session_id
-    @lesson.opentok_session_id = opentok_session_id
-    opentok_token = @opentok.generate_token(opentok_session_id)
-    @lesson.opentok_token = opentok_token
 
-    if @lesson.save || !@lesson.id.nil?
-      redirect_to booking_lesson_path(@booking, @lesson)
+    if @booking.lesson
+      redirect_to booking_lesson_path(@booking, @booking.lesson)
     else
-      redirect_to booking_path(@booking)
+      @lesson = Lesson.new()
+      @lesson.booking = @booking
+      session = @opentok.create_session
+      opentok_session_id = session.session_id
+      @lesson.opentok_session_id = opentok_session_id
+      opentok_token = @opentok.generate_token(opentok_session_id)
+      @lesson.opentok_token = opentok_token
+      if @lesson.save
+        redirect_to booking_lesson_path(@booking, @lesson)
+      else
+        render "bookings/show"
+      end
     end
   end
 
