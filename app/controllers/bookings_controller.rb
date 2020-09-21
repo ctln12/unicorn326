@@ -32,7 +32,6 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:id])
-    @user = current_tutor ? @booking.student : @booking.tutor
     @chat = Chat.where(student_id: @booking.student.id).where(tutor_id: @booking.tutor.id).first
     @booking_action = get_action(@booking)
   end
