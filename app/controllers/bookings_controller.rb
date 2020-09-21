@@ -74,6 +74,17 @@ class BookingsController < ApplicationController
     end
   end
 
+  def cancel
+    @booking = Booking.find(params[:id])
+    @booking.canceled_at = DateTime.now
+    if @booking.save
+      redirect_to booking_path(@booking)
+    else
+      flash.now[:alert] = "You can't cancel a lesson on too short notice"
+      render "show"
+    end
+  end
+
   private
 
   def stripe
