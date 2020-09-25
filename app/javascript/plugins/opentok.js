@@ -1,11 +1,10 @@
-const initOpenTok = () => {
+const initOpentok = () => {
   const videosContainer = document.getElementById('videos');
 
   if (videosContainer) {
     console.log("Hello from OpenTok!");
     // replace these values with those generated in your TokBox Account
     var opentokApiKey = process.env.OPENTOK_API_KEY;
-    console.log(opentokApiKey);
     var videosData = videosContainer.dataset;
     var opentokSessionId = videosData.opentokSessionId;
     console.log(opentokSessionId);
@@ -54,4 +53,4 @@ const initOpenTok = () => {
   }
 }
 
-export { initOpenTok };
+export { initOpentok };

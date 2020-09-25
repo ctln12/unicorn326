@@ -3,9 +3,9 @@ import "bootstrap-select";
 
 require('dotenv').config()
 
-import { initOpenTok } from "./lesson";
+import { initOpentok } from "../plugins/opentok";
 import { initAlgoliasearch } from "../plugins/algoliasearch";
 import "../plugins/flatpickr";
 
-initOpenTok();
+initOpentok();
 initAlgoliasearch();
