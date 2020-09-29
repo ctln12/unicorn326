@@ -1,9 +1,10 @@
 const initOpentok = () => {
-  const videosContainer = document.getElementById('videos');
+  const videosContainer = document.getElementById("videos");
 
   if (videosContainer) {
-    const startCallButton = document.getElementById('start-call');
-    const endCallButton = document.getElementById('end-call');
+    const startCallButton = document.getElementById("start-call");
+    const callButtonsContainer = document.getElementById("call-buttons");
+    const endCallButton = document.getElementById("end-call");
     var timer;
 
     const opentokApiKey = process.env.OPENTOK_API_KEY;
@@ -11,28 +12,61 @@ const initOpentok = () => {
     const opentokToken = videosContainer.dataset.opentokToken;
 
     // Event listeners
-    startCallButton.addEventListener("click", (event) => {
-      event.currentTarget.setAttribute("hidden", "");
-      videosContainer.removeAttribute("hidden");
-      initializeSession();
+    videosContainer.addEventListener("mousemove", () => {
+        callButtonsContainer.removeAttribute("hidden");
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          callButtonsContainer.setAttribute("hidden", "");
+        }, 750);
     });
-    endCallButton.addEventListener("mouseover", (event) => {
+    callButtonsContainer.addEventListener("mouseover", (event) => {
       event.currentTarget.removeAttribute("hidden");
       clearTimeout(timer);
     });
-    endCallButton.addEventListener("click", (event) => {
+    startCallButton.addEventListener("click", (event) => {
       event.currentTarget.setAttribute("hidden", "");
+      videosContainer.removeAttribute("hidden");
+      // initializeSession();
+    });
+    endCallButton.addEventListener("click", (event) => {
+      callButtonsContainer.setAttribute("hidden", "");
       startCallButton.removeAttribute("hidden");
       videosContainer.setAttribute("hidden", "");
-      disconnect();
+      // disconnect();
     });
-    videosContainer.addEventListener("mousemove", () => {
-        endCallButton.removeAttribute("hidden");
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-          endCallButton.setAttribute("hidden", "");
-        }, 750);
-    });
+
+    // Screen-sharing
+    function screenSharing() {
+      OT.checkScreenSharingCapability(function (response) {
+        if (!response.supported || response.extensionRegistered === false) {
+          // This browser does not support screen sharing
+          handleError;
+        } else if (response.extensionInstalled === false) {
+          // Prompt to install the extension.
+          alert("Please install the extension for screen-sharing.");
+        } else {
+          // Screen sharing is available. Publish the screen.
+          console.log("Start screen-sharing.");
+          var publisher = OT.initPublisher(
+            "screen-preview",
+            { videoSource: "screen" },
+            function (error) {
+              if (error) {
+                // Look at error.message to see what went wrong.
+                handleError(error);
+              } else {
+                session.publish(publisher, function (error) {
+                  if (error) {
+                    // Look error.message to see what went wrong.
+                    handleError(error);
+                  }
+                });
+              }
+            }
+          );
+        }
+      });
+    }
 
     // Handling all of our errors here by alerting them
     function handleError(error) {

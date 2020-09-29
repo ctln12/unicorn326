@@ -1,9 +1,14 @@
 <%= link_to "back to booking", booking_path(@booking), style: "padding: 1rem 1.3rem; display: block; color: #6f6f6f;" %>
 <span id="start-call" class="btn btn-success" style="font-size: 1.5rem; padding: .6rem 1rem; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 11;"><i class="fas fa-phone phone-start" style="transform: rotate(90deg);"></i></span>
-<span id="end-call" class="btn btn-danger" style="font-size: 1.5rem; padding: .6rem 1rem .5rem 1rem; border-radius: 50%; position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%); z-index: 11;" hidden><i class="fas fa-phone phone-end" style="transform: rotate(225deg);"></i></span>
+<div id="call-buttons" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%); z-index: 11; width: 20%; display: flex; justify-content: space-between;" hidden>
+  <span id="recording" class="btn btn-light" style="font-size: 1rem; padding: 1rem 1.2rem .9rem 1.2rem; border-radius: 50%;"><i class="fas fa-circle" style="color: red;"></i></span>
+  <span id="end-call" class="btn btn-danger" style="font-size: 1.5rem; padding: .6rem 1rem .5rem 1rem; border-radius: 50%;"><i class="fas fa-phone phone-end" style="transform: rotate(225deg);"></i></span>
+  <span id="screen-sharing" class="btn btn-primary" style="font-size: 1.5rem; padding: .6rem 1rem .5rem 1rem; border-radius: 50%;"><i class="fas fa-desktop"></i></span>
+</div>
 <div  id="videos"
       data-opentok-session-id="<%= @lesson.opentok_session_id %>"
       data-opentok-token="<%= @opentok_token %>" hidden>
   <div id="subscriber"></div>
   <div id="publisher"></div>
+  <div id="screen-preview"></div>
 </div>
