@@ -17,6 +17,7 @@ class LessonsController < ApplicationController
 
   def show
     @lesson = Lesson.find(params[:id])
+    @booking = @lesson.booking
 
     opentok = OpenTok::OpenTok.new(ENV['OPENTOK_API_KEY'], ENV['OPENTOK_SECRET_KEY'])
     @opentok_token = opentok.generate_token(@lesson.opentok_session_id)

@@ -2,17 +2,37 @@ const initOpentok = () => {
   const videosContainer = document.getElementById('videos');
 
   if (videosContainer) {
-    console.log("Hello from OpenTok!");
-    // replace these values with those generated in your TokBox Account
-    var opentokApiKey = process.env.OPENTOK_API_KEY;
-    var videosData = videosContainer.dataset;
-    var opentokSessionId = videosData.opentokSessionId;
-    console.log(opentokSessionId);
-    var opentokToken = videosData.opentokToken;
-    console.log(opentokToken);
+    const startCallButton = document.getElementById('start-call');
+    const endCallButton = document.getElementById('end-call');
+    var timer;
 
-    // (optional) add server code here
-    initializeSession();
+    const opentokApiKey = process.env.OPENTOK_API_KEY;
+    const opentokSessionId = videosContainer.dataset.opentokSessionId;
+    const opentokToken = videosContainer.dataset.opentokToken;
+
+    // Event listeners
+    startCallButton.addEventListener("click", (event) => {
+      event.currentTarget.setAttribute("hidden", "");
+      videosContainer.removeAttribute("hidden");
+      initializeSession();
+    });
+    endCallButton.addEventListener("mouseover", (event) => {
+      event.currentTarget.removeAttribute("hidden");
+      clearTimeout(timer);
+    });
+    endCallButton.addEventListener("click", (event) => {
+      event.currentTarget.setAttribute("hidden", "");
+      startCallButton.removeAttribute("hidden");
+      videosContainer.setAttribute("hidden", "");
+      disconnect();
+    });
+    videosContainer.addEventListener("mousemove", () => {
+        endCallButton.removeAttribute("hidden");
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          endCallButton.setAttribute("hidden", "");
+        }, 750);
+    });
 
     // Handling all of our errors here by alerting them
     function handleError(error) {
@@ -47,8 +67,15 @@ const initOpentok = () => {
           handleError(error);
         } else {
           session.publish(publisher, handleError);
+          console.log("Connected to the session.");
         }
       });
+    }
+
+    function disconnect() {
+      var session = OT.initSession(opentokApiKey, opentokSessionId);
+      session.disconnect();
+      console.log("Disconnected from the session.");
     }
   }
 }
