@@ -1,3 +1,66 @@
+// Lessons show page
+.lessons-show-back-button {
+  padding: 1rem 1.3rem;
+  display: block;
+  color: #6f6f6f;
+}
+
+// Call buttons
+.call-button {
+  font-size: 1.5rem;
+  padding: .6rem .9rem .5rem .9rem;
+  border-radius: 50%;
+  margin: 0 .8rem;
+}
+
+.button-position {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+}
+
+#start-call {
+  padding: .6rem 1rem;
+  margin: 0;
+
+  i.fas.fa-phone.phone-start {
+    transform: rotate(90deg);
+  }
+}
+
+#call-buttons {
+  top: 90%;
+  left: 50%;
+  margin: 0 auto;
+}
+
+#hide-video, #mute {
+  padding: .6rem .85rem .5rem .85rem;
+
+  i.fas.fa-video {
+    padding: 0 .1rem;
+  }
+
+  i.fas.fa-microphone {
+    padding: 0 .42rem;
+  }
+}
+#end-call {
+  transform: rotate(225deg);
+  padding: .6rem 1rem .5rem 1rem;
+}
+#recording {
+  font-size: 1rem;
+  padding: 1rem 1.2rem .9rem 1.2rem;
+
+  i.fas.fa-circle {
+    color: red;
+  }
+}
+
+// Video frames
 #videos {
   position: absolute;
   top: 0;
