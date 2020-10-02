@@ -18,6 +18,17 @@
   z-index: 10;
   background-color: gray;
 }
+#subscriber.subscriber-small {
+  width: 360px;
+  top: auto;
+  left: auto;
+  height: 240px;
+  bottom: 10px;
+  right: 10px;
+  z-index: 11;
+  border: 3px solid white;
+  border-radius: 3px;
+}
 
 // small screen
 #publisher {
@@ -29,4 +40,29 @@
   z-index: 100;
   border: 3px solid white;
   border-radius: 3px;
+}
+
+// Screen-sharing
+#screen-preview {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#screen-preview .OT_publisher {
+  position: absolute;
+  width: 360px;
+  height: 240px;
+  bottom: 10px;
+  right: 10px;
+  z-index: 100;
+  border: 3px solid white;
+  border-radius: 3px;
+}
+#screen-preview .OT_subscriber {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
 }
