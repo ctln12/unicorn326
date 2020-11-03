@@ -11,7 +11,6 @@
       <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "chat-user-banner-avatar" %>
       <div class="chat-user-banner-infos">
         <h5 class="chat-user-banner-name"><%= student_signed_in? ? @chat.tutor.first_name : @chat.student.first_name %></h5>
-        <p class="chat-user-banner-status">Online</p>
       </div>
     </div>
 
