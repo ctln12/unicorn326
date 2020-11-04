@@ -1,8 +1,10 @@
 <% if @chats.empty? %>
-  <div class="chat-container">
-    <h1>Chats</h1>
-    <p>No chats yet</p>
-    <%= link_to "Browse tutors", tutors_path, class: "btn btn-primary" if current_student %>
+  <div class="chat-container no-chats-container">
+    <div class="no-chats-card">
+      <%= image_tag "no-chats.svg", alt: "no chat image" %>
+      <h4>No chats yet</h4>
+      <%= link_to "Browse tutors", tutors_path, class: "btn btn-dark-blue mt-3" if current_student %>
+    </div>
   </div>
 <% else %>
   <div class="row chat-container">
