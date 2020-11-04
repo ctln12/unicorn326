@@ -1,5 +1,5 @@
 <% if @chats.empty? %>
-  <div class="row chat-container">
+  <div class="chat-container">
     <h1>Chats</h1>
     <p>No chats yet</p>
     <%= link_to "Browse tutors", tutors_path, class: "btn btn-primary" if current_student %>
