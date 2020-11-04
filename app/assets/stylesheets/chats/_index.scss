@@ -1,0 +1,20 @@
+.no-chats-container {
+  height: calc(100vh - 78px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-chats-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  padding: 1.4rem 2.5rem 2rem 2.5rem;
+  margin-bottom: 5rem;
+  width: 380px;
+  height: 330px;
+}
