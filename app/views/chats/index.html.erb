@@ -1,9 +1,13 @@
 <% if @chats.empty? %>
-  <h1>Chats</h1>
-  <p>No chats yet</p>
-  <%= link_to "Browse tutors", tutors_path, class: "btn btn-primary" if current_student %>
+  <div class="chat-container no-chats-container">
+    <div class="no-chats-card">
+      <%= image_tag "no-chats.svg", alt: "no chat image" %>
+      <h4>No chats yet</h4>
+      <%= link_to "Browse tutors", tutors_path, class: "btn btn-dark-blue mt-3" if current_student %>
+    </div>
+  </div>
 <% else %>
-  <div class="row mt-1">
+  <div class="row chat-container">
     <div id="chat-users" class="col-3">
       <% if student_signed_in? %>
         <h3><strong>Tutors</strong></h3>
@@ -20,7 +24,6 @@
         <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "chat-user-banner-avatar" %>
         <div class="chat-user-banner-infos">
           <h5 class="chat-user-banner-name"><%= student_signed_in? ? @chat.tutor.first_name : @chat.student.first_name %></h5>
-          <p class="chat-user-banner-status">Online</p>
         </div>
       </div>
 
