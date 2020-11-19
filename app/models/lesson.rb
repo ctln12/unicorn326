@@ -9,7 +9,7 @@ class Lesson < ApplicationRecord
 
   def set_opentok_session_id
     opentok = OpenTok::OpenTok.new(ENV['OPENTOK_API_KEY'], ENV['OPENTOK_SECRET_KEY'])
-    session = opentok.create_session :archive_mode => :always, :media_mode => :routed
+    session = opentok.create_session(media_mode: :routed)
     self.opentok_session_id = session.session_id
   end
 end
