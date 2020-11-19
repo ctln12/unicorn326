@@ -66,6 +66,14 @@ const initOpentok = () => {
         const subscriberContainer = document.getElementById("subscriber");
           subscriberContainer.classList.remove("subscriber-small");
           console.log("Show subscriber in big window.");
+      },
+      archiveStarted: function archiveStarted(event) {
+        archiveID = event.id;
+        console.log('Archive started ' + archiveID);
+      },
+      archiveStopped: function archiveStopped(event) {
+        archiveID = event.id;
+        console.log('Archive stopped ' + archiveID);
       }
     });
     publisher = OT.initPublisher(
@@ -156,6 +164,31 @@ const initOpentok = () => {
     });
   };
 
+  const startArchive = (opentokSessionID) => {
+    fetch(`${baseUrl}/archive/start`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ 'sessionId': opentokSessionID })
+    })
+    .then(response => response.json())
+    .then((data) => {
+      console.log("Recording started...");
+      console.log(data);
+    });
+  }
+
+  const stopArchive = (archiveID) => {
+    // $.post(SAMPLE_SERVER_BASE_URL + '/archive/' + archiveID + '/stop');
+    fetch(`${baseUrl}/archive/${archiveID}/stop`, { method: "POST" })
+    .then(response => response.json())
+    .then((data) => {
+      console.log("Recording stopped");
+      console.log(data);
+    });
+  }
+
   if (videosContainer) {
     const callButtonsContainer = document.getElementById("call-buttons");
     const startCallButton = document.getElementById("start-call");
@@ -175,6 +208,9 @@ const initOpentok = () => {
     var muteButton = document.getElementById("mute");
     var hideVideoButton = document.getElementById("hide-video");
 
+    var baseUrl = process.env.BASE_URL;
+    var archiveID;
+
     videosContainer.addEventListener("mousemove", () => {
       callButtonsContainer.removeAttribute("hidden");
       clearTimeout(timer);
@@ -190,11 +226,13 @@ const initOpentok = () => {
       event.currentTarget.setAttribute("hidden", "");
       videosContainer.removeAttribute("hidden");
       connectToSession(opentokToken);
+      startArchive(opentokSessionID);
     });
     endCallButton.addEventListener("click", (event) => {
       callButtonsContainer.setAttribute("hidden", "");
       videosContainer.setAttribute("hidden", "");
       stopPublishing();
+      stopArchive(archiveID);
     });
     screenSharingButton.addEventListener("click", (event) => {
       screenSharing();
