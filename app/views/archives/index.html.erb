@@ -2,6 +2,6 @@
 
 <ul>
   <% @archives.each do |archive| %>
-    <li>Id: <%= archive.id %> | Status: <%= archive.status %> | Created: <%= archive.createdAt %></li>
+    <li>Id: <%= archive.id %> | Status: <%= archive.status %> | <a href="<%= archive.url %>">Download</a></li>
   <% end %>
 </ul>
