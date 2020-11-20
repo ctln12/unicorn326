@@ -6,12 +6,17 @@
   <span id="mute" class="btn btn-secondary call-button"><i class="fas fa-microphone-slash"></i></span>
   <span id="end-call" class="btn btn-danger call-button"><i class="fas fa-phone phone-end"></i></span>
   <span id="screen-sharing" class="btn btn-primary call-button"><i class="fas fa-desktop"></i></span>
+  <% if current_student %>
+    <span id="start-recording" class="btn btn-light call-button"><i class="fas fa-circle"></i></span>
+    <span id="stop-recording" class="btn btn-light call-button" hidden><i class="fas fa-square"></i></span>
+  <% end %>
 </div>
 
 <div  id="videos"
       class="frame-position"
       data-opentok-session-id="<%= @lesson.opentok_session_id %>"
-      data-opentok-token="<%= @opentok_token %>" hidden>
+      data-opentok-token="<%= @opentok_token %>"
+      data-user-role="<%= @user_role.to_json %>" hidden>
   <div id="subscriber" class="frame-position"></div>
   <div id="publisher" class="frame-position"></div>
   <div id="screen-preview" class="frame-position"></div>
