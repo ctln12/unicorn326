@@ -50,5 +50,12 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  resources :archives, only: [:index] do
+    collection do
+      post '/start', to: 'archives#start', as: 'start'
+      post '/:id/stop', to: 'archives#stop', as: 'stop'
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
