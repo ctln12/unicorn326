@@ -1,0 +1,7 @@
+<h1>Archives</h1>
+
+<ul>
+  <% @archives.each do |archive| %>
+    <li>Id: <%= archive.id %> | Status: <%= archive.status %> | Created: <%= archive.createdAt %></li>
+  <% end %>
+</ul>
