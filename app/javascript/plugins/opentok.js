@@ -64,8 +64,8 @@ const initOpentok = () => {
       streamDestroyed: function(event) {
         console.log("Stream destroyed. Reason: ", event.reason);
         const subscriberContainer = document.getElementById("subscriber");
-          subscriberContainer.classList.remove("subscriber-small");
-          console.log("Show subscriber in big window.");
+        subscriberContainer.classList.remove("subscriber-small");
+        console.log("Show subscriber in big window.");
       },
       archiveStarted: function archiveStarted(event) {
         archiveID = event.id;
@@ -76,6 +76,7 @@ const initOpentok = () => {
         console.log('Archive stopped ' + archiveID);
       }
     });
+
     publisher = OT.initPublisher(
       'publisher',
       {
@@ -84,6 +85,7 @@ const initOpentok = () => {
         width: "100%",
         height: "100%"
       });
+
     publisher.on({
       streamCreated: function (event) {
         console.log("Publisher started streaming.");
@@ -115,6 +117,7 @@ const initOpentok = () => {
           + event.reason);
       }
     });
+
     session.connect(token, function (error) {
       if (error) {
         console.log("Error connecting: ", error.name, error.message);
@@ -164,28 +167,37 @@ const initOpentok = () => {
     });
   };
 
-  const startArchive = (opentokSessionID) => {
-    fetch(`${baseUrl}/archive/start`, {
+  const startArchive = (sessionId) => {
+    fetch(`${baseUrl}/archives/start`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ 'sessionId': opentokSessionID })
+      body: JSON.stringify({ archive: { session_id: sessionId }, authenticity_token: document.getElementsByName('csrf-token')[0].content })
     })
     .then(response => response.json())
     .then((data) => {
-      console.log("Recording started...");
-      console.log(data);
+      console.log("From startArchive function: ", data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
     });
   }
 
-  const stopArchive = (archiveID) => {
-    // $.post(SAMPLE_SERVER_BASE_URL + '/archive/' + archiveID + '/stop');
-    fetch(`${baseUrl}/archive/${archiveID}/stop`, { method: "POST" })
+  const stopArchive = (archiveId) => {
+    fetch(`${baseUrl}/archives/${archiveId}/stop`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ authenticity_token: document.getElementsByName('csrf-token')[0].content })
+    })
     .then(response => response.json())
     .then((data) => {
-      console.log("Recording stopped");
-      console.log(data);
+      console.log("From stopArchive function: ", data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
     });
   }
 
@@ -194,6 +206,8 @@ const initOpentok = () => {
     const startCallButton = document.getElementById("start-call");
     const endCallButton = document.getElementById("end-call");
     const screenSharingButton = document.getElementById("screen-sharing");
+    const startRecordingButton = document.getElementById("start-recording");
+    const stopRecordingButton = document.getElementById("stop-recording");
 
     const opentokApiKey = process.env.OPENTOK_API_KEY;
     const opentokSessionID = videosContainer.dataset.opentokSessionId;
@@ -226,17 +240,29 @@ const initOpentok = () => {
       event.currentTarget.setAttribute("hidden", "");
       videosContainer.removeAttribute("hidden");
       connectToSession(opentokToken);
-      startArchive(opentokSessionID);
     });
     endCallButton.addEventListener("click", (event) => {
       callButtonsContainer.setAttribute("hidden", "");
       videosContainer.setAttribute("hidden", "");
       stopPublishing();
-      stopArchive(archiveID);
     });
     screenSharingButton.addEventListener("click", (event) => {
       screenSharing();
     });
+    if (startRecordingButton) {
+      startRecordingButton.addEventListener("click", (event) => {
+        startArchive(opentokSessionID);
+        startRecordingButton.setAttribute("hidden", "");
+        stopRecordingButton.removeAttribute("hidden");
+      });
+    }
+    if (stopRecordingButton) {
+      stopRecordingButton.addEventListener("click", (event) => {
+        stopArchive(archiveID);
+        stopRecordingButton.setAttribute("hidden", "");
+        startRecordingButton.removeAttribute("hidden");
+      });
+    }
   }
 };
 
