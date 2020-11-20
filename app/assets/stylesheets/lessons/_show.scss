@@ -51,11 +51,19 @@
   transform: rotate(225deg);
   padding: .6rem 1rem .5rem 1rem;
 }
-#recording {
+#start-recording {
   font-size: 1rem;
   padding: 1rem 1.2rem .9rem 1.2rem;
 
   i.fas.fa-circle {
+    color: red;
+  }
+}
+#stop-recording {
+  font-size: 1rem;
+  padding: 1rem 1.27rem .9rem 1.27rem;
+
+  i.fas.fa-square {
     color: red;
   }
 }
