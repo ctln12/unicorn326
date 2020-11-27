@@ -1,4 +1,22 @@
-<div id="videos" data-opentok-session-id="<%= @opentok_session_id %>" data-opentok-token="<%= @opentok_token %>">
-  <div id="subscriber"></div>
-  <div id="publisher"></div>
+<%= link_to "back to booking", booking_path(@booking), class:"lessons-show-back-button" %>
+<span id="start-call" class="btn btn-success call-button button-position"><i class="fas fa-phone phone-start"></i></span>
+
+<div id="call-buttons" class="button-position " hidden>
+  <span id="hide-video" class="btn btn-secondary call-button"><i class="fas fa-video-slash"></i></span>
+  <span id="mute" class="btn btn-secondary call-button"><i class="fas fa-microphone-slash"></i></span>
+  <span id="end-call" class="btn btn-danger call-button"><i class="fas fa-phone phone-end"></i></span>
+  <span id="screen-sharing" class="btn btn-primary call-button"><i class="fas fa-desktop"></i></span>
+  <% if current_student %>
+    <span id="start-recording" class="btn btn-light call-button"><i class="fas fa-circle"></i></span>
+    <span id="stop-recording" class="btn btn-light call-button" hidden><i class="fas fa-square"></i></span>
+  <% end %>
+</div>
+
+<div  id="videos"
+      class="frame-position"
+      data-opentok-session-id="<%= @lesson.opentok_session_id %>"
+      data-opentok-token="<%= @opentok_token %>" hidden>
+  <div id="subscriber" class="frame-position"></div>
+  <div id="publisher" class="frame-position"></div>
+  <div id="screen-preview" class="frame-position"></div>
 </div>

@@ -1,32 +1,137 @@
-#videos {
+// Lessons show page
+.lessons-show-back-button {
+  padding: 1rem 1.3rem;
+  display: block;
+  color: #6f6f6f;
+}
+
+// Call buttons
+.call-button {
+  font-size: 1.5rem;
+  padding: .6rem .9rem .5rem .9rem;
+  border-radius: 50%;
+  margin: 0 .8rem;
+}
+
+.button-position {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+}
+
+#start-call {
+  padding: .6rem 1rem;
+  margin: 0;
+
+  i.fas.fa-phone.phone-start {
+    transform: rotate(90deg);
+  }
+}
+
+#call-buttons {
+  top: 90%;
+  left: 50%;
+  margin: 0 auto;
+}
+
+#hide-video, #mute {
+  padding: .6rem .85rem .5rem .85rem;
+
+  i.fas.fa-video {
+    padding: 0 .1rem;
+  }
+
+  i.fas.fa-microphone {
+    padding: 0 .42rem;
+  }
+}
+#end-call {
+  transform: rotate(225deg);
+  padding: .6rem 1rem .5rem 1rem;
+}
+#start-recording {
+  font-size: 1rem;
+  padding: 1rem 1.2rem .9rem 1.2rem;
+
+  i.fas.fa-circle {
+    color: red;
+  }
+}
+#stop-recording {
+  font-size: 1rem;
+  padding: 1rem 1.27rem .9rem 1.27rem;
+
+  i.fas.fa-square {
+    color: red;
+  }
+}
+
+// Video frames
+.frame-position {
+  position: absolute;
   height: 100%;
   width: 100%;
+}
+
+#videos {
+  top: 0;
+  left: 0;
   margin-left: auto;
   margin-right: auto;
 }
 
 // big screen
 #subscriber {
-  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   z-index: 10;
   background-color: gray;
+}
+#subscriber.subscriber-small {
+  top: auto;
+  left: auto;
+  bottom: 10px;
+  right: 10px;
+  width: 260px;
+  height: 180px;
+  z-index: 11;
+
+  border: 3px solid white;
+  border-radius: 3px;
 }
 
 // small screen
 #publisher {
-  position: absolute;
-  width: 360px;
-  height: 240px;
   bottom: 10px;
   left: 10px;
+  width: 260px;
+  height: 180px;
+  z-index: 100;
+
+  border: 3px solid white;
+  border-radius: 3px;
+}
+
+#screen-preview .OT_publisher,
+#screen-preview .OT_subscriber {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+#screen-preview .OT_publisher {
+  bottom: 10px;
+  right: 10px;
+  width: 260px !important;
+  height: 180px !important;
   z-index: 100;
   border: 3px solid white;
   border-radius: 3px;
+}
+#screen-preview .OT_subscriber {
+  top: 0;
+  left: 0;
 }
