@@ -115,7 +115,7 @@ class BookingsController < ApplicationController
     if booking.status[:class] == "unconfirmed" && current_tutor
       "Accept request"
     elsif booking.status[:class] == "unpaid" && current_student
-      "Pay now"
+      "Proceed to payment"
     elsif booking.status[:class] == "today"
       "Go to lesson"
     elsif booking.status[:class] == "completed"
