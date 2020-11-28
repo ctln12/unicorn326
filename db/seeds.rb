@@ -407,8 +407,7 @@ chat2 = Chat.new(student: booking2.student, tutor: booking2.tutor)
 chat2.save
 session = opentok.create_session
 opentok_session_id = session.session_id
-opentok_token = opentok.generate_token(opentok_session_id)
-lesson = Lesson.new(video_url: "video", booking: booking2, opentok_session_id: opentok_session_id, opentok_token: opentok_token)
+lesson = Lesson.new(video_url: "video", booking: booking2, opentok_session_id: opentok_session_id)
 lesson.save!
 
 # Accepted / Not paid
@@ -543,8 +542,7 @@ end
   chat.save
   session = opentok.create_session
   opentok_session_id = session.session_id
-  opentok_token = opentok.generate_token(opentok_session_id)
-  lesson = Lesson.new(video_url: "video", booking: booking, opentok_session_id: opentok_session_id, opentok_token: opentok_token)
+  lesson = Lesson.new(video_url: "video", booking: booking, opentok_session_id: opentok_session_id)
   lesson.save!
 end
 
