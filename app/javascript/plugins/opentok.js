@@ -222,7 +222,7 @@ const initOpentok = () => {
     var muteButton = document.getElementById("mute");
     var hideVideoButton = document.getElementById("hide-video");
 
-    var baseUrl = process.env.BASE_URL;
+    var baseUrl = window.location.origin;
     var archiveID;
 
     videosContainer.addEventListener("mousemove", () => {
