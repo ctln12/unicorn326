@@ -198,7 +198,7 @@ puts '-----------------------------'
 puts 'Creating 7 Students...'
 alice = Student.new(first_name: 'Alice', last_name: 'Needham', country: 'SE', date_of_birth: '2000-05-10', email: 'alice.needham@student.com', password: '123456')
 alice.save
-bob = Student.new(first_name: 'Bob', last_name: 'Hutchings', country: 'GB', date_of_birth: '1995-10-08', email: 'bob.hutchingsg@student.com', password: '123456')
+bob = Student.new(first_name: 'Bob', last_name: 'Hutchings', country: 'GB', date_of_birth: '1995-10-08', email: 'bob.hutchings@student.com', password: '123456')
 bob.save
 
 5.times do
@@ -499,11 +499,12 @@ chat7.save
 
 days = (1..15).to_a
 # Accepted / Paid / Given
-5.times do # 50.times
+50.times do
   date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) - days.sample
   random_tutor = Tutor.all.sample
+  random_student = Student.all.sample
   booking = Booking.new(
-    student_id: alice.id,
+    student_id: random_student.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
@@ -522,11 +523,12 @@ days = (1..15).to_a
 end
 
 # Accepted / Paid / Not given yet
-3.times do
+50.times do
   date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) + days.sample
   random_tutor = Tutor.all.sample
+  random_student = Student.all.sample
   booking = Booking.new(
-    student_id: alice.id,
+    student_id: random_student.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
@@ -547,11 +549,12 @@ end
 end
 
 # Accepted / Not paid
-5.times do # 10.times
+10.times do
   date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) + days.sample
   random_tutor = Tutor.all.sample
+  random_student = Student.all.sample
   booking = Booking.new(
-    student_id: alice.id,
+    student_id: random_student.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
@@ -567,11 +570,12 @@ end
 end
 
 # Not accepted yet
-3.times do
+10.times do
   date = DateTime.new(this_year, this_month, this_day, hours.sample, minutes.sample) + days.sample
   random_tutor = Tutor.all.sample
+  random_student = Student.all.sample
   booking = Booking.new(
-    student_id: alice.id,
+    student_id: random_student.id,
     tutor_id: random_tutor.id,
     subject_id: random_tutor.subjects.sample.id,
     language_id: random_tutor.languages.sample.id,
@@ -650,6 +654,16 @@ end
 
 puts 'Finished!'
 puts '-----------------------------'
+
+puts 'Updating tutors\' wallets'
+
+Booking.where.not(paid_at: nil).each do |booking|
+  wallet = Wallet.where(tutor: booking.tutor).first
+  wallet.amount += booking.booking_price
+  wallet.save!
+end
+
+puts 'Finished!'
 
 puts 'Reindexing tutors...'
 
