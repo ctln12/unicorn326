@@ -1,2 +1,41 @@
-<h3>Your current balance is <%= @wallet.amount %> <%= Currency.find(@wallet.tutor.currency_id).name %></h3>
+<div id="wallet-show" class="container">
+  <h1 id="wallet-title">
+    <span>Current Balance</span>
+    <span><%= @wallet.amount %> <%= @tutor.currency.name %></span>
+  </h1>
 
+  <div id="wallet-headers" class="row">
+    <div class="col-3"><h6>Lessons</h6></div>
+    <div class="col-3"><h6>Date & Time</h6></div>
+    <div class="col-2 text-right"><h6>Price</h6></div>
+    <div class="col-2 text-right"><h6>Quantity</h6></div>
+    <div class="col-2 text-right"><h6>Amount</h6></div>
+  </div>
+
+  <% @bookings.each do |booking| %>
+    <div class="wallet-card row">
+      <div class="col-3">
+        <h5 class="lesson-color <%= booking.subject.name.downcase %>"><%= booking.subject.name %></h5>
+        <span><%= booking.student.first_name %> <%= booking.student.last_name %></span>
+      </div>
+      <div class="col-3">
+        <h5><%= booking.date.strftime("%a %-d %B %Y") %></h5>
+        <span><%= booking.start_time.strftime("%H:%M") %> - <%= booking.end_time.strftime("%H:%M") %></span>
+      </div>
+      <div class="col-2 text-right">
+        <p><%= @tutor.price %> <%= @tutor.currency.name %></p>
+      </div>
+      <div class="col-2 text-right">
+        <p><%= (booking.end_time - booking.start_time) / 3600 %> h</p>
+      </div>
+      <div class="col-2 text-right">
+        <h5><%= booking.booking_price %> <%= @tutor.currency.name %></h5>
+      </div>
+    </div>
+  <% end %>
+
+  <div id="wallet-total" class="row justify-content-end">
+    <div class="col-2 text-right"><h4>TOTAL</h4></div>
+    <div class="col-2 text-right"><h4><%= @wallet.amount %> <%= @tutor.currency.name %></h4></div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+#wallet-show {
+  margin: 3rem auto;
+  width: 75%;
+}
+
+#wallet-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+#wallet-headers {
+  padding: 20px 15px;
+  color: #525252;
+
+  h6 {
+    margin: 0;
+  }
+}
+
+#wallet-total {
+  padding: 20px 15px;
+
+  h4 {
+    font-weight: bold;
+  }
+}
