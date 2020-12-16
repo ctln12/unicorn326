@@ -1,7 +1,7 @@
 class WalletsController < ApplicationController
   def show
     @tutor = Tutor.find(params[:tutor_id])
-    @bookings = @tutor.bookings.where.not(paid_at: nil)
+    @bookings = @tutor.bookings.where.not(paid_at: nil).order(date: :desc)
     @wallet = Wallet.find(params[:id])
   end
 
