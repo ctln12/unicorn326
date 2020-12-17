@@ -1,0 +1,28 @@
+// ------ devise form tabs ------
+.session-form-container .nav-tabs {
+  border-bottom: none;
+}
+
+.session-form-container .nav-link {
+  padding: 1.4rem 2rem 0.8rem 2rem;
+  color: #495057;
+
+  &:focus {
+    border: none;
+  }
+
+  &:hover {
+    border: 1px solid transparent;
+  }
+}
+
+.session-form-container .nav-link.active {
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 5px 5px -0 0;
+  color: black;
+}
+
+.session-form-container .nav h3 {
+  margin: 0;
+}
