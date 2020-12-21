@@ -54,3 +54,33 @@
     color: white;
   }
 }
+
+// ------- job posts search -------
+#job-posts-search {
+  margin-bottom: 40px;
+}
+
+#job-posts-search .dropdown.bootstrap-select {
+  width: 30%;
+}
+
+#job-posts-search .dropdown-toggle.select-grey {
+  background-color: #fafafa;
+  box-shadow: 1px 2px 3px #cecece;
+  width: fit;
+}
+
+.btn-search {
+  background-color: $navy-blue;
+  border: 1px solid $navy-blue;
+  border-radius: 3px;
+  box-shadow: 1px 2px 3px #cecece;
+  color: white;
+  padding: 0.4rem 1rem;
+
+  &:hover {
+    background-color: $maya-blue;
+    border: 1px solid $maya-blue;
+    color: white;
+  }
+}
