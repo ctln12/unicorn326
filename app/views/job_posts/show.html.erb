@@ -6,7 +6,7 @@
     </div>
 
     <div class="job-post-info-card-title">
-      <h1><%= @job_post.subject.name %> lessons</h1>
+      <h1 class="lesson-color <%= @job_post.subject.name.downcase %>"><%= @job_post.subject.name %> lessons</h1>
       <% if current_student && current_student.id == @job_post.student_id %>
         <%= link_to "Edit", edit_job_post_path, class:"link-grey" %>
         <%= link_to "Delete", job_post_path, data: { confirm: 'Are you sure?' }, method: :delete, class: "link-grey" %>
