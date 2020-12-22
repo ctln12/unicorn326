@@ -1,28 +1,39 @@
-  <h4><p><%=  @job_post.title %></h4></p>
-  <p>Subject: <%= Subject.find(@job_post.subject_id).name %></p>
-  <p>Language: <%= Language.find(@job_post.language_id).name %></p>
-  <p>Currency: <%= Currency.find(@job_post.currency_id).name %></p>
-  <p>Price: <%= @job_post.price %></p>
-  <hr>
-  <%= @job_post.description %><br>
-  <br>
-  <%= "Posted " + distance_of_time_in_words(Time.now, @job_post.created_at) + " ago by " + "#{Student.find(@job_post.student_id).first_name}" + " " +"#{Student.find(@job_post.student_id).last_name[0]}" + "."%><br>
-  <hr>
-  <%= pluralize(@job_post.comments.count, 'Reply') %><br>
-  <% if current_student && current_student.id == @job_post.student_id %>
-    <br>
-    <%= link_to "Edit", edit_job_post_path, class: "btn btn-primary"%>
-    <%= link_to "Delete", job_post_path, method: :delete, class: "btn btn-primary"%>
-    <%= link_to "See all requests", job_posts_path, class: "btn btn-primary"%><br>
-  <% end %>
-  <hr>
+<div id="job-post-show">
+  <div class="job-post-info-card">
+    <div class="job-post-info-card-header">
+      <p><%= @job_post.student.first_name %> <%= @job_post.student.last_name[0] %>.</p>
+      <p><%= distance_of_time_in_words(Time.now, @job_post.created_at) %> ago</p>
+    </div>
+
+    <div class="job-post-info-card-title">
+      <h1 class="lesson-color <%= @job_post.subject.name.downcase %>"><%= @job_post.subject.name %> lessons</h1>
+      <% if current_student && current_student.id == @job_post.student_id %>
+        <%= link_to "Edit", edit_job_post_path, class:"link-grey" %>
+        <%= link_to "Delete", job_post_path, data: { confirm: 'Are you sure?' }, method: :delete, class: "link-grey" %>
+      <% end %>
+    </div>
+
+    <div class="job-post-info-card-details">
+      <p>
+        <i class="far fa-credit-card"></i>
+        <%= @job_post.currency.name %> <%= @job_post.price %>
+      </p>
+      <p>
+        <i class="fas fa-comment"></i>
+        <%= @job_post.language.name %>
+      </p>
+    </div>
+
+    <p><%= @job_post.description %></p>
+  </div>
+
+  <h4><%= pluralize(@job_post.comments.count, 'reply') %></h4>
+
   <%= render @job_post.comments %>
+
   <% if current_tutor  %>
     <%= render "comments/form" %>
-  <% elsif current_student && current_student.id == @job_post.student_id %>
-    <p>Your post is now online and shared with tutors corresponding to your criteria</p>
   <% else %>
-    <a href="<%= new_tutor_registration_path %>">Only Tutors may reply to thread</a>
-    <hr>
+    <%= link_to "Only tutors may reply to the thread", new_tutor_registration_path, class: "link-grey" %>
   <% end %>
-
+</div>

@@ -1,18 +1,14 @@
-<p><%= comment.content %></p>
-<% if current_student %>
-  <%= "Posted " + distance_of_time_in_words(Time.now, comment.created_at) + " ago by " %><a href="<%=tutor_path(comment.tutor_id)%>"><%= "#{Tutor.find(comment.tutor_id).first_name}" + " " +"#{Tutor.find(comment.tutor_id).last_name[0]}" + "."%></a>
-  <br>
-  <br>
-  <%= link_to "Private Chat", job_posts_path, class: "btn btn-primary"%>
-  <hr>
-<% elsif current_tutor && current_tutor.id == comment.tutor_id %>
-  <%= "Posted " + distance_of_time_in_words(Time.now, comment.created_at) + " ago by " + "#{Tutor.find(comment.tutor_id).first_name}" + " " +"#{Tutor.find(comment.tutor_id).last_name[0]}" + "."%>
-  <br>
-  <br>
-  <%= link_to "Edit", edit_job_post_comment_path(@job_post, comment), class: "btn btn-primary"%>
-  <%= link_to "Delete", job_post_comment_path(@job_post, comment), method: :delete, class: "btn btn-primary"%>
-  <hr>
-<% else %>
-  <%= "Posted " + distance_of_time_in_words(Time.now, comment.created_at) + " ago by " + "#{Tutor.find(comment.tutor_id).first_name}" + " " +"#{Tutor.find(comment.tutor_id).last_name[0]}" + "."%>
-  <hr>
-<% end %>
+<div class="comment-card">
+  <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE2MTQ1N30" alt="tutor photo">
+  <div class="comment-card-body">
+    <div class="comment-card-author">
+      <a href="<%= tutor_path(comment.tutor)%>"><%= comment.tutor.first_name %> <%= comment.tutor.last_name %></a>
+      <p><%= distance_of_time_in_words(Time.now, comment.created_at) %> ago</p>
+    </div>
+    <p><%= comment.content %></p>
+    <% if current_tutor && current_tutor.id == comment.tutor_id %>
+      <%= link_to "Edit", edit_job_post_comment_path(@job_post, comment), class: "link-grey" %>
+      <%= link_to "Delete", job_post_comment_path(@job_post, comment), data: { confirm: 'Are you sure?' }, method: :delete, class: "link-grey" %>
+    <% end %>
+  </div>
+</div>
